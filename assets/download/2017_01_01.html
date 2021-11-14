@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="http://markswindoll.github.io/js/FileSaver.js"></script>
+  <script src="http://markswindoll.github.io/jquery-word-export/jquery.wordexport.js"></script>
+  <script>
+  function exportWord(){
+   $("#eport_id").wordExport("匯出的Word檔案名稱");
+  }
+  </script>
+</head>
+
+<body>
+<input type='button' value="轉成Word並且下載" onclick="exportWord()"/>
+<div id="eport_id">
+  <table>
+    <tr>
+      <td>a</td>
+      <td>b</td>
+    </tr>
+  </table>
+</div>
+</body>
+
+</html>

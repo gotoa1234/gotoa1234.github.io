@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include common-head.html %}
+    <!-- 必須引用hightlight才能使用md blockcode語法 -->
+    <link rel="stylesheet" href="{{'/assets/highlight/vs2015.min.css' | prepend: site.baseurl}}">
+    <script src="/script/highlight/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<script>
+//增加滑動視窗 - 顯示固定視窗
+window.addEventListener('resize', ShwoLeftMenu);
+document.addEventListener("scroll",ShwoLeftMenu);
+
+//顯示事件 - 顯示固定視窗
+function ShwoLeftMenu(){
+  var div = document.getElementById('anchor_link_left_menu');
+  if ((document.body.scrollTop > 170 || document.documentElement.scrollTop > 170) &&
+      (window.innerWidth > 1660)) {
+    div.style.display = 'block';
+  } else {
+    div.style.display = 'none'; 
+  }
+}
+
+//增加固定視窗
+document.addEventListener("DOMContentLoaded", function(){
+  var dict = [];
+  var count = 0;
+  var queryDom = document.getElementById('post_right_main');
+  queryDom.querySelectorAll("h1").forEach(h1Item => { 
+    if(h1Item.outerText === '\n')
+    {
+      return;
+    }
+    h1Item.id = "h1_" + count;
+    var indexLoaction = queryDom.outerHTML.indexOf(h1Item.outerHTML);
+    count++;
+    dict.push({
+      key: h1Item.id,
+      value: h1Item.innerText,
+      location: indexLoaction
+    });
+  });
+
+  queryDom.querySelectorAll("h2").forEach(h2Item => { 
+      if(h2Item.outerText === '\n')
+      {
+        return;
+      }
+      var indexLoaction = queryDom.outerHTML.indexOf(h2Item.outerHTML);
+      h2Item.id = "h2_" + count;
+      count++;
+      dict.push({
+        key : h2Item.id,
+        value: h2Item.innerText,
+        location: indexLoaction,
+      });
+    });
+
+  var newDivMenu = document.getElementById('anchor_link_left_menu');
+  newDivMenu.style.display = 'none'; 
+  //排序
+  dict.sort(function(a, b) {
+    return a.location - b.location;
+  });
+  var div = document.getElementById('anchor_link_left_menu');
+  var createHtml = "<ul class='category mx-2 my-2'><br/>";
+  dict.forEach(item => {
+    if(item.key.indexOf('h1') >= 0)
+    {
+      createHtml += "<li class='mt-2 mb-2'><a style='color:black;' href='#" + item.key + "'>" + item.value + "</a></li>";
+    }
+    else
+    {
+      createHtml += "<ul><li class='mt-2 mb-2'><a style='color:#921AFF' href='#" + item.key + "'>" + item.value + "</a></li></ul>";
+    }
+  });
+  createHtml += "</ul><br/>";
+  div.innerHTML = createHtml;
+}); 
+</script>
+
+<body>
+  {% include common-menu.html %}
+
+  <!--固定視窗-->
+  <div class="my-4"> 
+    <div id="anchor_link_left_menu" class="anchor-menu left-window position-fixed mx-2 my-2">
+    </div>
+  </div>
+  <div class="container my-4">    
+    <div class="row">
+      <!-- 左側 -->
+      <div></div>
+      
+      <!--右側-->
+      <div class="col-sm-11 ml-5">
+        <div class="gridmag-grid-post my-1">
+          <h2 class="gridmag-grid-post-title">
+            <a class="h2" href="javascript:void(0);" onclick="window.history.back()" rel="bookmark">{{ page.title }}</a>
+          </h2>
+
+        </div>
+        <div id="post_right_main">
+          <h4>日期：{{ page.date | date: "%Y年 %m月 %d日" }}</h4>
+          <h4>標籤：
+            {% for tag in page.tags %}
+            {{ tag }}
+            {% endfor %}
+          </h4>
+          <h4>摘要：{{ page.excerpt }}</h4>
+          {{page.content}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>

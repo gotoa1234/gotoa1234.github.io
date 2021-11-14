@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    {% include common-head.html %}
+  </head>
+
+<body>
+  {% include common-menu.html %}
+
+  <div class="container my-4">
+    <div class="row">
+      <!-- 左側 -->
+      <div class="col-sm-3 border-0">    
+
+        <div class="search">
+          {% include search-lunr.html %}
+        </div>
+
+        <div class="gridmag-grid-post-left my-1">
+          <p class="gridmag-grid-post-left-title text-center text-nowrap">
+            關於作者
+          </p>
+          <div class="text-center">
+            <h6>職業：軟體工程師</h6>
+          </div>
+          <div class="text-center">
+            <h6>紀錄與程式相關的歷程</h6>
+          </div>
+          <!-- <div class="mb-2 text-center">
+              <img class="img-fluid rounded-circle aboutme" src="/assets/image/AboutMe.jpg">
+          </div>   -->
+        </div> 
+
+        <div class="gridmag-grid-post-left my-1">
+          <p class="gridmag-grid-post-left-title text-center text-nowrap">
+            相關連結
+          </p>
+          <div>
+            <ul class="nav nav-pills flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="#" target="_blank">LinkedIn</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://github.com/gotoa1234" target="_blank">GitHub</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" target="_blank">運動中心查詢系統</a>
+              </li>
+            </ul>
+            <hr class="d-sm-none">
+          </div>
+        </div> 
+      </div>
+
+      <!--右側-->
+      <div class="col-sm-9">
+        {% for post in site.posts limit:10 %}
+        <div class="gridmag-grid-post my-1">
+          <h2 class="gridmag-grid-post-title ">
+            <a class="h2" href="{{ post.url }}"" rel="bookmark">{{ post.title }}</a>
+          </h2>
+
+        </div>
+        <div>
+          <h6 class="MiniTitle">日期：{{ post.date | date: "%Y年 %m月 %d日" }}</h6>
+          <h6 class="MiniTitle">標籤：
+            {% for tag in post.tags %}
+            {{ tag }}
+            {% endfor %}
+          </h6>
+          <h6 class="MiniTitle">摘要：{{ post.excerpt }}</h6>
+          <br/>
+          <a class="h6 CutContext" href="{{post.url}}">{{ post.content | strip_html |  truncatewords: 20 }}</a>
+          <br/>
+        </div>
+
+        <br>
+        <br>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

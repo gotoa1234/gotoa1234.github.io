@@ -1,0 +1,37 @@
+
+{% if page.title == "My First Post" %}
+    This is the first post
+{% elsif page.title == "My Second Post" %}
+    This is the second post
+{% else %}
+    This is another post
+{% endif %}
+
+<h2>{{ post.title }}</2>
+<hr>
+
+{{ content }}
+
+{{ site.data.people }}
+
+<br>
+{% for person in site.data.people %}
+   {{ person.name }}, {{person.occupation}} <br>
+{% endfor %}
+
+
+<br> <br>
+
+
+{% for file in site.static_files %}
+   {{ file.path }} □ {{ file.basename }}□ {{ file.name }}□  {{file.extname}}□ 
+<br>
+{% endfor %}
+
+<img src="/assets/image/CSharp/CSharp1.jpg" title="hello louis">
+
+{% for file in site.static_files %}
+   {% if file.image %}
+     <img src="{{file.path}}" alt="{{file.name}}">
+   {% endif%}
+{% endfor %}
