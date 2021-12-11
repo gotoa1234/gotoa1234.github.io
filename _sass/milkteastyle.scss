@@ -255,10 +255,12 @@ h1 {
     background-color: rgba(150, 40, 27, 0.3);
     border: 2px double   rgba(0, 0, 0, 0.5);
     color: rgb(255, 255, 255);
+    font-size: 1.8rem !important; 
 }
   
 h2 {
     background-color: rgba(150, 40, 27, 0.05);
+    font-size: 1.5rem !important; 
 }
 
 /*預設文章摘要*/
@@ -274,15 +276,15 @@ div .summary {
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { margin-bottom: 0.5rem; font-family: inherit; font-weight: 500; line-height: 1.2; color: inherit; }
 
-h1, .h1 { font-size: 2.5rem; }
+h1, .h1 { font-size: 2rem; }
 
-h2, .h2 { font-size: 2rem; }
+h2, .h2 { font-size: 1.5rem; }
 
-h3, .h3 { font-size: 1.75rem; }
+h3, .h3 { font-size: 1.35rem; }
 
-h4, .h4 { font-size: 1.5rem; }
+h4, .h4 { font-size: 1.25rem; }
 
-h5, .h5 { font-size: 1.25rem; }
+h5, .h5 { font-size: 1.15rem; }
 
 h6, .h6 { font-size: 1rem; }
 
