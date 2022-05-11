@@ -10,41 +10,41 @@
 document.addEventListener("DOMContentLoaded", function(){
     var div = document.getElementById('post_right_main');
     var createHtml = "";
-    var yearArray = [];
-    var yearDateDictionary = {};
+    var excerptArray = [];
+    var excerptDictionary = {};
     {% for post in site.posts %}
-        yearTemp = '{{ post.date | date: "%Y"}}';
+        excerptItem = '{{ post.excerpt }}';
         //Dictionary
-        if(yearArray.indexOf(yearTemp) === -1)
+        if(excerptArray.indexOf(excerptItem) === -1)
         {
-            yearArray.push(yearTemp);
-            yearDateDictionary[yearTemp] = undefined;        
+          excerptArray.push(excerptItem);
+          excerptDictionary[excerptItem] = undefined;        
         }
         //Contenxt
-        var contextHtml =  ['<tr name="{{ post.date | date: "%Y"}}">',
-                                                   '<td>{{ post.date | date: "%m月%d日" }}</td>', 
-                                                   '<td class="jumpHyperLink"><a href="{{post.url}}">{{ post.title | strip_html |  truncatewords: 6 }}</a></td>',
-                                                   '</tr>'].join("\n");
-        if(yearDateDictionary[yearTemp] === undefined)
+        var contextHtml =  ['<tr style="display: none;" name="' + excerptArray.indexOf(excerptItem) + '"> ',
+                            '<td>{{ post.date | date: "%Y年%m月%d日" }}</td>', 
+                            '<td class="jumpHyperLink"><a href="{{post.url}}">{{ post.title | strip_html |  truncatewords: 6 }}</a></td>',
+                            '</tr>'].join("\n");
+        if(excerptDictionary[excerptItem] === undefined)
         {
-           yearDateDictionary[yearTemp] = contextHtml;
+          excerptDictionary[excerptItem] = contextHtml;
         }
         else
         {
-            yearDateDictionary[yearTemp] += contextHtml;
+          excerptDictionary[excerptItem] += contextHtml;
         }
     {% endfor %};
 
-    yearArray.forEach(yearItem =>{
+    excerptArray.forEach(excerptItem =>{
         createHtml += [
             '<table class="table">',
                 '<thead class="thead">',
                     '<tr>',
-                      '<th scope="col" style="width:18%;">'+ yearItem +'</th>',
-                      '<th scope="col" style="width:82%;"><a href="javascript:void(0);" onclick="CollapseTableTr('+ yearItem +')">展開/縮放</a></th>',
+                      '<th scope="col" style="width:18%;">'+ excerptItem +'</th>',
+                      '<th scope="col" style="width:82%;"><a href="javascript:void(0);" onclick="CollapseTableTr('+ excerptArray.indexOf(excerptItem) +')">展開/縮放</a></th>',
                     '</tr>',
                 '</thead>',
-                yearDateDictionary[yearItem],
+                excerptDictionary[excerptItem],
             '</table>',
         ].join("\n");
 
@@ -101,7 +101,7 @@ function CollapseTableTr(trName)
                 </thead>
                 
                 <tr name="a">
-                    <td>{{ post.date | date: "%m月%d日" }}</td>
+                    <td>{{ post.date | date: "%Y年%m月%d日" }}</td>
                     <td class="jumpHyperLink"><a href="{{post.url}}">{{ post.title | strip_html |  truncatewords: 6 }}</a></td>
                 </tr>
 
