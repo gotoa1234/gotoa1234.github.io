@@ -22,7 +22,7 @@ title: 仙草奶綠的部落格 MilkTeaGreen's blog.
 email: cap8825@gamil.com
 description: >- # this means to ignore newlines until "baseurl:"
   分享程式筆記與工作上遇到的問題分享
-baseurl: "/" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://gotoa1234.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: MilkTeaGreen
 github_username:  gotoa1234
@@ -45,7 +45,8 @@ exclude:
 theme: minima
 plugins:
   - jekyll-feed
- 
+  - jekyll-seo-tag
+
 defaults:
   - scope:
       path: "assets/image"
