@@ -4,8 +4,7 @@
 <head>
   {% seo %}
   {% include common-head.html %}
-  <meta name="viewport" content="width=device-width, initial-scale=0.5" >
-  <meta name="viewport" content="width=device-width, initial-scale=0.5, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 </head>
 
 <script>
@@ -70,6 +69,7 @@ function CollapseTableTr(trName)
             trItem.style.display = useDisplayStyle;
     });
 }
+
 </script>
 
 <body>
@@ -84,7 +84,7 @@ function CollapseTableTr(trName)
       <div></div>
       
       <!--右側-->
-      <div class="col-sm-11 ml-5">
+      <div id="container_right_menu" class="col-sm-11">
         <div class="gridmag-grid-post my-1">
           <h2 class="gridmag-grid-post-title">
             <a class="h2" href="javascript:void(0);" onclick="window.history.back()" rel="bookmark">{{ page.title }}</a>

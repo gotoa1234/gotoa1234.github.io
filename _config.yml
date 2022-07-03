@@ -27,7 +27,7 @@ url: "https://gotoa1234.github.io/" # the base hostname & protocol for your site
 twitter_username: MilkTeaGreen
 github_username:  gotoa1234
 future: true
-timezone: TW
+
 # Build settings
 sass:
   load_paths:

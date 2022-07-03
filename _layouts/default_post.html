@@ -4,20 +4,19 @@
 <head>
     {% seo %}
     {% include common-head.html %}
-    <meta name="viewport" content="width=device-width, initial-scale=0.7" >
-    <meta name="viewport" content="width=device-width, initial-scale=0.7, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!-- 必須引用hightlight才能使用md blockcode語法 -->
     <link rel="stylesheet" href="{{'/assets/highlight/vs2015.min.css' | prepend: site.baseurl}}">
     <script src="/script/highlight/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
 </head>
 <script>
-//增加滑動視窗 - 顯示固定視窗
-window.addEventListener('resize', ShwoLeftMenu);
-document.addEventListener("scroll",ShwoLeftMenu);
+增加滑動視窗 - 顯示固定視窗
+window.addEventListener('resize',ShowLeftMenu);
+document.addEventListener("scroll",ShowLeftMenu);
 
 //顯示事件 - 顯示固定視窗
-function ShwoLeftMenu(){
+function ShowLeftMenu(){
   var div = document.getElementById('anchor_link_left_menu');
   if ((document.body.scrollTop > 170 || document.documentElement.scrollTop > 170) &&
       (window.innerWidth > 1660)) {
@@ -83,7 +82,20 @@ document.addEventListener("DOMContentLoaded", function(){
   createHtml += "</ul><br/>";
   div.innerHTML = createHtml;
 }); 
+
+//增加響應式判斷 - 排版使用的Class
+window.addEventListener('load', ResponsiveWebDesignFunction);
+//事件 - 增加響應式判斷
+function ResponsiveWebDesignFunction(){
+  var div = document.getElementById('container_right_menu');
+  if (window.innerWidth <= 1660) {
+    div.className = 'col-sm-11';
+  } else {
+    div.className = 'col-sm-11 ml-5'; 
+  }
+}
 </script>
+
 
 <body>
   {% include common-menu.html %}
@@ -99,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function(){
       <div></div>
       
       <!--右側-->
-      <div class="col-sm-11 ml-5">
+      <div id="container_right_menu" class="col-sm-11 ml-5">
         <div class="gridmag-grid-post my-1">
           <h2 class="gridmag-grid-post-title">
             <a class="h2" href="javascript:void(0);" onclick="window.history.back()" rel="bookmark">{{ page.title }}</a>
