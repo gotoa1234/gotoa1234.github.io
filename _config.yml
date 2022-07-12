@@ -18,10 +18,12 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: 仙草奶綠的部落格 MilkTeaGreen's blog.
+# Self Configure
+
+locale: "zh-TW"
+title: "仙草奶綠的部落格 MilkTeaGreen's blog."
 email: cap8825@gamil.com
-description: >- # this means to ignore newlines until "baseurl:"
-  分享程式筆記與工作上遇到的問題分享
+description: "分享程式筆記與工作上遇到的問題分享"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://gotoa1234.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: MilkTeaGreen
