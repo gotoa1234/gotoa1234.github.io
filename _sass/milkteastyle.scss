@@ -139,6 +139,13 @@ body {
 .gridmag-header-image-info .gridmag-site-title a,
 .gridmag-site-description {
     color: #ffffff !important;
+    font-size: 1.3em !important;
+}
+
+.gridmag-site-home-title a {
+  color: #000000 !important;
+  font-size: 1.5em !important;
+  text-decoration: none;
 }
 
 /* Layout LeftMenu */
@@ -276,7 +283,17 @@ h1 {
   
 h2 {
     background-color: rgba(150, 40, 27, 0.05);
-    font-size: 1.5rem !important; 
+    font-size: 1.5rem !important;
+    line-height: 1.6 !important; 
+    text-decoration: underline !important; 
+}
+
+/*強制所有文章的字型*/
+p {
+  font-family: serif,sans-serif,cursive,fantasy,monospace !important; 
+  font-size: 1.3em !important;
+  line-height: 1.6 !important;   
+  letter-spacing:0.5px !important;   
 }
 
 /*預設文章摘要*/
