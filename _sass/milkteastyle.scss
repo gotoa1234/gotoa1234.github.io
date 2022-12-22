@@ -477,3 +477,10 @@ h6, .h6 { font-size: 1rem; }
     border-bottom: 1px solid #444;
   }
 }
+
+/*全域的圖片滑鼠移動過去時顯示原圖大小 */
+img:hover{
+  width: 100%;
+  height: 100%;
+  cursor: zoom-out;
+}
