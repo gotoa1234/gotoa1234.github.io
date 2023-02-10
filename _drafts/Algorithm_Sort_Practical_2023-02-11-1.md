@@ -1,0 +1,83 @@
+---
+layout: default_post
+title:  "0001. 泡沫排序法(BubbleSort)-穩定排序"
+excerpt: "演算法-排序"
+tags: Algorithm Sort Paractical
+---
+<div class="summary">
+<br/>時間複雜度(Time Complex)： O(n^2)
+<br/>空間複雜度(Space Complex)： O(1)
+<br/>最佳時間： O(n)
+<br/>最壞時間： O(n^2)
+<br/>範例檔案：<a href="https://github.com/gotoa1234/Algorithm_Sort/blob/main/Practical/BubbleSort.cs">Source Code</a>
+<br/>範例專案：<a href="https://github.com/gotoa1234/Algorithm_Sort/">Code Project</a>
+<br/>基本介紹：本篇分為3大部分。
+<br/>第一部分：泡沫排序 - 演算法流程圖
+<br/>第二部分：圖解範例說明
+<br/>第三部分：代碼
+</div>
+
+<div class="title">
+    <br/><hr class="titleinner">
+	<span></span>
+	<hr class="titleinner"><br/>
+</div>
+
+
+<br/><br/>
+<h1>第一部分：泡沫排序 - 演算法流程圖</h1>
+<h2>Step 1：演算法流程圖</h2>
+將一組可比較陣列，由小而大完成排序
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/BubbleSort.jpg" width="50%" height="50%" />
+<br/><br/>
+
+<h1>第二部分：圖解範例說明</h1>
+<h2>Step 1：以整數陣列為例</h2>
+初始內有3個值，排序後會由小而大
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/BubbleSort_Compare.jpg" width="50%" height="50%" />
+<br/><br/>
+
+<h1>第三部分：代碼</h1>
+<h2>Step 1：泡沫排序代碼 - 呼叫進入點</h2>
+串入一組數列 inputItem 求出 result
+
+``` C#
+
+public void Execute()
+{
+    List<int> inputItem = new() { 92, 17, 38, 59, 26, 39 };
+    var bubbleSort = new BubbleSort<int>();
+    var result = bubbleSort.BubbleAscendingSorting(inputItem);
+}
+
+```
+
+<br/><br/>
+
+<h2>Step 2：泡沫排序代碼 - 主程式</h2>
+利用for迴圈遍歷數組，並且不斷比較，比較到小的值立刻交換
+
+``` C#
+public class BubbleSort<T> where T : IComparable
+{
+    public List<T> BubbleAscendingSorting(List<T> items)
+    {
+        T temp = default;
+        for (int index = 0; index < items.Count(); index++)
+        {
+            for (int indexSecond = index + 1; indexSecond < items.Count; indexSecond++)
+            {
+                if (items[index].CompareTo(items[indexSecond]) > 0)
+                { 
+                    temp = items[index];
+                    items[index] = items[indexSecond];
+                    items[indexSecond] = temp;
+                }
+            }
+        }
+        return items;
+    }
+}
+```
+
+<br/><br/>
