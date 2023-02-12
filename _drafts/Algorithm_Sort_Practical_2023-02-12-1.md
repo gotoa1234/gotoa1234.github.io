@@ -1,0 +1,108 @@
+---
+layout: default_post
+title:  "0002. 計數排序法(BubbleSort)-穩定排序"
+excerpt: "演算法-排序"
+tags: Algorithm Sort Paractical
+---
+<div class="summary">
+<br/>時間複雜度(Time Complex)： O(n+k)
+<br/>空間複雜度(Space Complex)： O(n+k)
+<br/>最佳時間： O(n+k)
+<br/>最壞時間： O(n+k)
+<br/>範例檔案：<a href="https://github.com/gotoa1234/Algorithm_Sort/blob/main/Practical/CountingSort.cs">Source Code</a>
+<br/>範例專案：<a href="https://github.com/gotoa1234/Algorithm_Sort/">Code Project</a>
+<br/>基本介紹：本篇分為3大部分。
+<br/>第一部分：計數排序 - 介紹
+<br/>第二部分：圖解範例說明
+<br/>第三部分：代碼
+</div>
+
+<div class="title">
+    <br/><hr class="titleinner">
+	<span></span>
+	<hr class="titleinner"><br/>
+</div>
+
+
+<br/><br/>
+<h1>第一部分：計數排序 - 介紹</h1>
+<h2>Step 1：原理</h2>
+不需要排序的一種排序，先找出陣列中最大值，然後得到一組空間Space。
+<br/>遍歷該陣列，將值放入對應的Space[Index] 中累進+1
+<br/>最後再遍歷Space全部，由小到大有多少計數就添加該索引到結果中。
+<br/>應用：適用於輸入數組小的情境，否則會浪費大量記憶體空間
+<br/><br/>
+
+<h2>Step 2：演算法流程圖</h2>
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/CountingSort.jpg" width="50%" height="50%" />
+<br/><br/>
+
+<h1>第二部分：圖解範例說明</h1>
+<h2>Step 1：以整數陣列為例</h2>
+初始內有3個值，找出最大值，配置O(k)的空間
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/CountingSort_Compare_1.jpg" width="50%" height="50%" />
+
+<h2>Step 2：進行計數排序</h2>
+遍歷輸入陣列O(n) 添加到額外空間 k 陣列中
+<br/>最後再遍歷額外空間O(k)，將大於0的索引位置取出，組成排序結果
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/CountingSort_Compare_2.jpg" width="50%" height="50%" />
+<br/><br/>
+
+<h1>第三部分：代碼</h1>
+<h2>Step 1：計數排序代碼 - 呼叫進入點</h2>
+串入一組數列 inputItem 求出 result
+
+``` C#
+
+public void Execute()
+{
+    List<int> inputItem = new() { 92, 17, 38, 59, 26, 39 };
+    var execute = new CountingSort();
+    execute.CountingAsedingSort(inputItem);
+}
+
+```
+
+<br/><br/>
+
+<h2>Step 2：計數排序代碼 - 主程式</h2>
+主要三個流程
+<br/>1. 配置空間
+<br/>2. 計數
+<br/>3. 組成
+
+``` C#
+
+public class CountingSort
+{
+    public List<int> CountingAsedingSort(List<int> items)
+    {
+        //1. 配置元素最大值的空間 O(k)
+        int maxValue = (dynamic)items.Max() + 1;
+        var extraSpace = new List<int>();
+        for (int index = 0; index < maxValue; index++)
+        {
+            extraSpace.Add(0);
+        }
+        //2. 遍歷找出空間 O(n)
+        for (int index = 0; index < items.Count; index++)
+        {
+            extraSpace[items[index]] += 1;
+        }
+        //3. 將值組成最後的結果由小到大
+        items.Clear();
+        for (int index = 0; index < extraSpace.Count; index++)
+        {
+            while (extraSpace[index] > 0)
+            {
+                items.Add(index);
+                extraSpace[index]--;
+            }
+        }
+        return items;
+    }
+}
+
+```
+
+<br/><br/>
