@@ -1,0 +1,98 @@
+---
+layout: default_post
+title:  "0003. 插入排序法(Insertion Sort)-穩定排序"
+excerpt: "演算法-排序"
+tags: Algorithm Sort Paractical
+---
+<div class="summary">
+<br/>時間複雜度(Time Complex)： O(n^2)
+<br/>空間複雜度(Space Complex)： O(1) or O(n)
+<br/>最佳時間： O(n)
+<br/>最壞時間： O(n^2)
+<br/>範例檔案：<a href="https://github.com/gotoa1234/Algorithm_Sort/blob/main/Practical/InsertionSort.cs">Source Code</a>
+<br/>範例專案：<a href="https://github.com/gotoa1234/Algorithm_Sort/">Code Project</a>
+<br/>基本介紹：本篇分為3大部分。
+<br/>第一部分：插入排序 - 介紹
+<br/>第二部分：圖解範例說明
+<br/>第三部分：代碼
+</div>
+
+<div class="title">
+    <br/><hr class="titleinner">
+	<span></span>
+	<hr class="titleinner"><br/>
+</div>
+
+
+<br/><br/>
+<h1>第一部分：插入排序 - 介紹</h1>
+<h2>Step 1：原理</h2>
+給定一組可比較陣列，遍歷
+<br/>1. 起始由第2個元素(X)開始
+<br/>2. 比對前(X-Y)元素
+<br/>3-1. 前(X-Y)元素比當前X的值小，則進行元素往前遞移
+<br/>3-2. 若(X-Y)元素沒有比當前x的值小，則Y=Y-1，繼續比對重複2.步驟，y直到到第1個元素完畢
+<br/>3-3. X=X+1 再重複第2.步驟
+<br/>最後排序將會由小至大
+<br/><br/>
+
+<h2>Step 2：演算法流程圖</h2>
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/InsertionSort.jpg" width="50%" height="50%" />
+<br/><br/>
+
+<h1>第二部分：圖解範例說明</h1>
+<h2>Step 1：以整數陣列為例</h2>
+初始內有4個值，由第二個元素開始
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/InsertionSort_compare.jpg" width="50%" height="50%" />
+<br/><br/>
+
+<h1>第三部分：代碼</h1>
+<h2>Step 1：插入排序代碼 - 呼叫進入點</h2>
+輸入一組數列 inputItem 求出 result
+
+``` C#
+
+public void Execute()
+{
+    List<int> inputItem = new() { 92, 17, 38, 59, 26, 39 };
+    var insertionSort = new InsertionSort<int>();
+    var result = insertionSort.InsertionAscendingSorting(inputItem);
+}
+
+```
+
+<br/><br/>
+
+<h2>Step 2：插入排序代碼 - 主程式</h2>
+主要三個流程
+<br/>1. 遍歷輸入陣列
+<br/>2. 比較當前位置之前的所有的元素，比自己小的往前移動
+<br/>3. 再往下一個位置，重複2.直到遍歷完畢
+
+``` C#
+
+public class InsertionSort<T> where T : IComparable
+{
+    public List<T> InsertionAscendingSorting(List<T> items)
+    {
+        for (int keyIndex = 1; keyIndex < items.Count; keyIndex ++)
+        {
+            T keyValue = items[keyIndex];
+            for (int index = keyIndex - 1; index >= 0; index--)
+            {
+                if (keyValue.CompareTo(items[index]) < 0)
+                {
+                    items[index + 1] = items[index];
+                    items[index] = keyValue;
+                }
+                else
+                    break;
+            }
+        }
+        return items;
+    }
+}
+
+```
+
+<br/><br/>
