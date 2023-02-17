@@ -1,6 +1,6 @@
 ---
 layout: default_post
-title:  "0004. 桶子排序法(Bucket Sort)-穩定排序"
+title:  "0005. 桶子排序法(Bucket Sort)-穩定排序"
 excerpt: "演算法-排序"
 tags: Algorithm Sort Paractical
 ---
