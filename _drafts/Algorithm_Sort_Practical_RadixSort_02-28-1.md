@@ -1,0 +1,128 @@
+---
+layout: default_post
+title:  "0006. 基數排序法(RadixSort)-穩定排序"
+excerpt: "演算法-排序"
+tags: Algorithm Sort Paractical
+---
+<div class="summary">
+<br/>時間複雜度(Time Complex)： O(k*n)
+<br/>空間複雜度(Space Complex)： O(k+n)
+<br/>最佳時間： O(k*n)
+<br/>最壞時間： O(k*n)
+<br/>範例檔案：<a href="https://github.com/gotoa1234/Algorithm_Sort/blob/main/Practical/RadixSort.cs">Source Code</a>
+<br/>範例專案：<a href="https://github.com/gotoa1234/Algorithm_Sort/">Code Project</a>
+<br/>基本介紹：本篇分為3大部分。
+<br/>第一部分：基數排序 - 介紹
+<br/>第二部分：圖解範例說明
+<br/>第三部分：代碼
+</div>
+
+<div class="title">
+    <br/><hr class="titleinner">
+	<span></span>
+	<hr class="titleinner"><br/>
+</div>
+
+
+<br/><br/>
+<h1>第一部分：基數排序 - 介紹</h1>
+<h2>Step 1：原理</h2>
+非比較排序，找出最大值的位數。假設最大值:159 那麼位數為3 ，依序個位數 -> 十位數 -> 百位數
+<br/>每次都 %10 找到對應的基數空間放入
+<br/>最後可以取出由小到大的排序組合。
+<br/><br/>
+
+<h2>Step 2：演算法流程圖</h2>
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/RadixSort.jpg" width="50%" height="50%" />
+<br/><br/>
+
+<h1>第二部分：圖解範例說明</h1>
+<h2>Step 1：以整數陣列為例</h2>
+初始內有6個值，找出最大值，159得到基數為3
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/RadixSort_Compare1.jpg" width="50%" height="50%" />
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/RadixSort_Compare2.jpg" width="50%" height="50%" />
+<br/><br/>
+
+<h1>第三部分：代碼</h1>
+<h2>Step 1：基數排序代碼 - 呼叫進入點</h2>
+串入一組數列 inputItem 求出 result
+
+``` C#
+
+public void Execute()
+{
+    List<int> inputItem = new() { 92, 17, 8, 159, 26, 39 };
+    var execute = new RadixSort();
+    execute.RadixAsendingSorting(inputItem);
+}
+
+```
+
+<br/><br/>
+
+<h2>Step 2：基數排序代碼 - 主程式</h2>
+主要四個流程
+<br/>1. 取得輸入陣列中最大值，得出基數
+<br/>2. 配置基數空間(0~9)
+<br/>3. 對所有數值做基數Stack存放到基數空間(0~9)
+<br/>4. 基數空間(0~9)Stack取出，重複3,4步驟，直到基數全位數處理完畢
+
+``` C#
+
+public class RadixSort 
+{ 
+    public List<int> RadixAsendingSorting(List<int> items)
+    {
+        //1. 找出最大值的位數
+        var radixBaseCount = GetRadixMaxBase(items.Max());
+        //2. 初始化10個桶子
+        var newBuckets = new List<Stack<int>>();
+        for (int index = 0; index <= 9; index++)
+        {
+            newBuckets.Add(new Stack<int>());
+        }
+        int findIndex = 0;
+        int multipuleValue = 1;
+        //3. 重複進行Radix Sort 演算法
+        while(radixBaseCount > 0)
+        {
+            //4. 第一次是個位數 、 第二次十位數 ...重複將值放進桶子
+            for (int index = 0; index < items.Count(); index++)
+            {
+                findIndex = (items[index] / multipuleValue) % 10;
+                newBuckets[findIndex].Push(items[index]);
+            }
+            items.Clear();
+            //5 .將桶子內的值依序取出
+            for(int index = newBuckets.Count -1 ; index >= 0; index--)
+            {
+                while (newBuckets[index].Any())
+                {
+                    items.Insert(0, newBuckets[index].Pop());
+                }
+            }
+            radixBaseCount--;
+            multipuleValue *= 10;
+        }
+        return items;
+    }
+    /// <summary>
+    /// 取得基數上限 EX: 100 是3位數
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    private int GetRadixMaxBase(int item)
+    {
+        int resultMax = 0;
+        while (item > 0)
+        {
+            item /= 10;
+            resultMax++;
+        }
+        return resultMax;
+    }
+}
+
+```
+
+<br/><br/>
