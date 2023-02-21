@@ -1,0 +1,95 @@
+---
+layout: default_post
+title:  "0007. 鴿巢排序法(Pigeon hole Sort)-穩定排序"
+excerpt: "演算法-排序"
+tags: Algorithm Sort Paractical
+---
+<div class="summary">
+<br/>時間複雜度(Time Complex)：  O(n)
+<br/>空間複雜度(Space Complex)： O(k)  k => 陣列元素中的最大值-最小值
+<br/>最佳時間： O(n + k)
+<br/>最壞時間： O(n + k)
+<br/>範例檔案：<a href="https://github.com/gotoa1234/Algorithm_Sort/blob/main/Practical/PigeonholeSort.cs">Source Code</a>
+<br/>範例專案：<a href="https://github.com/gotoa1234/Algorithm_Sort/">Code Project</a>
+<br/>基本介紹：本篇分為3大部分。
+<br/>第一部分：鴿巢排序 - 介紹
+<br/>第二部分：圖解範例說明
+<br/>第三部分：代碼
+</div>
+
+<div class="title">
+    <br/><hr class="titleinner">
+	<span></span>
+	<hr class="titleinner"><br/>
+</div>
+
+
+<br/><br/>
+<h1>第一部分：鴿巢排序 - 介紹</h1>
+<h2>Step 1：原理</h2>
+
+<br/>1. 輸入一可比較陣列
+<br/>2. 建立(最大值-最小值)配置空間
+<br/>3. 遍歷該可比較陣列，塞入到對應的配置空間中++
+<br/>4. 遍歷配置空間由小開始遍歷一筆筆取出
+<br/>最後取出的結果即為由小至大排序
+<br/><br/>
+
+<h2>Step 2：演算法流程圖</h2>
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/PigeonholeSort.jpg" width="50%" height="50%" />
+<br/><br/>
+
+<h1>第二部分：圖解範例說明</h1>
+<h2>Step 1：以整數陣列為例</h2>
+初始內有4個值
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/PigeonholeSort_compare.jpg" width="50%" height="50%" />
+<br/><br/>
+
+<h1>第三部分：代碼</h1>
+<h2>Step 1：鴿巢排序代碼 - 呼叫進入點</h2>
+輸入一組數列 inputItem 求出 result
+
+``` C#
+
+public void Execute()
+{
+    List<int> inputItem = new() { 92, 17, 8, 159, 26, 39 };
+    var execute = new PigeonholeSort<int>();
+    execute.PigeonholeSorting(inputItem);
+}
+
+```
+
+<br/><br/>
+
+<h2>Step 2：鴿巢排序代碼 - 主程式</h2>
+主要三個流程
+<br/>1. 建立空間
+<br/>2. 塞入值對應的索引位置
+<br/>3. 由小到大取出
+
+``` C#
+
+public class PigeonholeSort<T> where T : IComparable
+{
+    public List<int> PigeonholeSorting(List<int> items)
+    {
+        //1. 建立範圍空間
+        int min = items.Min();
+        int max = items.Max();
+        int range = max - min + 1;
+        int[] phole = new int[range];
+        //2. 塞入對應的值
+        for (int index = 0; index < items.Count(); index++)
+            phole[items[index] - min]++;
+        //3. 取出索引位置作為值的排序結果
+        for (int index = 0, innerIndex = 0; innerIndex < range; innerIndex++)
+            while (phole[innerIndex]-- > 0)
+                items[index++] = innerIndex + min;
+        return items;
+    }
+}
+
+```
+
+<br/><br/>
