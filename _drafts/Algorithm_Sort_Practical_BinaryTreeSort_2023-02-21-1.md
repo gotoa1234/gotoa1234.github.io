@@ -1,0 +1,146 @@
+---
+layout: default_post
+title:  "0008. 二元樹排序(Binary Tree Sort)-穩定排序"
+excerpt: "演算法-排序"
+tags: Algorithm Sort Paractical
+---
+<div class="summary">
+<br/>時間複雜度(Time Complex)：  O(log n)
+<br/>空間複雜度(Space Complex)： O(n)
+<br/>最佳時間： O(log n)
+<br/>最壞時間： O(n²)（不平衡時）
+<br/>範例檔案：<a href="https://github.com/gotoa1234/Algorithm_Sort/blob/main/Practical/BinaryTreeSort.cs">Source Code</a>
+<br/>範例專案：<a href="https://github.com/gotoa1234/Algorithm_Sort/">Code Project</a>
+<br/>基本介紹：本篇分為3大部分。
+<br/>第一部分：二元樹排序 - 介紹
+<br/>第二部分：圖解範例說明
+<br/>第三部分：代碼
+</div>
+
+<div class="title">
+    <br/><hr class="titleinner">
+	<span></span>
+	<hr class="titleinner"><br/>
+</div>
+
+
+<br/><br/>
+<h1>第一部分：二元樹排序 - 介紹</h1>
+<h2>Step 1：原理</h2>
+<br/>
+<br/><br/>
+
+<h2>Step 2：演算法流程圖</h2>
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/BinaryTreeSort.jpg" width="50%" height="50%" />
+<br/><br/>
+
+<h1>第二部分：圖解範例說明</h1>
+<h2>Step 1：以整數陣列為例</h2>
+初始內有5個值
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/BinaryTreeSort_compare1.jpg" width="50%" height="50%" />
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/BinaryTreeSort_compare2.jpg" width="50%" height="50%" />
+<br/><br/>
+
+<h1>第三部分：代碼</h1>
+<h2>Step 1：二元樹排序代碼 - 呼叫進入點</h2>
+輸入一組數列 inputItem 求出 result
+
+``` C#
+
+public void Execute()
+{
+    List<int> inputItem = new() { 92, 17, 38, 59, 26, 39 };
+    
+    var execute = new BinaryTreeSort<int>();
+    var result =  execute.BinarySorting(inputItem);
+}
+
+```
+
+<br/><br/>
+
+<h2>Step 2：二元樹排序代碼 - 主程式</h2>
+主要三個流程
+<br/>1. 輸入陣列建立成二元樹
+<br/>2. 中序遍歷該樹，中序的結果為由小而大
+<br/>※中序，根節點往左子樹遍歷，經過根節點，然後右子樹，經過的點記錄
+
+``` C#
+
+public class BinaryTreeSort<T> where T : IComparable<T>
+{
+    public List<int> BinarySorting(List<int> inputItem)
+    {
+        //1. 數組第一個節點為根結點
+        TreeNode root = new TreeNode(inputItem[0]);
+        //2. 建構二元樹
+        for (int index = 1; index < inputItem.Count(); index++)
+            BuildTree(root, inputItem[index]);            
+        //3. 中序遍歷樹取值結果
+        var result = new List<int>();
+        InOrderTraversal(root, ref result);
+        return result;
+    }
+    /// <summary>
+    /// 建構二元樹
+    /// </summary>
+    public void BuildTree(TreeNode node, int value)
+    {
+        //左節點
+        if (value < node.value)
+        {
+            if (node.LeftNode == null)
+            {
+                node.LeftNode = new TreeNode(value);
+            }
+            else
+            {
+                BuildTree(node.LeftNode, value);
+            }
+        }
+        else//右節點
+        {
+            if (node.RightNode == null)
+            {
+                node.RightNode = new TreeNode(value);
+            }
+            else
+            {
+                BuildTree(node.RightNode, value);
+            }
+        }
+    }
+    /// <summary>
+    /// 中序
+    /// </summary>
+    private void InOrderTraversal(TreeNode node,ref List<int> container)
+    {
+        //走到Null直接捨棄
+        if (node == null)            
+            return;
+        InOrderTraversal(node.LeftNode, ref container);
+        container.Add(node.value);
+        InOrderTraversal(node.RightNode, ref container);
+    }
+}
+
+
+/// <summary>
+/// 二元樹節點結構
+/// </summary>
+public class TreeNode
+{
+    public int value;
+    public TreeNode LeftNode;
+    public TreeNode RightNode;
+    public TreeNode(int value)
+    {
+        this.value = value;
+        this.LeftNode = null;
+        this.RightNode = null;
+    }
+}
+
+```
+
+<br/><br/>

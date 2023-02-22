@@ -41,8 +41,9 @@ tags: Algorithm Sort Paractical
 
 <h1>第二部分：圖解範例說明</h1>
 <h2>Step 1：以整數陣列為例</h2>
-初始內有4個值
-<br/> <img src="/assets/image/Algorithm/Sort/Practical/PigeonholeSort_compare.jpg" width="50%" height="50%" />
+初始內有5個值
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/PigeonholeSort_compare1.jpg" width="50%" height="50%" />
+<br/> <img src="/assets/image/Algorithm/Sort/Practical/PigeonholeSort_compare2.jpg" width="50%" height="50%" />
 <br/><br/>
 
 <h1>第三部分：代碼</h1>
@@ -65,8 +66,8 @@ public void Execute()
 <h2>Step 2：鴿巢排序代碼 - 主程式</h2>
 主要三個流程
 <br/>1. 建立空間
-<br/>2. 塞入值對應的索引位置
-<br/>3. 由小到大取出
+<br/>2. 塞入值轉換對應的索引位置
+<br/>3. 轉換由小到大取出值
 
 ``` C#
 
