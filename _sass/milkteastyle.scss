@@ -323,6 +323,16 @@ h5, .h5 { font-size: 1.15rem; }
 
 h6, .h6 { font-size: 1rem; }
 
+.Rem02 {font-size: 0.2rem }
+.Rem03 {font-size: 0.3rem }
+.Rem04 {font-size: 0.4rem }
+.Rem05 {font-size: 0.5rem }
+.Rem06 {font-size: 0.6rem }
+.Rem07 {font-size: 0.7rem }
+.Rem08 {font-size: 0.8rem }
+.Rem09 {font-size: 0.9rem }
+
+
 .MiniTitle { font-size: 0.80rem; color: red; font-weight:bold;}
 .MiddleTitle { font-size: 1.15rem; color: red; font-weight:bold;}
 .CutContext { 
@@ -346,6 +356,20 @@ h6, .h6 { font-size: 1rem; }
     font-style: italic;
     background-size: 100% 2.5px;
     
+}
+
+/* 左邊推廣用 */
+.MicroFontSize { font-size: 1rem !important}
+.HankPannel {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #339966;
+  text-decoration: none;
+  margin-bottom: -1px;
+  background: none;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }
 
 /* Nav */
