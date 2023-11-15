@@ -37,27 +37,27 @@ document.addEventListener("DOMContentLoaded", function(){
       return;
     }
     h1Item.id = "h1_" + count;
-    var indexLoaction = queryDom.outerHTML.indexOf(h1Item.outerHTML);
+    var offsetTopValue = h1Item.offsetTop;    
     count++;
     dict.push({
       key: h1Item.id,
       value: h1Item.innerText,
-      location: indexLoaction
+      location: offsetTopValue
     });
   });
-
+  
   queryDom.querySelectorAll("h2").forEach(h2Item => { 
       if(h2Item.outerText === '\n')
       {
         return;
       }
-      var indexLoaction = queryDom.outerHTML.indexOf(h2Item.outerHTML);
+      var offsetTopValue = h2Item.offsetTop;          
       h2Item.id = "h2_" + count;
       count++;
       dict.push({
         key : h2Item.id,
         value: h2Item.innerText,
-        location: indexLoaction,
+        location: offsetTopValue,
       });
     });
 
