@@ -128,6 +128,22 @@ function ResponsiveWebDesignFunction(){
           <h4>摘要：{{ page.excerpt }}</h4>
           {{page.content}}
         </div>
+        
+        <!-- footer start -->
+        <div class="titlemessage">
+          <!-- 水平分割線-->
+          <br/><hr class="titlemessageinner">
+          <span></span>
+          <hr class="titlemessageinner"><br/>
+          <!-- 留言板 -->
+          <div>
+            <div id="comments"></div>            
+          </div>
+          <script src="https://utteranc.es/client.js" repo="gotoa1234/github.io.comment" issue-term="pathname" theme="github-light" crossorigin="anonymous" async>
+          </script>
+        </div>
+        <!-- footer end -->
+        
       </div>
 
     </div>

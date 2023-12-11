@@ -265,6 +265,20 @@ div .coustomcontenttitle hr.titleinner {
     border: 1px solid red;
 }
 
+/*客製化訪客水平線*/
+div .titlemessage hr.titlemessageinner {
+  border: 3px solid black;
+}
+div .titlemessage span:before {
+  padding-left:40%;
+  position: relative;
+  font: normal bold 2em "Playfair Display", Arial, Helvetica, sans-serif;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  content: "留言版 - 歡迎留言";
+}
+
 div .coustomcontenttitle span{
     padding-left:10%;
     position: relative;
