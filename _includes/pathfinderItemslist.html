@@ -1,0 +1,67 @@
+<h2>物品清單</h2>
+
+<!-- 下拉式選單 -->
+<label for="items">選擇物品：</label>
+<select id="items">
+  <option value="item1">物品1</option>
+  <option value="item2">物品2</option>
+  <option value="item3">物品3</option>
+</select>
+
+<!-- 新增按鈕 -->
+<button onclick="addItem()">新增</button>
+
+<!-- 表格 -->
+<table id="itemTable">
+  <thead>
+    <tr>
+      <th>物品名稱</th>
+      <th>價格</th>
+      <th>說明</th>
+    </tr>
+  </thead>
+  <tbody id="itemTableBody">
+    <!-- 這裡將新增的物品放入 -->
+  </tbody>
+</table>
+
+<script>
+function addItem() {
+  // 獲取選擇的物品資訊
+  var selectedItem = document.getElementById('items').value;
+  
+  // 獲取物品資訊（這裡是硬編碼的，實際上可能需要從後端或其他來源獲取）
+  var itemInfo = getItemInfo(selectedItem);
+
+  // 創建一個新的表格行
+  var newRow = document.createElement('tr');
+  
+  // 填充表格行的三個欄位
+  var nameCell = document.createElement('td');
+  nameCell.textContent = itemInfo.name;
+  newRow.appendChild(nameCell);
+
+  var priceCell = document.createElement('td');
+  priceCell.textContent = itemInfo.price;
+  newRow.appendChild(priceCell);
+
+  var descriptionCell = document.createElement('td');
+  descriptionCell.textContent = itemInfo.description;
+  newRow.appendChild(descriptionCell);
+
+  // 將新的表格行添加到表格中
+  document.getElementById('itemTableBody').appendChild(newRow);
+}
+
+// 這裡可以替換成實際的物品資訊獲取邏輯
+function getItemInfo(item) {
+  // 這裡是硬編碼的，實際上可能需要從後端或其他來源獲取
+  var items = {
+    'item1': { name: '物品1', price: '100', description: '這是物品1的說明' },
+    'item2': { name: '物品2', price: '150', description: '這是物品2的說明' },
+    'item3': { name: '物品3', price: '200', description: '這是物品3的說明' }
+  };
+
+  return items[item];
+}
+</script>

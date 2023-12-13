@@ -258,7 +258,7 @@ div .title span:before {
     display: inline-block;
     vertical-align: middle;
     line-height: normal;
-    content: "內文如下";
+    content: "內文如下";    
 }
 
 div .coustomcontenttitle hr.titleinner {
@@ -266,6 +266,10 @@ div .coustomcontenttitle hr.titleinner {
 }
 
 /*客製化訪客水平線*/
+div .titlemessage .marginTopHr {
+  margin-top:15%;
+}
+
 div .titlemessage hr.titlemessageinner {
   border: 3px solid black;
 }
@@ -276,16 +280,24 @@ div .titlemessage span:before {
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
-  content: "留言版 - 歡迎留言";
+  content: "留言版 - 歡迎留言";  
 }
 
 div .coustomcontenttitle span{
-    padding-left:10%;
+    padding-left:20%;
     position: relative;
     font: normal bold 0.8em "Playfair Display", Arial, Helvetica, sans-serif;
-    // display: inline-block;
+    display: inline-block;
     vertical-align: middle;
     line-height: normal;
+}
+
+/* 在小型螢幕上調整樣式 */
+@media only screen and (max-width: 600px) {
+  div .titlemessage span:before {
+    padding-left: 20%; /* 根據需要調整內容位置 */
+    font-size: 1.5em;  /* 根據需要調整字體大小 */    
+  }
 }
 
 /*標題客製化*/
