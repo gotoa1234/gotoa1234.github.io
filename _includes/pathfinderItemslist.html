@@ -1,12 +1,11 @@
+
+
 <h2>物品清單</h2>
 
 <!-- 下拉式選單 -->
-<label for="items">選擇物品：</label>
-<select id="items">
-  <option value="item1">物品1</option>
-  <option value="item2">物品2</option>
-  <option value="item3">物品3</option>
-</select>
+<!-- <label for="items">選擇道具：</label> -->
+<!-- <select id="items">  
+</select> -->
 
 <!-- 新增按鈕 -->
 <button onclick="addItem()">新增</button>
@@ -15,8 +14,9 @@
 <table id="itemTable">
   <thead>
     <tr>
-      <th>物品名稱</th>
+      <th>道具名稱</th>
       <th>價格</th>
+      <th>占用手<th>
       <th>說明</th>
     </tr>
   </thead>
@@ -25,18 +25,119 @@
   </tbody>
 </table>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RWD Example</title>
+
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <div class="buttons">
+        <select id="category">  
+        </select>
+        <select id="items">  
+        </select>
+        <button onclick="addItem()">新增</button>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="top-row">
+        <div class="column">Column 1</div>
+        <div class="column">Column 2</div>
+        <div class="column">Column 3</div>
+      </div>
+      <div class="bottom-row">
+        <p>12932038021832109830912huifwheifuwehfuiwehfiehfiweifhievajsiovjisavjioasjvoajsviosajviosjaiovjaoivjiosavjosajvsoavjoi</p>
+        <!-- Content for the bottom row -->
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
 <script>
+
+//#region 資料集合
+
+// 種類
+var categories = {
+  'weapon': '武器',
+  'armor': '盔甲、盾牌',
+  'item': '道具'
+};
+
+// 武器表
+var weapons = {
+  'weapon1': { name: '武器1', price: '100', hold: '1', description: '這是物品1的說明' , isCanAdd: false },
+  'weapon2': { name: '武器2', price: '150', hold: '1', description: '這是物品2的說明' , isCanAdd: true},
+  'weapon3': { name: '武器3', price: '200', hold: '1', description: '這是物品3的說明' , isCanAdd: true }
+};
+
+// 盔甲表
+var armors = {
+  'armor1': { name: '盔甲1', price: '100', hold: '1', description: '這是物品1的說明' , isCanAdd: false },
+  'armor2': { name: '盔甲2', price: '150', hold: '1', description: '這是物品2的說明' , isCanAdd: true},
+  'armor3': { name: '盔甲3', price: '200', hold: '1', description: '這是物品3的說明' , isCanAdd: true }
+};
+
+// 道具表
+var items = {
+  'item1': { name: '道具1', price: '100', hold: '1', description: '這是物品1的說明' , isCanAdd: false },
+  'item2': { name: '道具2', price: '150', hold: '1', description: '這是物品2的說明' , isCanAdd: true},
+  'item3': { name: '道具3', price: '200', hold: '1', description: '這是物品3的說明' , isCanAdd: true }
+};
+
+//#endregion
+
+//#region 初始化配置
+var selectCategoryElement = document.getElementById('category');
+for (var key in categories) {
+  if (categories.hasOwnProperty(key)) {
+    var option = document.createElement('option');
+    option.value = key;
+    debugger;
+    option.text = weapons[key].value;
+    selectCategoryElement.add(option);
+  }
+}
+
+var selectElement = document.getElementById('items');
+// Loop through the items object and create options
+for (var key in weapons) {
+  if (weapons.hasOwnProperty(key)) {
+    var option = document.createElement('option');
+    option.value = key;
+    option.text = weapons[key].name;
+    selectElement.add(option);
+  }
+}
+
+//#endregion
+
+
+
 function addItem() {
   // 獲取選擇的物品資訊
+  debugger;
   var selectedItem = document.getElementById('items').value;
   
   // 獲取物品資訊（這裡是硬編碼的，實際上可能需要從後端或其他來源獲取）
-  var itemInfo = getItemInfo(selectedItem);
+  var itemInfo = items[selectedItem];
+
+  if(itemInfo.isCanAdd == false )
+  {
+    return;
+  }
 
   // 創建一個新的表格行
   var newRow = document.createElement('tr');
   
-  // 填充表格行的三個欄位
+  // 填充表格行的4個欄位
   var nameCell = document.createElement('td');
   nameCell.textContent = itemInfo.name;
   newRow.appendChild(nameCell);
@@ -44,6 +145,10 @@ function addItem() {
   var priceCell = document.createElement('td');
   priceCell.textContent = itemInfo.price;
   newRow.appendChild(priceCell);
+
+  var holdCell = document.createElement('td');
+  holdCell.textContent = itemInfo.hold;
+  newRow.appendChild(holdCell);
 
   var descriptionCell = document.createElement('td');
   descriptionCell.textContent = itemInfo.description;
@@ -53,15 +158,6 @@ function addItem() {
   document.getElementById('itemTableBody').appendChild(newRow);
 }
 
-// 這裡可以替換成實際的物品資訊獲取邏輯
-function getItemInfo(item) {
-  // 這裡是硬編碼的，實際上可能需要從後端或其他來源獲取
-  var items = {
-    'item1': { name: '物品1', price: '100', description: '這是物品1的說明' },
-    'item2': { name: '物品2', price: '150', description: '這是物品2的說明' },
-    'item3': { name: '物品3', price: '200', description: '這是物品3的說明' }
-  };
 
-  return items[item];
-}
+
 </script>
