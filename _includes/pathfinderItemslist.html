@@ -1,3 +1,10 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <title>Table to PDF</title>
+</head>
 <style>
   table {
     border-collapse: collapse;
@@ -21,11 +28,9 @@
     padding: 8px;
     white-space: pre-line;
   }
-
-
 </style>
 
-<h2>物品清單</h2>
+<p style="font-size: large;">物品清單</p>
   <div class="container">
     <div class="left-panel">
       <div class="buttons">
@@ -60,11 +65,13 @@
     <br>
     <br>
     <div>
+      <p style="font-size: large;">已購買清單 <span><button onclick="downloadPDF()">下載PDF</button></span></p>
       <table id="itemTable">
         <thead>
           <tr>
             <th>道具名稱</th>
             <th>價格</th>      
+            <th>操作刪除</th>      
           </tr>
         </thead>
         <tbody id="itemTableBody">
@@ -82,16 +89,505 @@
 // 種類
 var categories = {
   'weapon': '武器',
-  'armor': '盔甲、盾牌',
+  'armor': '盔甲',
+  'shield':'盾牌',
   'item': '道具'
 };
 
 // 武器表
 var weapons = {
-  'weapon1': { name: '武器1', price: '100', hold: '1', description: '這是物品1的說明' , isCanAdd: false },
-  'weapon2': { name: '武器2', price: '150', hold: '1', description: '這是物品2的說明' , isCanAdd: true},
-  'weapon3': { name: '武器3', price: '200', hold: '1', description: '這是物品3的說明' , isCanAdd: true }
+  'Fist': {
+    name: '拳頭',
+    price: '-',
+    hold: '1',
+    description: '傷害：1d4 B <br> 負載：- <br> 武器組：搏擊 <br> 武器特徵：靈巧、嫻熟、非致命、無武裝',
+    isCanAdd: true
+  },
+  'easyWeapon': {
+    name: '【簡易武器-進戰武器-以下】',
+    price: '',
+    hold: '',
+    isCanAdd: false,
+    description: ''
+  },
+  'Club': {
+    name: '木棒',
+    price: '0',
+    hold: '1',
+    description: '傷害：1d6 B <br> 負載：1 <br> 武器組：棍棒 <br> 武器特徵：投擲10尺',
+    isCanAdd: true
+  },
+  'Dagger': {
+    name: '匕首',
+    price: '2sp',
+    hold: 'L',
+    description: '傷害：1d4 P <br> 負載：L <br> 武器組：短刃 <br> 武器特徵：靈巧、嫻熟、投擲10尺、多用S',
+    isCanAdd: true
+  },
+  'Gauntlet': {
+    name: '鐵手套',
+    price: '2sp',
+    hold: 'L',
+    description: '傷害：1d4 B <br> 負載：L <br> 武器組：搏擊 <br> 武器特徵：靈巧、不佔手',
+    isCanAdd: true
+  },
+  'LightMace': {
+    name: '輕型硬頭錘',
+    price: '4sp',
+    hold: 'L',
+    description: '傷害：1d4 B <br> 負載：L <br> 武器組：棍棒 <br> 武器特徵：靈巧、嫻熟、猛推',
+    isCanAdd: true
+  },
+  'Longspear': {
+    name: '長矛',
+    price: '5sp',
+    hold: '2',
+    description: '傷害：1d8 P <br> 負載：2 <br> 武器組：矛 <br> 武器特徵：長觸及',
+    isCanAdd: true
+  },
+  'Mace': {
+    name: '硬頭錘',
+    price: '1gp',
+    hold: '1',
+    description: '傷害：1d6 B <br> 負載：1 <br> 武器組：棍棒 <br> 武器特徵：猛推',
+    isCanAdd: true
+  },
+  'Morningstar': {
+    name: '釘頭錘',
+    price: '1gp',
+    hold: '1',
+    description: '傷害：1d6 B <br> 負載：1 <br> 武器組：棍棒 <br> 武器特徵：多用P',
+    isCanAdd: true
+  },
+  'Sickle': {
+    name: '鐮刀',
+    price: '2sp',
+    hold: 'L',
+    description: '傷害：1d4 S <br> 負載：L <br> 武器組：短刃 <br> 武器特徵：靈巧、嫻熟、摔絆',
+    isCanAdd: true
+  },
+  'Spear': {
+    name: '矛',
+    price: '1sp',
+    hold: '1',
+    description: '傷害：1d6 P <br> 負載：1 <br> 武器組：矛 <br> 武器特徵：投擲20尺',
+    isCanAdd: true
+  },
+  'SpikedGauntlet': {
+    name: '帶刺鐵手套',
+    price: '3sp',
+    hold: 'L',
+    description: '傷害：1d4 P <br> 負載：L <br> 武器組：搏擊 <br> 武器特徵：靈巧、不佔手',
+    isCanAdd: true
+  },
+  'Staff': {
+    name: '木杖',
+    price: '0',
+    hold: '2',
+    description: '傷害：1d4 B <br> 負載：1 <br> 武器組：棍棒 <br> 武器特徵：雙手d8',
+    isCanAdd: true
+  },
+  'ClanDagger': {
+    name: '氏族匕首',
+    price: '2gp',
+    hold: 'L',
+    description: '傷害：1d4 P <br> 負載：L <br> 武器組：短刃 <br> 武器特徵：靈巧、矮人、格擋、多用B',
+    isCanAdd: true
+  },
+  'Katar': {
+    name: '拳刃',
+    price: '3sp',
+    hold: 'L',
+    description: '傷害：1d4 P <br> 負載：L <br> 武器組：短刃 <br> 武器特徵：靈巧、致命d6、武僧',
+    isCanAdd: true
+  },
+  'militaryWeapon': {
+    name: '【軍用武器-進戰武器-以下】',
+    price: '',
+    hold: '',
+    isCanAdd: false,
+    description: ''
+  },  
+  'BastardSword': {
+    name: '變種劍',
+    price: '4gp',
+    hold: '1',
+    description: '傷害：1d8 S <br> 負載：1 <br> 武器組：劍 <br> 武器特徵：雙手d12',
+    isCanAdd: true
+  },
+  'BattleAxe': {
+    name: '戰斧',
+    price: '1gp',
+    hold: '1',
+    description: '傷害：1d8 S <br> 負載：1 <br> 武器組：斧 <br> 武器特徵：橫掃',
+    isCanAdd: true
+  },
+  'BoStaff': {
+    name: '長棒',
+    price: '2sp',
+    hold: '2',
+    description: '傷害：1d8 B <br> 負載：2 <br> 武器組：棍棒 <br> 武器特徵：武僧、格擋、長觸及、摔絆',
+    isCanAdd: true
+  },
+  'Falchion': {
+    name: '彎刃大刀',
+    price: '3gp',
+    hold: '2',
+    description: '傷害：1d10 S <br> 負載：2 <br> 武器組：劍 <br> 武器特徵：疊勁、橫掃',
+    isCanAdd: true
+  },
+  'Flail': {
+    name: '連枷',
+    price: '8sp',
+    hold: '1',
+    description: '傷害：1d6 B <br> 負載：1 <br> 武器組：連枷 <br> 武器特徵：繳械、橫掃、摔絆',
+    isCanAdd: true
+  },
+  'Glaive': {
+    name: '大砍刀',
+    price: '1gp',
+    hold: '2',
+    description: '傷害：1d8 S <br> 負載：2 <br> 武器組：長武 <br> 武器特徵：致命d8、疊勁、長觸及',
+    isCanAdd: true
+  },
+  'Greataxe': {
+    name: '巨斧',
+    price: '2gp',
+    hold: '2',
+    description: '傷害：1d12 S <br> 負載：2 <br> 武器組：斧 <br> 武器特徵：橫掃',
+    isCanAdd: true
+  },
+  'Greatclub': {
+    name: '巨棒',
+    price: '1gp',
+    hold: '2',
+    description: '傷害：1d10 B <br> 負載：2 <br> 武器組：棍棒 <br> 武器特徵：回擺、猛推',
+    isCanAdd: true
+  },
+  'Greatpick': {
+    name: '巨鎬',
+    price: '1gp',
+    hold: '2',
+    description: '傷害：1d10 P <br> 負載：2 <br> 武器組：鎬 <br> 武器特徵：奪命d12',
+    isCanAdd: true
+  },
+  'Greatsword': {
+    name: '巨劍',
+    price: '2gp',
+    hold: '2',
+    description: '傷害：1d12 S <br> 負載：2 <br> 武器組：劍 <br> 武器特徵：多用P',
+    isCanAdd: true
+  },
+  'Guisarme': {
+    name: '長勾刀',
+    price: '2gp',
+    hold: '2',
+    description: '傷害：1d10 S <br> 負載：2 <br> 武器組：長武 <br> 武器特徵：長觸及、摔絆',
+    isCanAdd: true
+  },
+  'Halberd': {
+    name: '戟',
+    price: '2gp',
+    hold: '2',
+    description: '傷害：1d10 P <br> 負載：2 <br> 武器組：長武 <br> 武器特徵：長觸及、多用S',
+    isCanAdd: true
+  },
+  'Hatchet': {
+    name: '短柄斧',
+    price: '4sp',
+    hold: '1',
+    description: '傷害：1d6 S <br> 負載：1 <br> 武器組：斧 <br> 武器特徵：靈巧、橫掃、投擲10尺',
+    isCanAdd: true
+  },
+  'Lance': {
+    name: '長槍',
+    price: '1gp',
+    hold: '2',
+    description: '傷害：1d8 P <br> 負載：2 <br> 武器組：矛 <br> 武器特徵：致命d8、騎戰d6、長觸及',
+    isCanAdd: true
+  },
+  'LightHammer': {
+    name: '輕錘',
+    price: '3sp',
+    hold: 'L',
+    description: '傷害：1d6 B <br> 負載：L <br> 武器組：錘 <br> 武器特徵：靈巧、投擲20尺',
+    isCanAdd: true
+  },
+  'LightPick': {
+    name: '輕型鎬',
+    price: '4sp',
+    hold: 'L',
+    description: '傷害：1d4 P <br> 負載：L <br> 武器組：鎬 <br> 武器特徵：靈巧、奪命d8',
+    isCanAdd: true
+  },
+  'Longsword': {
+    name: '長劍',
+    price: '1gp',
+    hold: '1',
+    description: '傷害：1d8 S <br> 負載：1 <br> 武器組：劍 <br> 武器特徵：多用P',
+    isCanAdd: true
+  },
+  'MainGauche': {
+    name: '格擋匕首',
+    price: '5sp',
+    hold: 'L',
+    description: '傷害：1d4 P <br> 負載：L <br> 武器組：短刃 <br> 武器特徵：靈巧、繳械、嫻熟、格擋、多用S',
+    isCanAdd: true
+  },
+  'Maul': {
+    name: '大錘',
+    price: '3gp',
+    hold: '2',
+    description: '傷害：1d12 B <br> 負載：2 <br> 武器組：錘 <br> 武器特徵：猛推',
+    isCanAdd: true
+  },
+  'Pick': {
+    name: '鎬',
+    price: '7sp',
+    hold: '1',
+    description: '傷害：1d6 P <br> 負載：1 <br> 武器組：鎬 <br> 武器特徵：奪命d10',
+    isCanAdd: true
+  },
+  'Ranseur': {
+    name: '刺叉',
+    price: '2gp',
+    hold: '2',
+    description: '傷害：1d10 P <br> 負載：2 <br> 武器組：長武 <br> 武器特徵：繳械、長觸及',
+    isCanAdd: true
+  },
+  'Rapier': {
+    name: '細劍',
+    price: '2gp',
+    hold: '1',
+    description: '傷害：1d6 P <br> 負載：1 <br> 武器組：劍 <br> 武器特徵：致命d8、繳械、嫻熟',
+    isCanAdd: true
+  },
+  'Sap': {
+    name: '悶棍',
+    price: '1sp',
+    hold: 'L',
+    description: '傷害：1d6 B <br> 負載：L <br> 武器組：棍棒 <br> 武器特徵：靈巧、非致命',
+    isCanAdd: true
+  },
+  'Scimitar': { name: '彎刀', price: '1gp', hold: '1', description: '傷害：1d6 S <br> 負載：1  <br> 武器組：劍  <br>  武器特徵：疊勁、橫掃', isCanAdd: true },
+  'Scythe': { name: '巨鐮', price: '2gp', hold: '2', description: '傷害：1d10 S <br> 負載：2  <br> 武器組：長武  <br>  武器特徵：致命d10、摔絆', isCanAdd: true },
+  'Shield bash': { name: '盾擊', price: '-', hold: '1', description: '傷害：1d4 B <br> 負載：-  <br> 武器組：盾牌  <br>  武器特徵：-', isCanAdd: true },
+  'Shield boss': { name: '盾凸', price: '5sp', hold: '1', description: '傷害：1d6 B <br> 負載：-  <br> 武器組：盾牌  <br>  武器特徵：附著於盾牌', isCanAdd: true },
+  'Shield spikes': { name: '盾刺', price: '5sp', hold: '1', description: '傷害：1d6 P <br> 負載：-  <br> 武器組：盾牌  <br>  武器特徵：附著於盾牌', isCanAdd: true },
+  'Shortsword': { name: '短劍', price: '9sp', hold: '1', description: '傷害：1d6 P <br> 負載：L  <br> 武器組：劍  <br>  武器特徵：靈巧、嫻熟、多用S', isCanAdd: true },
+  'Starknife': { name: '星刃', price: '2gp', hold: '1', description: '傷害：1d4 P <br> 負載：L  <br> 武器組：短刃  <br>  武器特徵：靈巧、致命d6、嫻熟、投擲20尺、多用S', isCanAdd: true },
+  'Trident': { name: '三叉戟', price: '1gp', hold: '1', description: '傷害：1d8 P <br> 負載：1  <br> 武器組：矛  <br>  武器特徵：投擲20尺', isCanAdd: true },
+  'War flail': { name: '戰鬥連枷', price: '2gp', hold: '2', description: '傷害：1d10 B <br> 負載：2  <br> 武器組：連枷  <br>  武器特徵：繳械、橫掃、摔絆', isCanAdd: true },
+  'Warhammer': { name: '戰錘', price: '1gp', hold: '1', description: '傷害：1d8 B <br> 負載：1  <br> 武器組：錘  <br>  武器特徵：猛推', isCanAdd: true },
+  'Whip': { name: '鞭子', price: '1sp', hold: '1', description: '傷害：1d4 S <br> 負載：1  <br> 武器組：連枷  <br>  武器特徵：繳械、嫻熟、非致命、長觸及、摔絆', isCanAdd: true },
+  'rareMilitaryWeapon': {
+    name: '【罕見軍用武器-進戰武器-以下】',
+    price: '',
+    hold: '',
+    isCanAdd: false,
+    description: ''
+  }, 
+  'Dogslicer': { name: '屠狗刀', price: '1sp', hold: '1', description: '傷害：1d6 S <br> 負載：L  <br> 武器組：劍  <br>  武器特徵：靈巧、背刺、嫻熟、地精', isCanAdd: true },
+  'Elven curve blade': { name: '精靈曲刃', price: '4gp', hold: '2', description: '傷害：1d8 S <br> 負載：2  <br> 武器組：劍  <br>  武器特徵：精靈、嫻熟、疊勁', isCanAdd: true },
+  "Filcher's fork": { name: '竊賊刺叉', price: '1gp', hold: '1', description: '傷害：1d4 P <br> 負載：L  <br> 武器組：矛  <br>  武器特徵：靈巧、背刺、致命d6、嫻熟、半身人、投擲20尺', isCanAdd: true },
+  'Gnome hooked hammer': { name: '侏儒鉤式戰錘', price: '2gp', hold: '1', description: '傷害：1d6 B <br> 負載：1  <br> 武器組：錘  <br>  武器特徵：侏儒、摔絆、雙手d10，多用P', isCanAdd: true },
+  'Horsechopper': { name: '斬馬刀', price: '9sp', hold: '2', description: '傷害：1d8 S <br> 負載：2  <br> 武器組：長武  <br>  武器特徵：地精、長觸及、摔絆、多用P', isCanAdd: true },
+  'Kama': { name: '單鐮', price: '1gp', hold: '1', description: '傷害：1d6 S <br> 負載：L  <br> 武器組：短刃  <br>  武器特徵：靈巧、武僧、摔絆', isCanAdd: true },
+  'Katana': { name: '打刀', price: '2gp', hold: '1', description: '傷害：1d6 S <br> 負載：1  <br> 武器組：劍  <br>  武器特徵：致命d8、雙手d10、多用P', isCanAdd: true },
+  'Kukri': { name: '反曲刀', price: '6sp', hold: '1', description: '傷害：1d6 S <br> 負載：L  <br> 武器組：短刃  <br>  武器特徵：靈巧、嫻熟、摔絆', isCanAdd: true },
+  'Nunchaku': { name: '雙截棍', price: '2sp', hold: '1', description: '傷害：1d6 B <br> 負載：L  <br> 武器組：棍棒  <br>  武器特徵：回擺、繳械、嫻熟、武僧', isCanAdd: true },
+  'Orc knuckle dagger': { name: '獸人指匕', price: '7sp', hold: '1', description: '傷害：1d6 P <br> 負載：L  <br> 武器組：短刃  <br>  武器特徵：靈巧、繳械、獸人', isCanAdd: true },
+  'Sai': { name: '刺叉', price: '6sp', hold: '1', description: '傷害：1d4 P <br> 負載：L  <br> 武器組：短刃  <br>  武器特徵：靈巧、繳械、嫻熟、武僧、多用B', isCanAdd: true },
+  'Spiked chain': { name: '刺鏈', price: '3gp', hold: '2', description: '傷害：1d8 S <br> 負載：1  <br> 武器組：連枷  <br>  武器特徵：繳械、嫻熟、摔絆', isCanAdd: true },
+  'Temple sword': { name: '儀劍', price: '2gp', hold: '1', description: '傷害：1d8 S <br> 負載：1  <br> 武器組：劍  <br>  武器特徵：武僧、摔絆', isCanAdd: true },
+  'Dwarven waraxe': { name: '矮人戰斧', price: '3gp', hold: '1', description: '傷害：1d8 S <br> 負載：2  <br> 武器組：斧  <br>  武器特徵：矮人、橫掃、雙手d12', isCanAdd: true },
+  'Gnome flickmace': { name: '侏儒彈簧錘', price: '3gp', hold: '1', description: '傷害：1d6 B <br> 負載：1  <br> 武器組：連枷  <br>  武器特徵：侏儒、長觸及、橫掃', isCanAdd: true },
+  'Orc necksplitter': { name: '獸人斷頭斧', price: '2gp', hold: '1', description: '傷害：1d8 S <br> 負載：1  <br> 武器組：斧  <br>  武器特徵：疊勁、獸人、橫掃', isCanAdd: true },
+  'Sawtooth saber': { name: '鋸齒劍', price: '5gp', hold: '1', description: '傷害：1d6 S <br> 負載：L  <br> 武器組：劍  <br>  武器特徵：靈巧、嫻熟、成對', isCanAdd: true },
+  'rangedWeapon': {
+    name: '【簡易武器-遠程武器-以下】',
+    price: '',
+    hold: '',
+    isCanAdd: false,
+    description: ''
+  }, 
+  'Blowgun': {
+    name: '吹箭',
+    price: '1sp',
+    hold: '1',
+    description: '傷害：1P <br> 射程：20ft. <br> 負載：L  <br> 武器組：暗器  <br> 武器特徵：灵巧、非致命',
+    isCanAdd: true
+  },
+  'Blowgun darts (10)': {
+    name: '10枚吹箭镖',
+    price: '5cp',
+    hold: 'L',
+    description: '',
+    isCanAdd: true
+  },
+  'Crossbow': {
+    name: '弩',
+    price: '3gp',
+    hold: '1',
+    description: '傷害：1d8P <br> 射程：120ft. <br> 負載：2  <br> 武器組：弓弩  <br> 武器特徵：—',
+    isCanAdd: true
+  },
+  'Crossbow bolts (10)': {
+    name: '10枚弩矢',
+    price: '1sp',
+    hold: 'L',
+    description: '',
+    isCanAdd: true
+  },
+  'Dart': {
+    name: '飞镖',
+    price: '1cp',
+    hold: 'L',
+    description: '傷害：1d4P <br> 射程：20ft. <br> 負載：L  <br> 武器組：暗器  <br> 武器特徵：灵巧、投掷',
+    isCanAdd: true
+  },
+  'Hand crossbow': {
+    name: '手弩',
+    price: '3gp',
+    hold: '1',
+    description: '傷害：1d6P <br> 射程：60ft. <br> 負載：1  <br> 武器組：弓弩  <br> 武器特徵：—',
+    isCanAdd: true
+  },
+  'Hand crossbow bolts (10)': {
+    name: '10枚弩矢',
+    price: '1sp',
+    hold: 'L',
+    description: '',
+    isCanAdd: true
+  },
+  'Heavy crossbow': {
+    name: '重弩',
+    price: '4gp',
+    hold: '2',
+    description: '傷害：1d10P <br> 射程：120ft. <br> 負載：2  <br> 武器組：弓弩  <br> 武器特徵：—',
+    isCanAdd: true
+  },
+  'Heavy crossbow bolts (10)': {
+    name: '10枚弩矢',
+    price: '1sp',
+    hold: 'L',
+    description: '',
+    isCanAdd: true
+  },
+  'Javelin': {
+    name: '标枪',
+    price: '1sp',
+    hold: 'L',
+    description: '傷害：1d6P <br> 射程：30ft. <br> 負載：L  <br> 武器組：暗器  <br> 武器特徵：投掷',
+    isCanAdd: true
+  },
+  'Sling': {
+    name: '投石索',
+    price: '0',
+    hold: '1',
+    description: '傷害：1d6B <br> 射程：50ft. <br> 負載：L  <br> 武器組：投索  <br> 武器特徵：助进',
+    isCanAdd: true
+  },
+  'Sling bullets (10)': {
+    name: '10颗弹丸',
+    price: '1cp',
+    hold: 'L',
+    description: '',
+    isCanAdd: true
+  },
+  'rangedMilitaryWeapon': {
+    name: '【軍事武器-遠程武器-以下】',
+    price: '',
+    hold: '',
+    isCanAdd: false,
+    description: ''
+  }, 
+  'Alchemical bomb': {
+    name: '炼金炸弹',
+    price: '多种',
+    hold: 'L',
+    description: '射程：20ft. <br> 负载：L <br> 武器组：炸弹 <br> 武器特征：多种',
+    isCanAdd: true
+  },
+  'Composite longbow': {
+    name: '复合长弓',
+    price: '20gp',
+    hold: '1',
+    description: '傷害：1d8P <br> 射程：100ft. <br> 装填：0 <br> 负载：2 <br> 武器组：弓弩 <br> 武器特征：致命1d10、助进、远射30ft.',
+    isCanAdd: true
+  },
+  'Arrows (10)': {
+    name: '10根箭',
+    price: '1sp',
+    hold: 'L',
+    description: '',
+    isCanAdd: true
+  },
+  'Composite shortbow': {
+    name: '复合短弓',
+    price: '14gp',
+    hold: '1',
+    description: '傷害：1d6P <br> 射程：60ft. <br> 装填：0 <br> 负载：1 <br> 武器组：弓弩 <br> 武器特征：致命1d10、助进',
+    isCanAdd: true
+  },
+  'Shortbow arrows (10)': {
+    name: '10根箭',
+    price: '1sp',
+    hold: 'L',
+    description: '',
+    isCanAdd: true
+  },
+  'Longbow': {
+    name: '长弓',
+    price: '6gp',
+    hold: '1',
+    description: '傷害：1d8P <br> 射程：100ft. <br> 装填：0 <br> 负载：2 <br> 武器组：弓弩 <br> 武器特征：致命1d10、远射30ft.',
+    isCanAdd: true
+  },
+  'Longbow arrows (10)': {
+    name: '10根箭',
+    price: '1sp',
+    hold: 'L',
+    description: '',
+    isCanAdd: true
+  },
+  'Shortbow': {
+    name: '短弓',
+    price: '3gp',
+    hold: '1',
+    description: '傷害：1d6P <br> 射程：60ft. <br> 装填：0 <br> 负载：1 <br> 武器组：弓弩 <br> 武器特征：致命d10',
+    isCanAdd: true
+  },
+  'Shortbow arrows (10)': {
+    name: '10根箭',
+    price: '1sp',
+    hold: 'L',
+    description: '',
+    isCanAdd: true
+  },
+  'Halfling Sling Staff': {
+    name: '半身人投石杖',
+    price: '5gp',
+    hold: '2',
+    description: '傷害：1d10B <br> 射程：80ft <br> 装填：1 <br> 负载：1 <br> 武器组：投索 <br> 武器特征：半身人、助进',
+    isCanAdd: true
+  },
+  'Sling Bullets (10)': {
+    name: '10颗弹丸',
+    price: '1cp',
+    hold: 'L',
+    description: '',
+    isCanAdd: true
+  },
+  'Shuriken': {
+    name: '手里剑',
+    price: '1cp',
+    hold: '1',
+    description: '傷害：1d4P <br> 射程：20ft <br> 装填：0 <br> 负载：— <br> 武器组：暗器 <br> 武器特征：灵巧、武僧、投掷',
+    isCanAdd: true
+  }
 };
+
 
 // 盔甲表
 var armors = {
@@ -100,101 +596,625 @@ var armors = {
     price: '-',
     hold: '-',
     isCanAdd: false,
-    description: 'AC加值：+0 \n 敏捷上限：- ▉ 檢定減值：- ▉ 速度減值：- ▉ 負載：- ▉ 護甲組：- ▉ 護甲特徵：-'
+    description: 'AC加值：+0 <br> 敏捷上限：- <br> 檢定減值：- <br> 速度減值：- <br> 負載：- <br> 護甲組：- <br> 護甲特徵：-'
+  },
+  'lightArmor': {
+    name: '【輕甲類-以下】',
+    price: '',
+    hold: '',
+    isCanAdd: false,
+    description: ''
   },
   'explorerClothing': {
     name: '探險者服裝',
     price: '1sp',
     hold: '-',
     isCanAdd: true,
-    description: 'AC加值：+0 <br> 敏捷上限：+5 ▉ 檢定減值：- ▉ 速度減值：- ▉ 負載：L ▉ 護甲組：布料 ▉ 護甲特徵：舒適'
+    description: 'AC加值：+0 <br> 敏捷上限：+5 <br> 檢定減值：- <br> 速度減值：- <br> 負載：L <br> 護甲組：布料 <br> 護甲特徵：舒適'
   },
   'paddedArmor': {
     name: '布甲',
     price: '2sp',
     hold: '-',
     isCanAdd: true,
-    description: 'AC加值：+1 ▉ 敏捷上限：+3 ▉ 檢定減值：- ▉ 速度減值：- ▉ 力量：10 ▉ 負載：10 ▉ 護甲組：布料 ▉ 護甲特徵：舒適'
+    description: 'AC加值：+1 <br> 敏捷上限：+3 <br> 檢定減值：- <br> 速度減值：- <br> 力量：10 <br> 負載：L <br> 護甲組：布料 <br> 護甲特徵：舒適'
   },
   'leatherArmor': {
     name: '皮甲',
     price: '2gp',
     hold: '-',
     isCanAdd: true,
-    description: 'AC加值：+1 ▉ 敏捷上限：+4 ▉ 檢定減值：-1 ▉ 速度減值：- ▉ 力量：10 ▉ 負載：10 ▉ 護甲組：皮甲 ▉ 護甲特徵：-'
+    description: 'AC加值：+1 <br> 敏捷上限：+4 <br> 檢定減值：-1 <br> 速度減值：- <br> 力量：10 <br> 負載：1 <br> 護甲組：皮甲 <br> 護甲特徵：-'
   },
   'studdedLeatherArmor': {
     name: '鑲嵌皮甲',
     price: '3gp',
     hold: '-',
     isCanAdd: true,
-    description: 'AC加值：+2 ▉ 敏捷上限：+3 ▉ 檢定減值：-1 ▉ 速度減值：- ▉ 力量：12 ▉ 負載：12 ▉ 護甲組：皮甲 ▉ 護甲特徵：-'
+    description: 'AC加值：+2 <br> 敏捷上限：+3 <br> 檢定減值：-1 <br> 速度減值：- <br> 力量：12 <br> 負載：1 <br> 護甲組：皮甲 <br> 護甲特徵：-'
   },
   'chainShirt': {
     name: '鍊甲衫',
     price: '5gp',
     hold: '-',
     isCanAdd: true,
-    description: 'AC加值：+2 ▉ 敏捷上限：+3 ▉ 檢定減值：-1 ▉ 速度減值：- ▉ 力量：12 ▉ 負載：12 ▉ 護甲組：鍊甲 ▉ 護甲特徵：柔韌，嘈雜'
+    description: 'AC加值：+2 <br> 敏捷上限：+3 <br> 檢定減值：-1 <br> 速度減值：- <br> 力量：12 <br> 負載：1 <br> 護甲組：鍊甲 <br> 護甲特徵：柔韌，嘈雜'
+  },
+  'mediumArmor': {
+    name: '【中甲類-以下】',
+    price: '',
+    hold: '',
+    isCanAdd: false,
+    description: ''
   },
   'hideArmor': {
     name: '革甲',
     price: '2gp',
     hold: '-',
     isCanAdd: true,
-    description: 'AC加值：+3 ▉ 敏捷上限：+2 ▉ 檢定減值：-2 ▉ 速度減值：-5尺 ▉ 力量：14 ▉ 負載：14 ▉ 護甲組：皮甲 ▉ 護甲特徵：-'
+    description: 'AC加值：+3 <br> 敏捷上限：+2 <br> 檢定減值：-2 <br> 速度減值：-5尺 <br> 力量：14 <br> 負載：2 <br> 護甲組：皮甲 <br> 護甲特徵：-'
   },
   'scaleMail': {
     name: '鱗甲',
     price: '4gp',
     hold: '-',
     isCanAdd: true,
-    description: 'AC加值：+3 ▉ 敏捷上限：+2 ▉ 檢定減值：-2 ▉ 速度減值：-5尺 ▉ 力量：14 ▉ 負載：14 ▉ 護甲組：複合甲 ▉ 護甲特徵：-'
+    description: 'AC加值：+3 <br> 敏捷上限：+2 <br> 檢定減值：-2 <br> 速度減值：-5尺 <br> 力量：14 <br> 負載：2 <br> 護甲組：複合甲 <br> 護甲特徵：-'
   },
   'chainMail': {
     name: '鍊甲',
     price: '6gp',
     hold: '-',
     isCanAdd: true,
-    description: 'AC加值：+4 ▉ 敏捷上限：+1 ▉ 檢定減值：-2 ▉ 速度減值：-5尺 ▉ 力量：16 ▉ 負載：16 ▉ 護甲組：鍊甲 ▉ 護甲特徵：柔韌，嘈雜'
+    description: 'AC加值：+4 <br> 敏捷上限：+1 <br> 檢定減值：-2 <br> 速度減值：-5尺 <br> 力量：16 <br> 負載：2 <br> 護甲組：鍊甲 <br> 護甲特徵：柔韌，嘈雜'
   },
   'breastplate': {
     name: '胸甲',
     price: '8gp',
     hold: '-',
     isCanAdd: true,
-    description: 'AC加值：+4 ▉ 敏捷上限：+1 ▉ 檢定減值：-2 ▉ 速度減值：-5尺 ▉ 力量：16 ▉ 負載：16 ▉ 護甲組：板甲 ▉ 護甲特徵：-'
+    description: 'AC加值：+4 <br> 敏捷上限：+1 <br> 檢定減值：-2 <br> 速度減值：-5尺 <br> 力量：16 <br> 負載：2 <br> 護甲組：板甲 <br> 護甲特徵：-'
+  },
+  'heavyArmor': {
+    name: '【重甲類-以下】',
+    price: '',
+    hold: '',
+    isCanAdd: false,
+    description: ''
   },
   'splintMail': {
     name: '板條甲（1級）',
     price: '13gp',
     hold: '-',
     isCanAdd: true,
-    description: 'AC加值：+5 ▉ 敏捷上限：+1 ▉ 檢定減值：-3 ▉ 速度減值：-10尺 ▉ 力量：16 ▉ 負載：16 ▉ 護甲組：複合甲 ▉ 護甲特徵：-'
+    description: 'AC加值：+5 <br> 敏捷上限：+1 <br> 檢定減值：-3 <br> 速度減值：-10尺 <br> 力量：16 <br> 負載：3 <br> 護甲組：複合甲 <br> 護甲特徵：-'
   },
   'halfPlate': {
     name: '半身甲（1級）',
     price: '18gp',
     hold: '-',
     isCanAdd: true,
-    description: 'AC加值：+5 ▉ 敏捷上限：+1 ▉ 檢定減值：-3 ▉ 速度減值：-10尺 ▉ 力量：16 ▉ 負載：16 ▉ 護甲組：板甲 ▉ 護甲特徵：-'
+    description: 'AC加值：+5 <br> 敏捷上限：+1 <br> 檢定減值：-3 <br> 速度減值：-10尺 <br> 力量：16 <br> 負載：3 <br> 護甲組：板甲 <br> 護甲特徵：-'
   },
   'fullPlate': {
     name: '全身甲（2級）',
     price: '30gp',
     hold: '-',
     isCanAdd: true,
-    description: 'AC加值：+6 ▉ 敏捷上限：+0 ▉ 檢定減值：-3 ▉ 速度減值：-10尺 ▉ 力量：18 ▉ 負載：4 ▉ 護甲組：板甲 ▉ 護甲特徵：壁壘'
+    description: 'AC加值：+6 <br> 敏捷上限：+0 <br> 檢定減值：-3 <br> 速度減值：-10尺 <br> 力量：18 <br> 負載：4 <br> 護甲組：板甲 <br> 護甲特徵：壁壘'
+  }
+};
+
+// 盾牌表
+var shields = {
+  'smallShield': {
+    name: '小圆盾',
+    price: '1gp',
+    hold: '1',
+    isCanAdd: true,
+    description: 'AC加值：+1 <br> 速度减值：— <br> 负载：L <br> 硬度：3 <br> HP（BT）：6（3）'
+  },
+  'woodenShield': {
+    name: '木盾',
+    price: '1gp',
+    hold: '1',
+    isCanAdd: true,
+    description: 'AC加值：+2 <br> 速度减值：— <br> 负载：1 <br> 硬度：3 <br> HP（BT）：12（6）'
+  },
+  'steelShield': {
+    name: '钢盾',
+    price: '2gp',
+    hold: '1',
+    isCanAdd: true,
+    description: 'AC加值：+2 <br> 速度减值：— <br> 负载：1 <br> 硬度：5 <br> HP（BT）：20（10）'
+  },
+  'towerShield': {
+    name: '塔盾',
+    price: '10gp',
+    hold: '1',
+    isCanAdd: true,
+    description: 'AC加值：+2/+4** <br> 速度减值：-5ft. <br> 负载：4 <br> 硬度：5 <br> HP（BT）：20（10）'
   }
 };
 
 
-
 // 道具表
 var items = {
-  'item1': { name: '道具1', price: '100', hold: '1', description: '這是物品1的說明' , isCanAdd: false },
-  'item2': { name: '道具2', price: '150', hold: '1', description: '這是物品2的說明' , isCanAdd: true},
-  'item3': { name: '道具3', price: '200', hold: '1', description: '這是物品3的說明' , isCanAdd: true }
+  'adventurerBaseKind': {
+    name: '【冒險道具-以下】',
+    price: '',
+    hold: '',
+    isCanAdd: false,
+    description: ''
+  },
+  'Adventurer’s Pack': { name: '冒险装备包（Adventurer’s Pack）', price: '15 sp', hold: '-', description: '负载：1 <br> 这个物品是冒险者的入门套件，包含探索和生存的基本物品。 负载值是整个装备包的数值，但必要时请参阅各个物品的说明。　　该装备包包含以下物品：背包（backpack，装着其他的物资），铺盖卷（bedroll），10支粉笔（chalk），燧石和铁片（flint and steel），50英尺长的麻绳（rope），2周的口粮（rations），肥皂（soap），5个火把（torches）和一个水袋（waterskin）。', isCanAdd: true },
+'Alchemist’s Lab': { name: '炼金实验室（Alchemist’s Lab）', price: '5 gp', hold: '2', description: '负载：6 <br> 在休整期，你需要一个炼金实验室来制作炼金物品。', isCanAdd: true },
+'Expanded Alchemist’s Lab (3rd level)': { name: '专家级炼金实验室（Expanded alchemist’s lab，3级）', price: '55 gp', hold: '2', description: '负载：6 <br> 专家级炼金实验室为你在制作炼金物品的工艺（Craft）检定上提供+1物品加值。', isCanAdd: true },
+'Alchemist’s Tools': { name: '炼金工具（Alchemist’s tools）', price: '3 gp', hold: '-', description: '负载：1或2 <br> 这组方便携带的安瓿和化学物能用来进行简单的炼金工作。如果你穿戴着炼金工具，你可以作为使用它的动作的一部分将它拿出来。', isCanAdd: true },
+'Artisan’s Tools': { name: '工匠工具（Artisan’s tools）', price: '4 gp', hold: '1或2', description: '负载：2 <br> 你可以使用工匠工具从原材料制作物品。 这涉及使用手艺技能来制作物品。', isCanAdd: true },
+'Sterling Artisan’s Tools (3rd level)': { name: '专家级工匠工具（Sterling artisan’s tools，3级）', price: '55 gp', hold: '1或2', description: '负载：2 <br> 专家级工匠工具为此提供+1物品加值。 根据GM的决定，不同类型的工作可能需要不同的工具; 例如，铁匠的工具与木匠的工具不同。', isCanAdd: true },
+'Backpack': { name: '背包（Backpack）', price: '1 sp', hold: '-', description: '负载：- <br> 一个背包最多可容纳4B物品。 如果你抓着背包而不是背着背包，那么它将有L的负载而不是可以忽略不计。', isCanAdd: true },
+'Basic Crafter’s Book': { name: '基本匠人书籍（Basic crafter’s book）', price: '1 sp', hold: '2', description: '负载：L <br> 包含制造本章中所有0级常见物品的制造公式（参见P293）。', isCanAdd: true },
+'Bedroll': { name: '铺盖卷（Bedroll）', price: '2 cp', hold: '-', description: '负载：L <br>', isCanAdd: true },
+'Caltrops': { name: '铁蒺藜（Caltrops）', price: '3 sp', hold: '1', description: '负载：L <br> 这些四尖金属钉可能会对生物的脚造成伤害。你可以使用【互动（Interact）动作】在与你相邻的一个空方格中散布铁蒺藜。进入该方格的第一个生物必须成功进行DC 14的特技检定，否则就会受到1d4穿刺伤害和1次持续流血伤害。受到来自铁蒺藜的持续流血伤害的生物受到-5尺的速度减值。花费一个【互动（Interact）动作】来拔除铁蒺藜可以降低停止流血的DC。 一旦一个生物受到来自铁蒺藜的伤害，足够多的铁蒺藜会被毁掉，后续的其他生物进入这个方格是安全的。如果没有生物受到伤害，可以回收散布的铁蒺藜以再次使用。否则足够多的铁蒺藜会被破坏，这样无法回收。', isCanAdd: true },
+'Candle (10)': { name: '蜡烛（Candle，10个）', price: '1 cp', hold: '-', description: '负载：1 <br> 点燃的蜡烛在10尺半径范围内散发出昏暗的光芒，持续8小时。', isCanAdd: true },
+'Chain (10 feet)': { name: '铁链（Chain，10尺）', price: '4 gp', hold: '2', description: '负载：1 <br>', isCanAdd: true },
+'Chalk (10)': { name: '粉笔（Chalk，10个）', price: '1 cp', hold: '-', description: '负载：1 <br>', isCanAdd: true },
+'Chest': { name: '箱子（Chest）', price: '6 sp', hold: '2', description: '负载：2 <br> 一个木箱可容纳最多8B物品。', isCanAdd: true },
+'Climbing Kit': { name: '攀爬工具包（Climbing kit）', price: '5 sp', hold: '2', description: '负载：1 <br> 这个工具包包括50尺的麻绳，一些滑轮，一打岩钉，一把锤子，一个抓钩和一套冰爪。攀爬工具包可让你将自己固定在攀爬的墙上，以正常速度的一半移动（最小5尺），还可以让你在避免坠落的检定中大失败时进行一次DC为5的纯粹检定。在使用专家级攀爬工具包时，你可以在运动检定上获得+1物品加值。一个工具包只够一位攀爬者的使用的材料; 每个攀爬者都需要有自己的工具包。', isCanAdd: true },
+'Extreme Climbing Kit (3rd level)': { name: '专家级攀爬工具包（Extreme climbing kit，3级）', price: '40 gp', hold: '2', description: '负载：1 <br>', isCanAdd: true },
+'Ordinary Clothing': { name: '普通服装（Ordinary）', price: '1 sp', hold: '-', description: '负载：- <br>', isCanAdd: true },
+'Explorer’s Clothing': { name: '探险服装（Explorer’s）', price: '1 sp', hold: '-', description: '负载：L <br>', isCanAdd: true },
+'Fine Clothing': { name: '精致服装（Fine）', price: '2 gp', hold: '-', description: '负载：L <br>', isCanAdd: true },
+'High-fashion Fine Clothing (3rd level)': { name: '高级时装（High-fashion fine，3级）', price: '55 gp', hold: '-', description: '负载：L <br> 当你穿着高级时装时，在贵族或其他上流社会的【留下印象（Make an Impression）】检定中获得+1项奖励。', isCanAdd: true },
+'Winter Clothing': { name: '冬季服装（Winter）', price: '4 sp', hold: '-', description: '负载：L <br> 冬季服装可以抵消严寒环境带来的伤害，可将酷寒的伤害减少为严寒的伤害。', isCanAdd: true },
+'Compass': { name: '罗盘（Compass）', price: '1 gp', hold: '1', description: '负载：- <br> 罗盘可以帮助您【感知方向（Sense Direction）】或导航，只要您处于具有均匀磁场的位置。如果没有罗盘，则会对这些检定带来-2物品减值（类似于使用简陋物品）。透镜罗盘为这些检定提供+1物品加值', isCanAdd: true },
+'Lensatic Compass (3rd level)': { name: '透镜罗盘（Lensatic compass，3级）', price: '20 gp', hold: '1', description: '负载：- <br>', isCanAdd: true },
+'Cookware': { name: '炊具（Cookware）', price: '1 gp', hold: '2', description: '负载：2 <br>', isCanAdd: true },
+'Crowbar': { name: '撬棍（Crowbar）', price: '5 sp', hold: '2', description: '负载：L <br> 当需要强行打开一个没法轻易抓握的物体时，撬棍可以更容易地获得必要的杠杆作用。没有撬棍，强制撬开一些东西会的运动检定受到-2物品减值（类似于使用简陋物品）。一个杠杆撬棍会为强制打开任何可以被撬开的东西的运动检定提供+1物品加值。', isCanAdd: true },
+'Levered Crowbar (3rd level)': { name: '杠杆撬棍（Levered crowbar，3级）', price: '20 gp', hold: '2', description: '负载：L <br>', isCanAdd: true },
+'Disguise Kit': { name: '化装工具包（Disguise kit）', price: '2 gp', hold: '2', description: '负载：L <br>', isCanAdd: true },
+'Replacement Cosmetics': { name: '替换化妆品（Replacement cosmetics）', price: '1 sp', hold: '-', description: '负载：- <br> 这个小木盒子包含化妆品，假面部毛发，快干胶水和一些简单的假发。你通常需要一个化装工具来进行化装，以便使用唬骗技能冒充某人。专家级化装工具包为相关检定提供+1物品加值。如果你进行了很多次数的化装，您可以使用适合化装工具包类型的替代化妆品来补充', isCanAdd: true },
+'Elite Disguise Kit (3rd level)': { name: '专家级化装工具包（Elite disguise kit，3级）', price: '40 gp', hold: '2', description: '负载：L <br>', isCanAdd: true },
+'Elite Cosmetics (3rd level)': { name: '专家级化妆品（Elite cosmetics，3级）', price: '5 sp', hold: '-', description: '负载：- <br>', isCanAdd: true },
+'Fishing Tackle': { name: '渔具（Fishing tackle）', price: '8 sp', hold: '2', description: '负载：1 <br> 该套工具包括可折叠的钓鱼竿、鱼钩、钓线、鱼饵和渔网。专家级渔具为钓鱼检定提供+1物品加值', isCanAdd: true },
+'Professional Fishing Tackle (3rd level)': { name: '专家级渔具（Professional fishing tackle，3级）', price: '20 gp', hold: '2', description: '负载：1 <br>', isCanAdd: true },
+'Flint and Steel': { name: '燧石和铁片（Flint and steel）', price: '5 cp', hold: '2', description: '负载：- <br> 如果你有时间捕捉火花，燧石和铁片可以用来生火，尽管在遭遇过程中使用它们通常太费时间。即使在理想的条件下，使用燧石和铁片来生火也需要至少3次动作，并且通常要更长。', isCanAdd: true },
+'Formula Book (Blank)': { name: '公式手册（Formula book，空白）', price: '1 gp', hold: '1', description: '负载：L <br> 公式手册中包含制作本章中除常用装备以外的物品所必需的公式，炼金术士通常能够免费得到一本。每个公式手册可以容纳最多100个不同物品的公式。公式也可以出现在羊皮纸、黑板和几乎任何其他介质上，只要你可以参阅它们就不需要将它们抄写到特定的书中。', isCanAdd: true },
+'Grappling Hook': { name: '爪钩（Grappling hook）', price: '1 sp', hold: '1', description: '负载：L <br> 你可以用绳子系上一个抓钩，以便更容易攀爬。要锚定一个抓钩，需要对目标进行一次秘密掷骰的攻击检定，通常至少为DC20。一旦成功，爪钩就会牢牢抓住目标，但是如果发生大失败时，爪钩表面上抓的很牢，一旦使用者爬到一半就会突然脱开。', isCanAdd: true },
+'Hammer': { name: '锤子（Hammer）', price: '1 sp', hold: '1', description: '负载：L <br>', isCanAdd: true },
+'Healer’s Tools': { name: '医疗工具（Healer’s tools）', price: '5 gp', hold: '-', description: '负载：1或2 <br> 这套绷带、草药和缝合工具是进行急救、治疗疾病、治疗毒药或治疗伤害的医疗检定所必需的。', isCanAdd: true },
+'Expanded Healer’s Tools (3rd level)': { name: '专家级医疗工具（Expanded healer’s tools，3级）', price: '50 gp', hold: '-', description: '负载：1或2 <br> 专家级医疗工具为此类检定提供+1物品加值。当你将这套工具转移地点时，你可以用口袋或药水带来随身携带这些组件。', isCanAdd: true },
+'Holly and Mistletoe': { name: '冬青和槲寄生（Holly and mistletoe）', price: '0', hold: '1', description: '负载：- <br> 具有超自然意义的植物为某些原能施法者（如德鲁伊）提供神力的焦点，以使用某些技能并施放一些法术。必须用一只手拿着一捆冬青和槲寄生才能使用它。对于专注于自然其他方面的德鲁伊来说，存在其他类型的原始神力焦点。', isCanAdd: true },
+'Hourglass': { name: '沙漏（Hourglass）', price: '3 gp', hold: '1', description: '负载：L <br>', isCanAdd: true },
+'Ladder (10 feet)': { name: '梯子（Ladder，10尺）', price: '3 cp', hold: '2', description: '负载：3 <br>', isCanAdd: true },
+'Lantern - Bull’s-eye': { name: '牛眼提灯（Bull’s-eye）', price: '1 gp', hold: '1', description: '负载：1 <br> 一盏提灯提供明亮光线并且需要1品脱油才能燃烧6小时。一个牛眼提灯在一个60英尺的锥形内发出光芒。', isCanAdd: true },
+'Lantern - Hooded': { name: '附盖提灯（Hooded）', price: '7 sp', hold: '1', description: '负载：L <br> 一个附盖提灯在30英尺半径范围内散发光线并配有百叶窗，你可以关闭它以阻挡光线。关闭或打开百叶窗需要一个【互动动作】。', isCanAdd: true },
+'Lock - Poor (0 level)': { name: '简陋锁（Poor lock，0级）', price: '2 sp', hold: '2', description: '负载：- <br> 打开简陋锁需要2次成功的DC15贼活检定', isCanAdd: true },
+'Lock - Simple (1st level)': { name: '简单锁（Simple lock，1级）', price: '2 gp', hold: '2', description: '负载：- <br> 简单锁需要三次成功的DC 20贼活检定', isCanAdd: true },
+'Lock - Average (3rd level)': { name: '普通锁（Average lock，3级）', price: '15 gp', hold: '2', description: '负载：- <br> 普通锁需要四次成功的DC 25贼活检定', isCanAdd: true },
+'Lock - Good (9th level)': { name: '优质锁（Good lock，9级）', price: '200 gp', hold: '2', description: '负载：- <br> 优质锁需要通过五次DC30检定', isCanAdd: true },
+'Magnifying Glass (3rd level)': { 
+    name: '放大镜（Magnifying glass，3级）', 
+    price: '40 gp', 
+    hold: '1', 
+    description: '负载：- <br> 这款手持式镜头为你寻找文档、织物及类似物体细节的察觉检定提供+1物品加值。', 
+    isCanAdd: true 
+  },
+  'Poor Manacles (0 level)': { 
+    name: '简陋手铐（Poor manacles，0级）', 
+    price: '3 sp', 
+    hold: '2', 
+    description: '负载：- <br> 根据生物的大小和你应用的手铐数量，你可以将一个愿意或以其他方式怜悯你的人铐起来，花费约10-30秒时间。一个双腿被铐住的的两足生物在速度上受到-15尺环境减值，并且双手被铐住的两手生物必须在任何进行操作动作的时候进行DC 5的纯粹检定，否则该动作将失败。根据手铐约束手的紧密程度，该DC可能更高。被铐到到静止物体上的生物不能移动。对于具有更多或更少肢体的生物，由GM确定手铐有什么效果。将一个生物从简陋手铐中解放出来需要两次成功的DC17贼活检定', 
+    isCanAdd: true 
+  },
+  'Simple Manacles (1st level)': { 
+    name: '简单手铐（Simple manacles，1级）', 
+    price: '3 gp', 
+    hold: '2', 
+    description: '负载：- <br> 简单的手铐需要三次成功的DC 22检定', 
+    isCanAdd: true 
+  },
+  'Average Manacles (3rd level)': { 
+    name: '普通手铐（Average manacles，3级）', 
+    price: '20 gp', 
+    hold: '2', 
+    description: '负载：- <br> 普通手铐需要在四次成功的DC27检定', 
+    isCanAdd: true 
+  },
+  'Good Manacles (9th level)': { 
+    name: '优质手铐（Good manacles，9级）', 
+    price: '250 gp', 
+    hold: '2', 
+    description: '负载：- <br> 优质手铐需要五次成功的DC32检定', 
+    isCanAdd: true 
+  },
+  'Superior manacles': {
+    name: '究极手铐',
+    price: '5000 gp',
+    hold: '2',
+    description: '负载：- <br> 而究极锁则需要通过六次DC40检定。',
+    isCanAdd: true
+  },
+  'Material component pouch': {
+    name: '施法材料包',
+    price: '5 sp',
+    hold: '1',
+    description: '负载：- <br> 这个小袋包含那些需要材料的法术的材料成分。虽然组分会随着时间的推移而耗尽，但你可以在休整期内重新补充用过的组分。',
+    isCanAdd: true
+  },
+  'Merchant’s scale': {
+    name: '商人天平',
+    price: '2 sp',
+    hold: '2',
+    description: '负载：- <br>',
+    isCanAdd: true
+  },
+  'Mirror': {
+    name: '镜子',
+    price: '1 gp',
+    hold: '1',
+    description: '负载：- <br>',
+    isCanAdd: true
+  },
+  'Mug': {
+    name: '杯子',
+    price: '1 cp',
+    hold: '1',
+    description: '负载：- <br> ',
+    isCanAdd: true
+  },
+  'Handheld musical instrument': {
+    name: '手持乐器',
+    price: '8 sp',
+    hold: '2',
+    description: '负载：1 <br> 手持乐器包括风笛、小套编钟、小鼓、小提琴和弦乐器、长笛和龠、小竖琴、琵琶、小号和类似大小的乐器。GM可能会裁定一个特别大的手持仪器（如大号）具有更大的负载。诸如大鼓、全套编钟和键盘乐器之类的大型乐器不太方便携带，并且通常在演奏时需要静止。',
+    isCanAdd: true
+  },
+  'Virtuoso handheld (3rd level)': {
+    name: '专家级手持乐器',
+    price: '50 gp',
+    hold: '2',
+    description: '负载：1 <br> 使用专家级乐器为表演检定提供+1物品加值。',
+    isCanAdd: true
+  },
+  'Heavy musical instrument': {
+    name: '大型乐器',
+    price: '2 gp',
+    hold: '2',
+    description: '负载：16 <br>',
+    isCanAdd: true
+  },
+  'Virtuoso heavy (3rd level)': {
+    name: '专家级大型乐器',
+    price: '100 gp',
+    hold: '2',
+    description: '负载：16 <br> 使用专家级乐器为表演检定提供+1物品加值。',
+    isCanAdd: true
+  },
+  'Oil (1 pint)': {
+    name: '油',
+    price: '1 cp',
+    hold: '2',
+    description: '负载：- <br> 你可以用油来为提灯加油，但你也可以点燃一品脱油然后把它扔出去。你必须首先花费一个【互动动作】来准备油，然后用另一个动作进行远程接触攻击扔出它。如果你命中目标，它会溅在这个生物上或者你所瞄准的一个5尺方格。你必须成功进行DC 10的纯粹检定才能使油在命中时成功点燃。如果油点燃，目标会受到1d6火焰伤害。',
+    isCanAdd: true
+  },
+  'Piton': {
+    name: '岩钉',
+    price: '1 cp',
+    hold: '1',
+    description: '负载：- <br> 这些小钉子可当做锚使用，使攀爬更容易。要固定一个岩钉，你必须用一只手握住它并用另一只手用一把锤子将它砸入。你可以在岩钉上缠绕一根绳子，这样你就不会在攀爬时发生重大事故时直直的摔在地上。',
+    isCanAdd: true
+  },
+  'Rations (1 week)': {
+    name: '口粮',
+    price: '4 sp',
+    hold: '1',
+    description: '负载：- <br>',
+    isCanAdd: true
+  },
+  'Wooden religious symbol': {
+    name: '木质圣徽',
+    price: '1 sp',
+    hold: '1',
+    description: '负载：- <br> 这个木质或银质的小片上印有代表神灵的图画。一些神术施法者，如牧师，可以使用圣徽作为神力的焦点来使用某些能力并施放一些法术。必须用一只手握住圣徽才能使用它。',
+    isCanAdd: true
+  },
+  'Silver religious symbol': {
+    name: '银质圣徽',
+    price: '2 gp',
+    hold: '1',
+    description: '负载：- <br>',
+    isCanAdd: true
+  },
+  'Religious text': {
+    name: '教典',
+    price: '1 gp',
+    hold: '1',
+    description: '负载：- <br> 这份小册子包含特定宗教的经文。一些神术施法者，如牧师，可以使用教典作为神力的焦点来使用某些能力并施放一些法术。必须用一只手握住教典才能使用它。',
+    isCanAdd: true
+  },
+  'Repair kit': {
+    name: '修理工具包',
+    price: '2 gp',
+    hold: '2',
+    description: '负载：1 <br> 维修工具包可让你在旅行时进行简单的维修。它包含便携式铁砧、钳子、木工工具、磨刀石和用于调理皮革和木材的油。你可以用修理工具包使用手艺技能修复物品。专家级修理工具包为你提供+1物品加值。',
+    isCanAdd: true
+  },
+  'Superb repair kit (3rd level)': {
+    name: '专家级修理工具包',
+    price: '25 gp',
+    hold: '2',
+    description: '负载：1 <br>',
+    isCanAdd: true
+  },
+  'Rope': {
+    name: '麻绳',
+    price: '5 sp',
+    hold: '2',
+    description: '负载：- <br>',
+    isCanAdd: true
+  },
+  'Sack (5)': {
+    name: '袋子',
+    price: '1 cp',
+    hold: '1',
+    description: '负载：- <br> 一个袋子最多可容纳8B物品。一个容纳2B或更少物品的袋子可以带在身上，通常挂在腰带上。你可以单手携带袋子，但必须用两只手将物品放入和取出。',
+    isCanAdd: true
+  },
+  'Saddlebags': {
+    name: '鞍囊',
+    price: '2 sp',
+    hold: '2',
+    description: '负载：- <br> 鞍囊成对出现。每个最多可以容纳3B物品。给出的负载值适用于被坐骑所携带的鞍囊。如果你抓着鞍囊，它们将被视1B而不是L。',
+    isCanAdd: true
+  },
+  'Signal whistle': {
+    name: '信号哨',
+    price: '8 cp',
+    hold: '1',
+    description: '负载：- <br> 当被吹响时，在开阔的乡田野可以清楚地听到半英里外的信号哨声。',
+    isCanAdd: true
+  },
+  'Snare kit': {
+    name: '陷阱工具包',
+    price: '5 gp',
+    hold: '2',
+    description: '负载：2 <br> 该工具包包含用于创建陷阱的工具和材料。陷阱工具包允许你使用手艺技能制作陷阱。',
+    isCanAdd: true
+  },
+  'Specialist snare kit (3rd level)': {
+    name: '专家级陷阱工具包',
+    price: '55 gp',
+    hold: '2',
+    description: '负载：2 <br> 专家级陷阱工具包为你提供+1物品加值。',
+    isCanAdd: true
+  },
+  'Soap': {
+    name: '肥皂',
+    price: '2 cp',
+    hold: '1',
+    description: '负载：- <br>',
+    isCanAdd: true
+  },
+  'Spellbook (blank)': {
+    name: '法术书',
+    price: '1 gp',
+    hold: '1',
+    description: '负载：1 <br> 法术书包含学习和准备各种法术所必需的书面知识，这是法师的必需品（通常会免费获得一本）和寻求学习额外法术的其他施法者的有用奢侈品。每本法术书最多可以容纳100个法术。此处列出的是一本空白的法术书的价格。',
+    isCanAdd: true
+  },
+  'Spyglass': {
+    name: '望远镜',
+    price: '20 gp',
+    hold: '2',
+    description: '负载：- <br> 典型的望远镜让你可以看到比正常远八倍的物体。优质望远镜为看清远处细节的察觉检定提供+1物品加值。',
+    isCanAdd: true
+  },
+  'Fine spyglass (3rd level)': {
+    name: '优质望远镜',
+    price: '80 gp',
+    hold: '2',
+    description: '负载：- <br>',
+    isCanAdd: true
+  },
+  'Tack': {
+    name: '鞍子',
+    price: '4 gp',
+    hold: '1',
+    description: '负载：- <br> 鞍子包括配备骑乘动物所需的所有装备，包括座鞍、嚼头和缰绳，以及必要时的脚镫。特别指出的是大型或奇形怪状的动物可能需要特殊的鞍子。根据GM的裁定，这些可能更昂贵或难以找到。给出的负载值是佩戴时的负载。如果你要携带它，负载增加到2B。',
+    isCanAdd: true
+  },
+  'Ten-foot pole': {
+    name: '十尺长杆',
+    price: '1 cp',
+    hold: '2',
+    description: '负载：- <br> 挥动这个长杆时，你可以使用【搜寻（Seek）】来搜索10尺内的一个方格。长杆不够坚固，无法被用作武器。',
+    isCanAdd: true
+  },
+  'Tent (Pup)': {
+    name: '小型帐篷',
+    price: '8 sp',
+    hold: '2',
+    description: '负载：- <br>',
+    isCanAdd: true
+  },
+  'Tent (Four-person)': {
+    name: '四人帐篷',
+    price: '5 gp',
+    hold: '2',
+    description: '负载：1 <br>',
+    isCanAdd: true
+  },
+  'Tent (Pavilion, 2nd level)': {
+    name: '行馆帐篷',
+    price: '40 gp',
+    hold: '2',
+    description: '负载：12 <br>',
+    isCanAdd: true
+  },
+  'Thieves’ tools': {
+    name: '盗贼工具',
+    price: '3 gp',
+    hold: '1或2',
+    description: '负载：- <br> 你需要盗贼工具包来使用贼活技能开锁锁或解除某些类型的装置。' ,
+    isCanAdd: true
+  },
+  'Replacement picks': {
+    name: '替换开锁器',
+    price: '3 sp',
+    hold: '-',
+    description: '负载：- <br>',
+    isCanAdd: true
+  },
+  'Infiltrator thieves’ tools (3rd level)': {
+    name: '专家级盗贼工具',
+    price: '50 gp',
+    hold: '1或2',
+    description: '负载：- <br> 专家级盗贼工具包为开锁和解除装置的检定增加了+1物品加值。如果你的盗贼工具损坏了，你可以用换上新的适合你工具的开锁器的方式来修理它们。这不需要使用修复操作。',
+    isCanAdd: true
+  },
+  'Infiltrator picks (3rd level)': {
+    name: '专家级替换开锁器',
+    price: '3 gp',
+    hold: '-',
+    description: '负载：- <br> 专家级盗贼工具包为开锁和解除装置的检定增加了+1物品加值。如果你的盗贼工具损坏了，你可以用换上新的适合你工具的开锁器的方式来修理它们。这不需要使用修复操作。',
+    isCanAdd: true
+  },
+  'Long tool': {
+    name: '长工具',
+    price: '1 gp',
+    hold: '1',
+    description: '负载：2 <br> 此条目对于没有特定冒险目的的基本手工工具来说很重要。锄头、铲子或大锤属于长工具，手钻、冰钩或抹子属于短工具。工具通常可被用作临时武器，短工具造成1d4伤害，长工具造成1d6伤害。由GM来决定合适的伤害类型并在需要的时候调整伤害。',
+    isCanAdd: true
+  },
+  'Short tool': {
+    name: '短工具',
+    price: '4 sp',
+    hold: '1或2',
+    description: '负载：- <br> 此条目对于没有特定冒险目的的基本手工工具来说很重要。锄头、铲子或大锤属于长工具，手钻、冰钩或抹子属于短工具。工具通常可被用作临时武器，短工具造成1d4伤害，长工具造成1d6伤害。由GM来决定合适的伤害类型并在需要的时候调整伤害。',
+    isCanAdd: true
+  },
+  'Torch': {
+    name: '火把',
+    price: '1 cp',
+    hold: '1',
+    description: '负载：- <br> 火把在20尺半径范围内散发出明亮的光芒（昏暗的光线照射到接下来的20尺）。它可以被用作临时武器，造成1d4钝击伤害加1点火焰伤害。',
+    isCanAdd: true
+  },
+  'Waterskin': {
+    name: '水袋',
+    price: '5 cp',
+    hold: '1',
+    description: '负载：- <br> 水袋装满时占用1B，能够提供小体型或中体型生物大约1天所需的水。',
+    isCanAdd: true
+  },
+  'Writing set': {
+    name: '书写套件',
+    price: '1 gp',
+    hold: '2',
+    description: '负载：- <br> 使用书写套件，你可以起草信件和抄写卷轴。一份套件包括文具、各种纸张和羊皮纸、墨水、羽毛笔或墨水笔、密封蜡以及简单的印章。如果你已经书写了很大的量，你可以用额外的墨水和纸张填充你的工具包。',
+    isCanAdd: true
+  },
+  'Extra ink and paper': {
+    name: '额外墨水和纸',
+    price: '1 sp',
+    hold: '1',
+    description: '负载：- <br>',
+    isCanAdd: true
+  },
+  'adventurerBaseJobKind': {
+    name: '【職業裝備包-以下】',
+    price: '',
+    hold: '',
+    isCanAdd: false,
+    description: ''
+  },
+  'adventurerBaseJobKind_1': {
+    name: '炼金术士装备包',
+    price: '8 gp，4 sp，2 cp',
+    hold: '-',
+    description: '负载：3B，7L <br> 护甲： 镶嵌皮甲（studded leather armor） <br>武器： 匕首（dagger），投石索（sling）和20枚投石索弹丸（sling bullet） <br> 装备： 冒险装备包（adventurer’s pack） <br> 炼金工具（alchemist’s tools） <br> 基础匠人书籍（basic crafter’s book） <br> 2组铁蒺藜（caltrops） <br> 可选： 修理工具包（repair kit，2gp）',
+    isCanAdd: true
+  },
+  'adventurerBaseJobKind_2': {
+    name: '野蛮人装备包',
+    price: '4 gp',
+    hold: '-',
+    description: '负载：3B，5L <br> 护甲： 革甲（hide armor） <br>武器： 4支标枪（javelin） <br> 装备： 冒险装备包（adventurer’s pack），爪钩（grappling hook） <br> 可选： 巨斧（2gp），巨木棒（1gp），巨剑（2gp），战斧和钢盾（3gp）',
+    isCanAdd: true
+  },
+  'adventurerBaseJobKind_3': {
+    name: '吟游诗人装备包',
+    price: '7 gp，5 sp，2 cp',
+    hold: '-',
+    description: '负载：4B，4L <br> 护甲： 镶嵌皮甲（studded leather armor） <br>武器： 匕首（dagger），细剑（rapier），投石索（sling）和20枚投石索弹丸（sling bullet） <br> 装备： 冒险装备包（adventurer’s pack），手持乐器（handheld instrument）',
+    isCanAdd: true
+  },
+  'adventurerBaseJobKind_4': {
+    name: '圣武士装备包',
+    price: '4 gp，7 sp',
+    hold: '-',
+    description: '负载：3B，7L <br> 护甲： 革甲（hide armor） <br>武器：  匕首（dagger），4支标枪（javelin） <br> 装备： 冒险装备包（adventurer’s pack），撬棍（crowbar），爪钩（grappling hook） <br> 可选： 钢盾（steel shield (2 gp)），你信仰的神祗的偏好武器（参见P437-441的神祗条目，使用本章所列的价格）',
+    isCanAdd: true
+  },
+  'adventurerBaseJobKind_5': {
+    name: '牧师装备包',
+    price: ' 2 gp，2 sp',
+    hold: '-',
+    description: '负载：3B，7L <br> 装备： 冒险装备包（adventurer’s pack），2组铁蒺藜（caltrops），木质圣徽（religious symbol (wooden)） <br> 炼金工具（alchemist’s tools） <br> 基础匠人书籍（basic crafter’s book） <br> 2组铁蒺藜（caltrops） <br> 可选： 你信仰的神祗的偏好武器（参见P437-441的神祗条目，使用本章所列的价格），革甲（hidearmor，2gp）',
+    isCanAdd: true
+  },
+  'adventurerBaseJobKind_6': {
+    name: '德鲁伊装备包',
+    price: '4 gp，4 sp',
+    hold: '-',
+    description: '负载：3B，7L <br> 护甲： 皮甲（leather armor） <br>武器： 4支标枪（javelin），长矛（longspear） <br> 装备： 冒险装备包（adventurer’s pack），冬青和槲寄生（holly and mistletoe） <br> 可选： 治疗工具（5gp）',
+    isCanAdd: true
+  },
+  'adventurerBaseJobKind_7': {
+    name: '战士装备包',
+    price: '3 gp，8 sp',
+    hold: '-',
+    description: '负载：3B，2L <br> 护甲：革甲（hide armor） <br>武器：匕首（dagger） <br> 装备：冒险装备包（adventurer’s pack），爪钩（grappling hook） <br> 可选： 巨剑（2gp），长弓（longbow）和20支箭（arrow）（6gp，2sp），长剑（longsword）和钢盾（steel shield）（3gp）',
+    isCanAdd: true
+  },
+  'adventurerBaseJobKind_8': {
+    name: '武僧装备包',
+    price: '5 gp，3 sp',
+    hold: '-',
+    description: '负载： 4B，2L <br> 护甲： <br>武器： 10只飞镖（dart） <br> 装备： 冒险装备包（adventurer’s pack），攀爬工具包（climbing kit），爪钩（grappling hook），次级发烟棒（lesser smokestick） <br> 可选：木杖（staff，0 sp），长矛（longspear，5sp） ',
+    isCanAdd: true
+  },
+  'adventurerBaseJobKind_9': {
+    name: '游侠装备包',
+    price: '3 gp，7 sp',
+    hold: '-',
+    description: '负载：3B，3L <br> 护甲： 皮甲（leather armor）<br>武器：匕首（dagger） <br> 装备：冒险装备包（adventurer’s pack） <br> 可选：长弓（longbow）和20支箭（arrow）（6gp，2sp），长剑（longsword）和钢盾（steel shield）（3gp），2把短剑（shortsword）（1 gp，8 sp），陷阱工具包（snarekit）（5 gp）。',
+    isCanAdd: true
+  },
+  'adventurerBaseJobKind_10': {
+    name: '盗贼装备包',
+    price: '6 gp，2 sp',
+    hold: '-',
+    description: '负载：4B，1L <br> 护甲：皮甲（leather armor） <br>武器：匕首（dagger），细剑（rapier） <br> 装备：冒险装备包（adventurer’s pack），攀爬工具包（climbing kit） <br> 可选： 盗贼工具（3gp）',
+    isCanAdd: true
+  },
+  'adventurerBaseJobKind_11': {
+    name: '术士装备包',
+    price: '2 gp，3 sp，2 cp',
+    hold: '-',
+    description: '负载：1B，6L <br>武器：匕首（dagger），投石索（sling）和20枚投石索弹丸（sling bullet） <br> 装备： 冒险装备包（adventurer’s pack），2组铁蒺藜（caltrops） ',
+    isCanAdd: true
+  },
+  'adventurerBaseJobKind_12': {
+    name: '法师装备包',
+    price: '3 gp',
+    hold: '-',
+    description: '负载：2B，2L  <br>武器：木杖（staff） <br> 装备：冒险装备包（adventurer’s pack），施法材料包（material component pouch），书写套件（writing set） <br> 可选：弩（crossbow）和20支弩矢（bolt）（3gp，2sp） ',
+    isCanAdd: true
+  },
+
 };
 
 //#endregion
@@ -224,10 +1244,10 @@ for (var key in weapons) {
     if(firstItem == false) {
       option.selected = true;
       firstItem = true;
-      document.getElementById("colName").textContent = weapons[key].name;
-      document.getElementById("colPrice").textContent = weapons[key].price;
-      document.getElementById("colHold").textContent = weapons[key].hold;
-      document.getElementById("colbottom").textContent = weapons[key].description;
+      document.getElementById("colName").innerHTML = weapons[key].name;
+      document.getElementById("colPrice").innerHTML = weapons[key].price;
+      document.getElementById("colHold").innerHTML = weapons[key].hold;
+      document.getElementById("colbottom").innerHTML = weapons[key].description;
     }
 
     selectElement.add(option);
@@ -249,26 +1269,36 @@ for (var key in weapons) {
 function changeCategory() {
   var selectCategoryElement = document.getElementById('category').value;    
   if(selectCategoryElement == 'weapon') {
-    addWeaponList();
+    addItemsObjectList(weapons);   
+    showItemObject(weapons); 
   }
   else if(selectCategoryElement == 'armor') {
-    addArmorList();
+    addItemsObjectList(armors);    
+    showItemObject(armors);
+  }
+  else if(selectCategoryElement == 'shield') {
+    addItemsObjectList(shields)
+    showItemObject(shields);
   }
   else if(selectCategoryElement == 'item') {
-    addItemsList();
+    addItemsObjectList(items);
+    showItemObject(items);
   }
 }
 
 function changeItems() {
   var selectCategoryElement = document.getElementById('category').value;    
-  if(selectCategoryElement == 'weapon') {
-    showWeapon();
+  if(selectCategoryElement == 'weapon') {    
+    showItemObject(weapons);
   }
   else if(selectCategoryElement == 'armor') {
-    showArmor();
+    showItemObject(armors);    
   }
-  else if(selectCategoryElement == 'item') {
-    showItem();
+  else if(selectCategoryElement == 'shield') {
+    showItemObject(shields);    
+  }
+  else if(selectCategoryElement == 'item') {    
+    showItemObject(items);
   }
 }
 
@@ -278,7 +1308,7 @@ function addItem() {
   var selectCategoryElement = document.getElementById('category').value;  
   var selectedItem = document.getElementById('items').value;
   
-  // 獲取物品資訊（這裡是硬編碼的，實際上可能需要從後端或其他來源獲取）
+  // 獲取物品資訊
   var itemInfo;
   if(selectCategoryElement == 'weapon') {
     itemInfo = weapons[selectedItem];
@@ -307,81 +1337,61 @@ function addItem() {
   priceCell.textContent = itemInfo.price;
   newRow.appendChild(priceCell); 
 
+  // 添加移除按钮
+  var removeButton = document.createElement('button');
+  removeButton.textContent = '移除';
+  removeButton.addEventListener('click', function() {
+    // 移除相應的行
+    document.getElementById('itemTableBody').removeChild(newRow);
+  });
+  var removeCell = document.createElement('td');
+  removeCell.appendChild(removeButton);
+  newRow.appendChild(removeCell);
+
   // 將新的表格行添加到表格中
   document.getElementById('itemTableBody').appendChild(newRow);
 }
 
-//填充武器資料
-function addWeaponList() {
+//填充類型對應的物件資料
+function addItemsObjectList(list) {
   var selectElement = document.getElementById('items');
   selectElement.innerHTML = '';
-  for (var key in weapons) {
-    if (weapons.hasOwnProperty(key)) {
+  for (var key in list) {
+    if (list.hasOwnProperty(key)) {
       var option = document.createElement('option');
       option.value = key;
-      option.text = weapons[key].name;
-      selectElement.add(option);
-    }
-  }
-}
-
-//顯示單一武器資料
-function showWeapon() {
-  var key = document.getElementById('items').value;  
-  document.getElementById("colName").textContent = weapons[key].name;
-  document.getElementById("colPrice").textContent = weapons[key].price;
-  document.getElementById("colHold").textContent = weapons[key].hold;
-  document.getElementById("colbottom").textContent = weapons[key].description;
-}
-
-
-
-//填充盔甲資料
-function addArmorList() {
-  var selectElement = document.getElementById('items');
-  selectElement.innerHTML = '';
-  for (var key in armors) {
-    if (armors.hasOwnProperty(key)) {
-      var option = document.createElement('option');
-      option.value = key;
-      option.text = armors[key].name;
-      selectElement.add(option);
-    }
-  }
-}
-
-//顯示單一盔甲資料
-function showArmor() {
-  var key = document.getElementById('items').value;  
-  document.getElementById("colName").textContent = armors[key].name;
-  document.getElementById("colPrice").textContent = armors[key].price;
-  document.getElementById("colHold").textContent = armors[key].hold;
-  document.getElementById("colbottom").textContent = armors[key].description;
-}
-
-
-//填充道具資料
-function addItemsList() {
-  var selectElement = document.getElementById('items');
-  selectElement.innerHTML = '';
-  for (var key in items) {
-    if (items.hasOwnProperty(key)) {
-      var option = document.createElement('option');
-      option.value = key;
-      option.text = items[key].name;
+      option.text = list[key].name;
       selectElement.add(option);
     }
   }
 }
 
 //顯示單一道具資料
-function showItem() {
+function showItemObject(list) {  
   var key = document.getElementById('items').value;  
-  document.getElementById("colName").textContent = items[key].name;
-  document.getElementById("colPrice").textContent = items[key].price;
-  document.getElementById("colHold").textContent = items[key].hold;
-  document.getElementById("colbottom").textContent = items[key].description;
+  
+    document.getElementById("colName").innerHTML  = list[key].name;
+    document.getElementById("colPrice").innerHTML  = list[key].price;
+    document.getElementById("colHold").innerHTML  = list[key].hold;
+    document.getElementById("colbottom").innerHTML  = list[key].description;
+  
 }
 
+//下載成PDF
+function downloadPDF() {
+  const table = document.getElementById('itemTable');
+  
+  html2canvas(table).then(canvas => {
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF();
+    
+    const imgWidth = 208;
+    const imgHeight = canvas.height * imgWidth / canvas.width;
+    
+    const pdfMargin = 10;
+    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth , imgHeight );
+    pdf.save('pathfinderItemslist.pdf');
+  });
+}
 
 </script>
