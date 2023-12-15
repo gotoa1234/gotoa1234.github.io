@@ -1,63 +1,78 @@
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
 
+  th, td {
+    border: 1px solid #000000;
+    text-align: left;
+    padding: 8px;
+  }
+
+  th {
+    background-color: gainsboro;
+  }
+
+  .column {
+    flex: 1;
+    border: 1px solid #000000;
+    text-align: left;
+    padding: 8px;
+    white-space: pre-line;
+  }
+
+
+</style>
 
 <h2>物品清單</h2>
-
-<!-- 下拉式選單 -->
-<!-- <label for="items">選擇道具：</label> -->
-<!-- <select id="items">  
-</select> -->
-
-<!-- 新增按鈕 -->
-<button onclick="addItem()">新增</button>
-
-<!-- 表格 -->
-<table id="itemTable">
-  <thead>
-    <tr>
-      <th>道具名稱</th>
-      <th>價格</th>
-      <th>占用手<th>
-      <th>說明</th>
-    </tr>
-  </thead>
-  <tbody id="itemTableBody">
-    <!-- 這裡將新增的物品放入 -->
-  </tbody>
-</table>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RWD Example</title>
-
-</head>
-<body>
   <div class="container">
     <div class="left-panel">
       <div class="buttons">
-        <select id="category">  
+        <select id="category" onchange="changeCategory()">  
         </select>
-        <select id="items">  
+        <select id="items" onchange="changeItems()">  
         </select>
         <button onclick="addItem()">新增</button>
       </div>
     </div>
     <div class="right-panel">
-      <div class="top-row">
-        <div class="column">Column 1</div>
-        <div class="column">Column 2</div>
-        <div class="column">Column 3</div>
-      </div>
-      <div class="bottom-row">
-        <p>12932038021832109830912huifwheifuwehfuiwehfiehfiweifhievajsiovjisavjioasjvoajsviosajviosjaiovjaoivjiosavjosajvsoavjoi</p>
-        <!-- Content for the bottom row -->
-      </div>
+      <table>
+        <thead>
+          <th>物品名稱：</th>
+          <th>價格：</th>
+          <th>占用手：</th>
+        </thead>
+
+        <tr class="top-row">
+          <td class="column"><span id="colName"></span></td>
+          <td class="column"><span id="colPrice"></span></td>
+          <td class="column"><span id="colHold"></span></td>
+        </tr>        
+        <tr class="bottom-row">
+          <td colspan="3"  id="colbottom">
+            <!-- Content for the bottom row -->
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- 表格 -->
+    <br>
+    <br>
+    <div>
+      <table id="itemTable">
+        <thead>
+          <tr>
+            <th>道具名稱</th>
+            <th>價格</th>      
+          </tr>
+        </thead>
+        <tbody id="itemTableBody">
+          <!-- 這裡將新增的物品放入 -->
+        </tbody>
+      </table>
     </div>
   </div>
-</body>
-</html>
 
 
 <script>
@@ -80,10 +95,100 @@ var weapons = {
 
 // 盔甲表
 var armors = {
-  'armor1': { name: '盔甲1', price: '100', hold: '1', description: '這是物品1的說明' , isCanAdd: false },
-  'armor2': { name: '盔甲2', price: '150', hold: '1', description: '這是物品2的說明' , isCanAdd: true},
-  'armor3': { name: '盔甲3', price: '200', hold: '1', description: '這是物品3的說明' , isCanAdd: true }
+  'noArmor': {
+    name: '無護甲',
+    price: '-',
+    hold: '-',
+    isCanAdd: false,
+    description: 'AC加值：+0 \n 敏捷上限：- ▉ 檢定減值：- ▉ 速度減值：- ▉ 負載：- ▉ 護甲組：- ▉ 護甲特徵：-'
+  },
+  'explorerClothing': {
+    name: '探險者服裝',
+    price: '1sp',
+    hold: '-',
+    isCanAdd: true,
+    description: 'AC加值：+0 <br> 敏捷上限：+5 ▉ 檢定減值：- ▉ 速度減值：- ▉ 負載：L ▉ 護甲組：布料 ▉ 護甲特徵：舒適'
+  },
+  'paddedArmor': {
+    name: '布甲',
+    price: '2sp',
+    hold: '-',
+    isCanAdd: true,
+    description: 'AC加值：+1 ▉ 敏捷上限：+3 ▉ 檢定減值：- ▉ 速度減值：- ▉ 力量：10 ▉ 負載：10 ▉ 護甲組：布料 ▉ 護甲特徵：舒適'
+  },
+  'leatherArmor': {
+    name: '皮甲',
+    price: '2gp',
+    hold: '-',
+    isCanAdd: true,
+    description: 'AC加值：+1 ▉ 敏捷上限：+4 ▉ 檢定減值：-1 ▉ 速度減值：- ▉ 力量：10 ▉ 負載：10 ▉ 護甲組：皮甲 ▉ 護甲特徵：-'
+  },
+  'studdedLeatherArmor': {
+    name: '鑲嵌皮甲',
+    price: '3gp',
+    hold: '-',
+    isCanAdd: true,
+    description: 'AC加值：+2 ▉ 敏捷上限：+3 ▉ 檢定減值：-1 ▉ 速度減值：- ▉ 力量：12 ▉ 負載：12 ▉ 護甲組：皮甲 ▉ 護甲特徵：-'
+  },
+  'chainShirt': {
+    name: '鍊甲衫',
+    price: '5gp',
+    hold: '-',
+    isCanAdd: true,
+    description: 'AC加值：+2 ▉ 敏捷上限：+3 ▉ 檢定減值：-1 ▉ 速度減值：- ▉ 力量：12 ▉ 負載：12 ▉ 護甲組：鍊甲 ▉ 護甲特徵：柔韌，嘈雜'
+  },
+  'hideArmor': {
+    name: '革甲',
+    price: '2gp',
+    hold: '-',
+    isCanAdd: true,
+    description: 'AC加值：+3 ▉ 敏捷上限：+2 ▉ 檢定減值：-2 ▉ 速度減值：-5尺 ▉ 力量：14 ▉ 負載：14 ▉ 護甲組：皮甲 ▉ 護甲特徵：-'
+  },
+  'scaleMail': {
+    name: '鱗甲',
+    price: '4gp',
+    hold: '-',
+    isCanAdd: true,
+    description: 'AC加值：+3 ▉ 敏捷上限：+2 ▉ 檢定減值：-2 ▉ 速度減值：-5尺 ▉ 力量：14 ▉ 負載：14 ▉ 護甲組：複合甲 ▉ 護甲特徵：-'
+  },
+  'chainMail': {
+    name: '鍊甲',
+    price: '6gp',
+    hold: '-',
+    isCanAdd: true,
+    description: 'AC加值：+4 ▉ 敏捷上限：+1 ▉ 檢定減值：-2 ▉ 速度減值：-5尺 ▉ 力量：16 ▉ 負載：16 ▉ 護甲組：鍊甲 ▉ 護甲特徵：柔韌，嘈雜'
+  },
+  'breastplate': {
+    name: '胸甲',
+    price: '8gp',
+    hold: '-',
+    isCanAdd: true,
+    description: 'AC加值：+4 ▉ 敏捷上限：+1 ▉ 檢定減值：-2 ▉ 速度減值：-5尺 ▉ 力量：16 ▉ 負載：16 ▉ 護甲組：板甲 ▉ 護甲特徵：-'
+  },
+  'splintMail': {
+    name: '板條甲（1級）',
+    price: '13gp',
+    hold: '-',
+    isCanAdd: true,
+    description: 'AC加值：+5 ▉ 敏捷上限：+1 ▉ 檢定減值：-3 ▉ 速度減值：-10尺 ▉ 力量：16 ▉ 負載：16 ▉ 護甲組：複合甲 ▉ 護甲特徵：-'
+  },
+  'halfPlate': {
+    name: '半身甲（1級）',
+    price: '18gp',
+    hold: '-',
+    isCanAdd: true,
+    description: 'AC加值：+5 ▉ 敏捷上限：+1 ▉ 檢定減值：-3 ▉ 速度減值：-10尺 ▉ 力量：16 ▉ 負載：16 ▉ 護甲組：板甲 ▉ 護甲特徵：-'
+  },
+  'fullPlate': {
+    name: '全身甲（2級）',
+    price: '30gp',
+    hold: '-',
+    isCanAdd: true,
+    description: 'AC加值：+6 ▉ 敏捷上限：+0 ▉ 檢定減值：-3 ▉ 速度減值：-10尺 ▉ 力量：18 ▉ 負載：4 ▉ 護甲組：板甲 ▉ 護甲特徵：壁壘'
+  }
 };
+
+
 
 // 道具表
 var items = {
@@ -95,39 +200,95 @@ var items = {
 //#endregion
 
 //#region 初始化配置
+
+//1. 初始種類
 var selectCategoryElement = document.getElementById('category');
 for (var key in categories) {
   if (categories.hasOwnProperty(key)) {
     var option = document.createElement('option');
-    option.value = key;
-    debugger;
-    option.text = weapons[key].value;
+    option.value = key;    
+    option.text = categories[key];
     selectCategoryElement.add(option);
   }
 }
 
+//2. 道具
 var selectElement = document.getElementById('items');
-// Loop through the items object and create options
+var firstItem = false;
 for (var key in weapons) {
   if (weapons.hasOwnProperty(key)) {
     var option = document.createElement('option');
     option.value = key;
     option.text = weapons[key].name;
+    
+    if(firstItem == false) {
+      option.selected = true;
+      firstItem = true;
+      document.getElementById("colName").textContent = weapons[key].name;
+      document.getElementById("colPrice").textContent = weapons[key].price;
+      document.getElementById("colHold").textContent = weapons[key].hold;
+      document.getElementById("colbottom").textContent = weapons[key].description;
+    }
+
     selectElement.add(option);
   }
 }
 
+//3. 選擇第一個道具顯示
+//var selectElementFirstItem = document.getElementById('yourSelectElementId'); // 替換為實際的<select>元素ID
+// 找到當前被選中的<option>
+//var selectedFirstOption = selectElementFirstItem.querySelector('option[selected]');
+
+
+
+
+
 //#endregion
 
+// 更新種類時替換對應物品
+function changeCategory() {
+  var selectCategoryElement = document.getElementById('category').value;    
+  if(selectCategoryElement == 'weapon') {
+    addWeaponList();
+  }
+  else if(selectCategoryElement == 'armor') {
+    addArmorList();
+  }
+  else if(selectCategoryElement == 'item') {
+    addItemsList();
+  }
+}
+
+function changeItems() {
+  var selectCategoryElement = document.getElementById('category').value;    
+  if(selectCategoryElement == 'weapon') {
+    showWeapon();
+  }
+  else if(selectCategoryElement == 'armor') {
+    showArmor();
+  }
+  else if(selectCategoryElement == 'item') {
+    showItem();
+  }
+}
 
 
 function addItem() {
-  // 獲取選擇的物品資訊
-  debugger;
+  // 獲取選擇的物品資訊  
+  var selectCategoryElement = document.getElementById('category').value;  
   var selectedItem = document.getElementById('items').value;
   
   // 獲取物品資訊（這裡是硬編碼的，實際上可能需要從後端或其他來源獲取）
-  var itemInfo = items[selectedItem];
+  var itemInfo;
+  if(selectCategoryElement == 'weapon') {
+    itemInfo = weapons[selectedItem];
+  }
+  else if(selectCategoryElement == 'armor') {
+    itemInfo = armors[selectedItem];
+  }
+  else if(selectCategoryElement == 'item') {
+    itemInfo = items[selectedItem];
+  }
 
   if(itemInfo.isCanAdd == false )
   {
@@ -144,20 +305,83 @@ function addItem() {
 
   var priceCell = document.createElement('td');
   priceCell.textContent = itemInfo.price;
-  newRow.appendChild(priceCell);
-
-  var holdCell = document.createElement('td');
-  holdCell.textContent = itemInfo.hold;
-  newRow.appendChild(holdCell);
-
-  var descriptionCell = document.createElement('td');
-  descriptionCell.textContent = itemInfo.description;
-  newRow.appendChild(descriptionCell);
+  newRow.appendChild(priceCell); 
 
   // 將新的表格行添加到表格中
   document.getElementById('itemTableBody').appendChild(newRow);
 }
 
+//填充武器資料
+function addWeaponList() {
+  var selectElement = document.getElementById('items');
+  selectElement.innerHTML = '';
+  for (var key in weapons) {
+    if (weapons.hasOwnProperty(key)) {
+      var option = document.createElement('option');
+      option.value = key;
+      option.text = weapons[key].name;
+      selectElement.add(option);
+    }
+  }
+}
+
+//顯示單一武器資料
+function showWeapon() {
+  var key = document.getElementById('items').value;  
+  document.getElementById("colName").textContent = weapons[key].name;
+  document.getElementById("colPrice").textContent = weapons[key].price;
+  document.getElementById("colHold").textContent = weapons[key].hold;
+  document.getElementById("colbottom").textContent = weapons[key].description;
+}
+
+
+
+//填充盔甲資料
+function addArmorList() {
+  var selectElement = document.getElementById('items');
+  selectElement.innerHTML = '';
+  for (var key in armors) {
+    if (armors.hasOwnProperty(key)) {
+      var option = document.createElement('option');
+      option.value = key;
+      option.text = armors[key].name;
+      selectElement.add(option);
+    }
+  }
+}
+
+//顯示單一盔甲資料
+function showArmor() {
+  var key = document.getElementById('items').value;  
+  document.getElementById("colName").textContent = armors[key].name;
+  document.getElementById("colPrice").textContent = armors[key].price;
+  document.getElementById("colHold").textContent = armors[key].hold;
+  document.getElementById("colbottom").textContent = armors[key].description;
+}
+
+
+//填充道具資料
+function addItemsList() {
+  var selectElement = document.getElementById('items');
+  selectElement.innerHTML = '';
+  for (var key in items) {
+    if (items.hasOwnProperty(key)) {
+      var option = document.createElement('option');
+      option.value = key;
+      option.text = items[key].name;
+      selectElement.add(option);
+    }
+  }
+}
+
+//顯示單一道具資料
+function showItem() {
+  var key = document.getElementById('items').value;  
+  document.getElementById("colName").textContent = items[key].name;
+  document.getElementById("colPrice").textContent = items[key].price;
+  document.getElementById("colHold").textContent = items[key].hold;
+  document.getElementById("colbottom").textContent = items[key].description;
+}
 
 
 </script>
