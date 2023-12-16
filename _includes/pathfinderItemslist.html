@@ -1314,10 +1314,13 @@ function addItem() {
   else if(selectCategoryElement == 'armor') {
     itemInfo = armors[selectedItem];
   }
+  else if(selectCategoryElement == 'shield') {
+    itemInfo = shields[selectedItem];
+  }
   else if(selectCategoryElement == 'item') {
     itemInfo = items[selectedItem];
   }
-
+  
   if(itemInfo.isCanAdd == false )
   {
     return;
