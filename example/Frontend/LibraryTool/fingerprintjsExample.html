@@ -36,7 +36,7 @@
 	<H2>參考係數 (共39種)</H2>
     <table border="1">
         <thead>
-            <tr style="text-align:left">
+            <tr style="text-align:left">			    
                 <th>參數名稱</th>
                 <th>細項參數</th>
 				<th>數值</th>
@@ -46,35 +46,29 @@
     </table>
 	
 <script>
-  // Initialize the agent at application startup.
-  // If you're using an ad blocker or Brave/Firefox, this import will not work.
-  // Please use the NPM package instead: https://t.ly/ORyXk
+
+
   const fpPromise = import('https://openfpcdn.io/fingerprintjs/v4')
     .then(FingerprintJS => FingerprintJS.load())
-
-  // Get the visitor identifier when you need it.
-  fpPromise
-    //.then(fp => fp.get())  //<= 預設全部的語法
-	.then(fp => fp.get({ components: {     fonts: true,
-    plugins: false,
-    platform: true,
-    audio: false,
-    canvas: false,
-    webgl: false,
-    audio: false,
-    enumerateDevices: false,
-    hardwareConcurrency: false } }))
+  
+  fpPromise    
+	.then(fp => fp.get({ 
+	  extendedResult: true,
+	//以下為所有可用的組件 (v4.2.1版本)
+  }))
     .then(result => {
-      // This is the visitor identifier:
-      const visitorId = result.visitorId
-	  var jsonString = JSON.stringify(result);
-console.log(jsonString);
-      
+   
+      //DeleteComponents(result);
+   
 	  getBaseInfo(result);
       getConfidence(result);
-	  getComponents(result)
+	  getComponents(result);
 	  
-      console.log(visitorId)
+      return fpPromise.then(fp => fp.get());
+    })  
+	.then(result => {
+    const visitorId2 = result.visitorId;
+    console.log(visitorId2);  // 移除所有组件后的 visitorId
     })
 	
 	function getBaseInfo(result)
@@ -754,7 +748,7 @@ console.log(jsonString);
 		for(var i = 0 ; i < tableBody.rows.length; i++)
 		{
 		   if(tableBody.rows[i].cells[0].innerHTML != innertHtmlMsg)
-		   {
+		   {		       
 		       if(currentColor == '')
 			      currentColor = 'Cyan';
 			   else
@@ -766,22 +760,35 @@ console.log(jsonString);
 		
 	}
 	
+	function DeleteComponents(result)
+	{
+	   // 删除指定组件
+       delete result.components.applePay;
+       delete result.components.architecture;
+       delete result.components.canvas;
+       delete result.components.colorDepth;
+       delete result.components.colorGamut;
+       delete result.components.contrast;
+       delete result.components.cookiesEnabled;
+       delete result.components.cpuClass;
+       delete result.components.deviceMemory;
+       delete result.components.domBlockers;
+       delete result.components.fontPreferences;
+       delete result.components.fonts;
+       delete result.components.forcedColors;
+       delete result.components.hardwareConcurrency;
+       delete result.components.hdr;
+       delete result.components.indexedDB;
+       delete result.components.invertedColors;
+       delete result.components.languages;
+       delete result.components.localStorage;
+       delete result.components.math;
+       delete result.components.monochrome;
+       delete result.components.openDatabase;
+       delete result.components.osCpu;
+       delete result.components.plugins;
+	}
+	
 </script>
-    <script>
-        <!-- Fingerprint2.get(function(result){ -->
-            <!-- console.log("設備指紋：" + result); -->
-
-            <!-- // 將 key-value 對應關係顯示在表格中 -->
-            <!-- var tableBody = document.getElementById('fingerprintTableBody'); -->
-            <!-- for (var key in result) { -->
-                <!-- var row = tableBody.insertRow(); -->
-                <!-- var cell1 = row.insertCell(0); -->
-                <!-- var cell2 = row.insertCell(1); -->
-
-                <!-- cell1.innerHTML = result[key].key; -->
-                <!-- cell2.innerHTML = result[key].value; -->
-            <!-- } -->
-        <!-- }); -->
-    </script>
 </body>
 </html>
