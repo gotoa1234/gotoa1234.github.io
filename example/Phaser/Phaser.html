@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cellular Automaton Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    const config = {
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        scene: {
+            create: create,
+            update: update
+        }
+    };
+
+    const game = new Phaser.Game(config);
+
+    const cellSize = 10;
+    const numRows = Math.floor(config.height / cellSize);
+    const numCols = Math.floor(config.width / cellSize);
+    let grid = createGrid();
+    function createGrid() {
+        const grid = [];
+        for (let i = 0; i < numRows; i++) {
+            grid[i] = [];
+            for (let j = 0; j < numCols; j++) {
+                grid[i][j] = Math.random() > 0.5 ? 1 : 0; // 隨機初始化細胞狀態
+            }
+        }
+        return grid;
+    }
+
+    function create() {
+        for (let i = 0; i < numRows; i++) {
+            for (let j = 0; j < numCols; j++) {
+                 const color = grid[i][j] === 1 ? 0xffffff : 0x000000;
+                         //   this.add.rectangle(j * cellSize, i * cellSize, cellSize, cellSize, color);
+				 const cell = this.add.rectangle(j * cellSize, i * cellSize, cellSize, cellSize, color);
+				 cell.setStrokeStyle(1, 0xFFFF00);
+            }
+        } 
+    }
+
+    function update() {
+        const newGrid = createGrid();
+
+        for (let i = 0; i < numRows; i++) {
+            for (let j = 0; j < numCols; j++) {
+                const neighbors = countNeighbors(i, j);
+                if (grid[i][j] === 1 && (neighbors < 2 || neighbors > 3)) {
+                    newGrid[i][j] = 0; // 當前細胞死亡
+                } else if (grid[i][j] === 0 && neighbors === 3) {
+                    newGrid[i][j] = 1; // 當前細胞復活
+                } else {
+                    newGrid[i][j] = grid[i][j]; // 保持不變
+                }
+            }
+        }
+        
+        grid = newGrid; // 更新到新的狀態        	
+        // 更新畫面		
+        this.children.getChildren().forEach((child, idx) => {
+            const i = Math.floor(idx / numCols);
+            const j = idx % numCols;   
+            child.fillColor = grid[i][j] === 1 ? 0xffffff : 0x000000;
+        });
+    }
+
+    function countNeighbors(row, col) {
+    let count = 0;
+    for (let i = -1; i <= 1; i++) {
+        for (let j = -1; j <= 1; j++) {
+            const r = (row + i + numRows) % numRows;
+            const c = (col + j + numCols) % numCols;
+            count += grid[r][c];
+        }
+    }
+    count -= grid[row][col]; // 排除自身細胞
+    return count;
+}
+</script>
+
+</body>
+</html>
