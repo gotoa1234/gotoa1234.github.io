@@ -101,7 +101,18 @@
 
       <!--右側-->
       <div class="col-sm-9">
-        {% for post in site.posts limit:10 %}
+        <!--找出今天以前的資料-->
+        {% assign today = site.time | date: '%s' | plus: 0 %}
+        {% assign filtered_posts = "" | split: "" %}
+        {% for post in site.posts %}
+          {% assign post_date = post.date | date: '%s' | plus: 0 %}
+            {% if post_date <= today %}
+              {% assign filtered_posts = filtered_posts | push: post %}
+            {% endif %}
+        {% endfor %}
+
+        <!--顯示10筆最新的資料-->
+        {% for post in filtered_posts limit:10 %}
         <div class="gridmag-grid-post my-1">
           <h2 class="gridmag-grid-post-title ">
             <a class="h2" href="{{ post.url }}"" rel="bookmark">{{ post.title }}</a>

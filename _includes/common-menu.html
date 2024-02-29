@@ -35,9 +35,20 @@
 <!-- 中間橫幅資訊-->
 <h2 class="gridmag-header-heading ">
   <div class="gridmag-header-heading-inside">
-    <p> 目前文章總數：{{ site.posts | size }} 篇 </p>
+    <!--找出今天以前的資料-->
+    {% assign today = site.time | date: '%s' | plus: 0 %}
+    {% assign filtered_posts = "" | split: "" %}
+    {% for post in site.posts %}
+      {% assign post_date = post.date | date: '%s' | plus: 0 %}
+        {% if post_date <= today %}
+          {% assign filtered_posts = filtered_posts | push: post %}
+        {% endif %}
+    {% endfor %}
+
+    
+    <p> 目前文章總數：{{ filtered_posts | size }} 篇 </p>
     &emsp;&emsp;
-    {% for post in site.posts limit:1 %}
+    {% for post in filtered_posts limit:1 %}
     <p> 最後更新：{{ post.date | date: "%Y年 %m月 %d日" }} </p>
     {% endfor %}
   </div>
