@@ -104,15 +104,16 @@
         <!--找出今天以前的資料-->
         {% assign today = site.time | date: '%s' | plus: 0 %}
         {% assign filtered_posts = "" | split: "" %}
+        {% assign sorted_filtered_posts = filtered_posts | sort: 'date' %}
         {% for post in site.posts %}
           {% assign post_date = post.date | date: '%s' | plus: 0 %}
             {% if post_date <= today %}
-              {% assign filtered_posts = filtered_posts | push: post %}
+              {% assign sorted_filtered_posts = sorted_filtered_posts | push: post %}
             {% endif %}
         {% endfor %}
 
         <!--顯示10筆最新的資料-->
-        {% for post in filtered_posts limit:10 %}
+        {% for post in sorted_filtered_posts limit:10 %}
         <div class="gridmag-grid-post my-1">
           <h2 class="gridmag-grid-post-title ">
             <a class="h2" href="{{ post.url }}"" rel="bookmark">{{ post.title }}</a>
