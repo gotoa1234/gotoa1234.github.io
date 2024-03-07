@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cellular Automaton Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+     const config = {
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        scene: {
+		   preload: preload,
+            create: create,
+            update: update
+        }
+    };
+	const game = new Phaser.Game(config);
+    //var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+
+	function preload() {
+    game.load.image('background', 'https://via.placeholder.com/800x600');
+    game.load.image('icon1', 'https://via.placeholder.com/200');
+    game.load.image('icon2', 'https://via.placeholder.com/200');
+    game.load.image('icon3', 'https://via.placeholder.com/200');
+    game.load.image('spinButton', 'https://via.placeholder.com/200');
+}
+	
+    var reels = [];
+    var icons = ['icon1', 'icon2', 'icon3'];
+    var resultText;
+    var spinButton;	
+
+    function create() {
+        game.add.sprite(0, 0, 'background');
+
+        for (var i = 0; i < 3; i++) {
+            var reel = game.add.group();
+
+            for (var j = 0; j < 3; j++) {
+                var icon = game.add.sprite(i * 200 + 150, j * 200 + 100, getRandomIcon());
+                reel.add(icon);
+            }
+
+            reels.push(reel);
+        }
+
+        resultText = game.add.text(400, 500, '', { fontSize: '32px', fill: '#fff' });
+
+        spinButton = game.add.button(350, 450, 'spinButton', spinReels, this, 2, 1, 0);
+    }
+
+    function update() {
+    if (spinButton.input.pointerOver()) {
+        spinReels();
+    }
+}
+
+    function spinReels() {
+        for (var i = 0; i < 3; i++) {
+            var reel = reels[i];
+            var spinDuration = 2000 + i * 500;
+            game.add.tween(reel).to({ y: reel.y - 200 }, spinDuration, Phaser.Easing.Bounce.Out, true, 0, 0, true);
+        }
+
+        setTimeout(function() {
+            checkResult();
+        }, 3000);
+    }
+
+    function getRandomIcon() {
+        return icons[Math.floor(Math.random() * icons.length)];
+    }
+
+    function checkResult() {
+        var results = [];
+        for (var i = 0; i < reels.length; i++) {
+            var reel = reels[i];
+            var children = reel.children;
+            var result = children[Math.floor(Math.random() * children.length)].key;
+            results.push(result);
+        }
+
+        var resultStr = results.join(' - ');
+        resultText.text = 'Result: ' + resultStr;
+    }
+</script>
+
+</body>
+</html>
