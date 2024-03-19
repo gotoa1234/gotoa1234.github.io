@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button >1. 建立資料庫</button>
+</body>
+</html>
+
+<script>
+
+
+
+// 1. 建立資料庫
+function createDataBase() {
+  // 打開資料庫
+  var request = indexedDB.open("myDatabase", 1);
+  
+  // 資料庫版本升級處理
+  request.onupgradeneeded = function(event) {
+    var db = event.target.result;
+    var objectStore = db.createObjectStore("customers", { keyPath: "id" });
+    objectStore.createIndex("name", "name", { unique: false });
+  };
+  
+  // 資料庫打開成功處理
+  request.onsuccess = function(event) {
+    console.log("資料庫已建立");
+  };
+  
+  // 資料庫打開失敗處理
+  request.onerror = function(event) {
+    console.error("資料庫無法建立");
+  };
+}
+
+// 2. 建立資料庫索引
+function createIndexStruct() {
+}
+
+// 3. 新增、修改資料與查詢
+function InsertRowdata() {
+  // 新增資料
+  var request = objectStore.add({ id: 1, name: "John", email: "john@example.com" });
+  request.onsuccess = function(event) {
+    console.log("資料新增成功");
+  };
+}
+
+function UpdateRowdata() {
+  // 修改資料
+  var request = objectStore.put({ id: 1, name: "John Doe", email: "john@example.com" });
+  request.onsuccess = function(event) {
+    console.log("資料修改成功");
+  };
+}
+
+function QueryRowdata() {
+  // 查詢資料
+  var request = objectStore.get(1);
+  request.onsuccess = function(event) {
+  var customer = request.result;
+  if (customer) {
+      console.log("找到客戶：" + customer.name);
+    } else {
+      console.log("找不到客戶");
+    }
+  };
+}
+
+
+//4. 刪除資料表資料
+function DeleteRowdata() {
+  var request = db.transaction(["customers"], "readwrite")
+                .objectStore("customers")
+                .delete(1);
+request.onsuccess = function(event) {
+  console.log("資料刪除成功");
+};
+}
+
+//5. 刪除資料庫
+function EmptyDatabase() {
+  // 關閉資料庫連接並刪除
+  db.close();
+  var deleteRequest = indexedDB.deleteDatabase("myDatabase");
+  deleteRequest.onsuccess = function() {
+    console.log("資料庫已刪除");
+  };
+  deleteRequest.onerror = function() {
+    console.error("資料庫無法刪除");
+  };
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+// 獲取按鈕元素
+  var button = document.getElementById("myButton");
+
+  // 添加點擊事件的監聽器
+  button.addEventListener("click", myFunction);
+
+  // JavaScript 函數
+  function myFunction() {
+    alert("這是我的 JavaScript 函數！");
+  }
+
+});
+
+</script>
