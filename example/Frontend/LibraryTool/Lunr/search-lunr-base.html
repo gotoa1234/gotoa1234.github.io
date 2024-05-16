@@ -1,0 +1,143 @@
+<script src="../../../../script/lunr/lunr.js"></script>
+
+<script>
+    var documents = [{
+      "name": "Lunr",
+      "text": "Like Solr, but much smaller, and not as bright."
+    }, {
+      "name": "React",
+      "text": "A JavaScript library for building user interfaces."
+    }, {
+      "name": "Lodash",
+      "text": "A modern JavaScript utility library delivering modularity, performance & extras."
+    }, {
+      "name": "HTML",
+      "text": "JavaScript 是一個成熟的動態程式語言，應用於HTML 文件（document）"
+    }, {
+      "name": "Javascript",
+      "text": "JavaScript 是一個成熟的動態程式語言，應用於HTML 文件（document）"
+    }, {
+	  "name": "Test",
+      "text": "JavaScript JavaProgram 123f53. ehubz,ewui" 
+	}]
+    
+    // 1-1. lunr 基本搜索
+    var idx = lunr(function () {
+      this.ref('name')
+      this.field('text')
+    
+      documents.forEach(function (doc) {
+        this.add(doc)
+      }, this)
+    })
+	
+	// 1-2. 轉換對應查詢方法
+	function MatchSearch(term, searchName) {
+	    switch(searchName) {
+		case 'base':
+		    return term;		    
+		case 'wildcards':		    
+		    return '*' + term + '*';//包含
+		case 'fields':	
+            return 'text:' + term;//只查指定 fields
+		case 'boots':		    
+		    return term + '^10';//增加10倍權重
+		case 'fuzzy':		
+            return term + '~1'; //1個char的模糊
+		case 'presence':		    
+		    return '+' + term + ' -JavaProgram';// 包含查詢的內容 && 不包含有 a 字母的資料
+		}
+		return term;
+	}
+    
+    // 2. 轉成畫面上的 Table 顯示
+    function createTable() {
+        var table = document.createElement("table");
+        var headerRow = document.createElement("tr");
+         table.style.borderCollapse = "collapse";
+		 
+        // Create header cells
+        for (var key in documents[0]) {
+            var headerCell = document.createElement("th");
+            headerCell.textContent = key;
+		    headerCell.style.border = "1px solid #dddddd";
+            headerRow.appendChild(headerCell);
+        }
+        table.appendChild(headerRow);
+        
+        // Create data rows
+        documents.forEach(function(documentItems) {
+            var row = document.createElement("tr");
+            for (var key in documentItems) {
+                var cell = document.createElement("td");
+                cell.textContent = documentItems[key];
+				cell.style.border = "1px solid #dddddd";
+                row.appendChild(cell);
+            }
+            table.appendChild(row);
+        });
+        
+        return table;
+    }
+    
+    // 3-1. lunr 的查詢結果顯示成條列
+    function lunr_search(term, searchName) {
+        document.getElementById('lunrsearchresults').innerHTML = '<ul></ul>';
+        if(term) {
+            // 3-2. 替換為搜尋方式的字詞
+			term = MatchSearch(term, searchName);
+			var results = idx.search(term);
+            document.getElementById('lunrsearchresults').innerHTML = "<p>共" + results.length + "筆，如下：</p>" + document.getElementById('lunrsearchresults').innerHTML;
+            //put results on the screen.
+            if (results.length > 0) {               
+                for (var i = 0; i < results.length; i++) {
+                    var ref = results[i]['ref'];
+                    var name = documents.find(doc => doc.name === ref).name;
+                    var text = documents.find(doc => doc.name === ref).text;
+                    document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML = document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML + "<li class='lunrsearchresult'><a href=''><span class='title'>" + (i + 1) + ". " + name + "</span><br /><span class='body'>" + text + "</span><br /><span class='url'></span></a></li>";
+                }
+            } else {
+                document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML = "<li class='lunrsearchresult'>查無結果</li>";
+            }
+        }
+        return false;
+    }
+
+// 4. 初始化-載入畫面上當前所有資料
+window.onload = function() {
+    document.getElementById("contentboard").appendChild(createTable());
+}
+
+</script>
+<style>
+    #lunrsearchresults {padding-top: 0.2rem;}
+    .lunrsearchresult {padding-bottom: 1rem;}
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form>
+    <div id="buttonWrapper" style="display: flex;">
+	    <p><button type="button" onclick="lunr_search(document.getElementById('lunrsearch').value , 'base');">Lunr 基本搜索</button></p>
+		<p><button type="button" onclick="lunr_search(document.getElementById('lunrsearch').value , 'wildcards');">通配符(wildcards) 搜索</button></p>
+		<p><button type="button" onclick="lunr_search(document.getElementById('lunrsearch').value , 'fields');">字段(fields) 搜索</button></p>
+		<p><button type="button" onclick="lunr_search(document.getElementById('lunrsearch').value , 'boots');">權重提升(boosts) 搜索</button></p>
+		<p><button type="button" onclick="lunr_search(document.getElementById('lunrsearch').value , 'fuzzy');">模糊匹配(fuzzy matches) 搜索</button></p>
+		<p><button type="button" onclick="lunr_search(document.getElementById('lunrsearch').value , 'presence');">指定關鍵詞(term presence) 搜索</button></p>
+    </div>
+	<p><input type="text" class="form-control" id="lunrsearch" name="q" maxlength="255" value="" placeholder="查詢關鍵字" /></p>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<br/><br/><hr><br/><br/>
+
+<div id="contentboard">
+    
+</div>
