@@ -1,4 +1,4 @@
-<script src="../../../../script/lunr/lunr.js"></script>
+<script src="../../../../script/lunr/lunr-chinese.js"></script>
 
 <script>
     var documents = [{
@@ -45,7 +45,7 @@
 		case 'fuzzy':		
             return term + '~1'; //1個char的模糊
 		case 'presence':		    
-		    return '+' + term + ' -JavaProgram';// 包含查詢的內容 && 不包含有 a 字母的資料
+		    return '+' + term + ' +JavaProgram';// 包含查詢的內容 && 包含有 JavaProgram 資料
 		}
 		return term;
 	}
