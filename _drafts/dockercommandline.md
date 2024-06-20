@@ -109,5 +109,20 @@
 這些指令涵蓋了 Docker 使用中的常見操作，可以幫助你有效地管理 Docker 容器和映像檔。
 
 
+### 額外指令
 
+1. **啟動所有容器**
 docker start $(docker ps -a -q)
+
+
+2. **移除 Docker Build 暫存快取**
+docker builder prune
+
+2-1. **查找 Ubuntu 根目錄的空間**
+du -h --max-depth=1 / | sort -rh
+
+2-2. **查找某一層 EX: /var 的空間**
+du -h --max-depth=1 /var | sort -rh
+
+2-3. **查看所有 Docker 空間使用量**
+docker system df
