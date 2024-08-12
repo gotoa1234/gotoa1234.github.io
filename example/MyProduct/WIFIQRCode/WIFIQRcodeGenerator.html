@@ -4,28 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WiFi QR Code 線上產生器</title>
+    <title>WIFI QR Code 自動連線產生器</title>
     <script src="qrcode.min.js"></script>
 </head>
 <body>
-    <h1>WiFi QR Code Generator</h1>
+    <h1>WIFI QR Code 自動連線產生器</h1>
+    <form id="wifiForm">
+        <label for="ssid">SSID (WiFi 名稱):</label><br>
+        <input type="text" id="ssid" name="ssid" required><br><br>
+
+        <label for="password">Password(WiFi 密碼):</label><br>
+        <input type="password" id="password" name="password"><br><br>
+
+        <label for="encryption">Encryption Type(加密類型):</label><br>
+        <select id="encryption" name="encryption">
+            <option value="WPA">WPA/WPA2</option>
+            <option value="WEP">WEP</option>
+            <option value="nopass">None (Open Network)</option>
+        </select><br><br>
+
+        <button type="button" onclick="generateQRCode()">Generate QR Code</button>
+    </form>
+
     <canvas id="canvas"></canvas>
 
     <script>
-        // WiFi 信息
-        const ssid = "Mesh_ChenFamily";
-        const password = "xxx";
-        const encryption = "WPA"; // WPA 或 WEP
+        function generateQRCode() {
+            // 获取用户输入的值
+            const ssid = document.getElementById("ssid").value;
+            const password = document.getElementById("password").value;
+            const encryption = document.getElementById("encryption").value;
 
-        // 创建WiFi QR Code数据
-        const wifiQRCodeData = `WIFI:T:${encryption};S:${ssid};P:${password};;`;
+            // 创建WiFi QR Code数据
+            const wifiQRCodeData = `WIFI:T:${encryption};S:${ssid};P:${password};;`;
 
-        // 生成并显示QR Code
-        const canvas = document.getElementById("canvas");
-        QRCode.toCanvas(canvas, wifiQRCodeData, function (error) {
-            if (error) console.error(error);
-            console.log('QR Code 生成完成!');
-        });
+            // 生成并显示QR Code
+            const canvas = document.getElementById("canvas");
+            QRCode.toCanvas(canvas, wifiQRCodeData, function (error) {
+                if (error) console.error(error);
+                console.log('QR Code 生成完成!');
+            });
+        }
     </script>
 </body>
 </html>
