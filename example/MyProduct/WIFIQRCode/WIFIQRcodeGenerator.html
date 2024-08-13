@@ -2,12 +2,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 1. 引入 qrcode.min.js -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WIFI QR Code 自動連線產生器</title>
     <script src="qrcode.min.js"></script>
 </head>
 <body>
+    <!-- 2. 用戶輸入的 Form 區塊 -->
     <h1>WIFI QR Code 自動連線產生器</h1>
     <form id="wifiForm">
         <label for="ssid">SSID (WiFi 名稱):</label><br>
@@ -24,26 +26,41 @@
         </select><br><br>
 
         <button type="button" onclick="generateQRCode()">Generate QR Code</button>
+        <button id="downloadBtn" style="display: none;" onclick="downloadQRCode()">Download QR Code Image</button>
     </form>
 
     <canvas id="canvas"></canvas>
 
     <script>
+        // 3. 產生QR Code
         function generateQRCode() {
-            // 获取用户输入的值
+            // 3-1. 取得用戶輸入的值
             const ssid = document.getElementById("ssid").value;
             const password = document.getElementById("password").value;
             const encryption = document.getElementById("encryption").value;
 
-            // 创建WiFi QR Code数据
+            // 3-2. 建立 WiFi QR Code 數據
             const wifiQRCodeData = `WIFI:T:${encryption};S:${ssid};P:${password};;`;
 
-            // 生成并显示QR Code
+            // 3-3. 產生 QR Code
             const canvas = document.getElementById("canvas");
-            QRCode.toCanvas(canvas, wifiQRCodeData, function (error) {
+            QRCode.toCanvas(canvas, wifiQRCodeData, {width: 300, height:300 },function (error) {
                 if (error) console.error(error);
                 console.log('QR Code 生成完成!');
+
+                // 3-4. 產生成功時，才顯示下載按鈕
+                document.getElementById("downloadBtn").style.display = "inline-block";
             });
+        }
+
+        // 4. 下載 QR Code 的圖片
+        function downloadQRCode() {
+            const canvas = document.getElementById("canvas");
+            const link = document.createElement("a");
+            const ssid = document.getElementById("ssid").value;
+            link.href = canvas.toDataURL("image/png");
+            link.download = "wifi_qrcode_"+ ssid +".png";
+            link.click();
         }
     </script>
 </body>
