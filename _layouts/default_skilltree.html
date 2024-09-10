@@ -6,6 +6,18 @@
   {% include common-head.html %}
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <script src="\assets\mermaid.js\mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+    startOnLoad: true,  // 自動啟動 Mermaid
+    theme: 'forest',   // 主題設置 (default, dark, forest, neutral)
+    packet: {
+      showBits: false,
+      paddingX: 8,
+      bitWidth: 40,
+      paddingY: 8,
+    }
+    });
+  </script>
 </head>
 
 <script>
@@ -16,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function(){
     createHtml += 'packet-beta \n';    
     var tagArray = [];
     var tagDictionary = {};
+    let currentPackageIndex = 0;
+    let moveIndex = 0;
     {% for post in site.posts %}
        {% for tag in post.tags %}
           tagItem = '{{ tag }}';
@@ -23,55 +37,48 @@ document.addEventListener("DOMContentLoaded", function(){
           //Dictionary
           if(tagArray.indexOf(tagItem) === -1)
           {
+            //文字
             tagArray.push(tagItem);
-            tagDictionary[tagItem] = tagItem.length;        
+
+            //先計算起訖
+            let pedSize =  (tagItem.length % 8 === 0) ? tagItem.length / 8 : Math.floor(tagItem.length / 8) + 1;
+            moveIndex = currentPackageIndex + pedSize;
+            tagDictionary[tagItem] = [currentPackageIndex, moveIndex];
+            currentPackageIndex = moveIndex + 1; 
           }
-       {% endfor %}
-      
+       {% endfor %}      
     {% endfor %};
 
-    let currentPackageIndex = 0;
-    let moveIndex = 0;
-    let blockSize = 32;
-    tagArray.forEach(tagItem =>{
-        let pedSize = (tagDictionary[tagItem] % 8 === 0) ? tagDictionary[tagItem] / 8 : Math.floor(tagDictionary[tagItem] / 8) + 1;
-
-        let remind = (currentPackageIndex + 1) % blockSize;
-        if((remind + pedSize) > blockSize)
-        {
-           moveIndex = (blockSize - remind) + pedSize;
-        }
-        else
-        {
-          moveIndex = pedSize + currentPackageIndex;
-        }
-
-        createHtml += currentPackageIndex + '-' + moveIndex + ':' + ' "' + tagItem + '" \n';        
-        currentPackageIndex = moveIndex + 1;
-    });
-    createHtml += '</div>';
-    debugger;
-    // createHtml += '<div class="mermaid" markdown="0" >' + '\n' +
-    //               'graph TD \n' +
-    //               'A[Client] -->|tcp_123| B(Load Balancer) \n' +
-    //               'B -->|tcp_456| C[Server1] \n' +
-    //               'B -->|tcp_456| D[Server2] \n' +
-    //               '</div>';
-
-    /*
-        <div class="mermaid" markdown="0" >
-        packet-beta
-        0-15: "Source Port"
-        16-31: "Destination Port"                
-        32-33: "12345678"
-        34-39: "1"
-        40-63: "工程師測試"                
-    </div>
     
+    let blockSize = 32;
+    let pedCount = 0;
+    for(let index = 0; index < tagArray.length; index++)
+    {
+       let currentItem =  tagDictionary[tagArray[index]];
+       let currentStart = currentItem[0] + pedCount;
+       let currentEnd = currentItem[1] + pedCount;
 
-    */
+       if((index + 1) < tagArray.length)
+       {
+        if(tagArray[index + 1] === 'DotNETRuntime')
+        {
+          let temp = 3+6;
+          debugger;
+        }
+          let nextItem =  tagDictionary[tagArray[index + 1]];
+          let nextStart = nextItem[0] + pedCount;
+          let nextEnd = nextItem[1] + pedCount;
+          if((nextStart % 32) > (nextEnd % 32))
+          {
+            let countMove = 31 -((currentEnd) % 32);
+            currentEnd = currentEnd + countMove;
+            pedCount += countMove;
+          }
+       }
+       createHtml += currentStart + '-' + currentEnd + ':' + ' "' + tagArray[index] + '" \n';
+    }
+    createHtml += '</div>';
     div.innerHTML = createHtml;
-    //mermaid.init(undefined, div.querySelectorAll('.mermaid'));
 });
 
 //展開縮放Tr項目
