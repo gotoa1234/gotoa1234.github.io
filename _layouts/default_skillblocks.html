@@ -16,7 +16,7 @@
       bitWidth: 40,
       paddingY: 8,
     }
-    });
+  });
   </script>
 </head>
 
@@ -60,24 +60,21 @@ document.addEventListener("DOMContentLoaded", function(){
 
        if((index + 1) < tagArray.length)
        {
-        if(tagArray[index + 1] === 'DotNETRuntime')
-        {
-          let temp = 3+6;
-          debugger;
-        }
           let nextItem =  tagDictionary[tagArray[index + 1]];
           let nextStart = nextItem[0] + pedCount;
           let nextEnd = nextItem[1] + pedCount;
-          if((nextStart % 32) > (nextEnd % 32))
+          if((nextStart % blockSize) > (nextEnd % blockSize))
           {
-            let countMove = 31 -((currentEnd) % 32);
+            //31 是因為索引關係 = blockSize - 1
+            let countMove = 31 -((currentEnd) % blockSize);
             currentEnd = currentEnd + countMove;
             pedCount += countMove;
           }
        }
        createHtml += currentStart + '-' + currentEnd + ':' + ' "' + tagArray[index] + '" \n';
-    }
+    }  
     createHtml += '</div>';
+    debugger;
     div.innerHTML = createHtml;
 });
 
@@ -117,8 +114,7 @@ function CollapseTableTr(trName)
           </h2>
 
         </div>
-        <div id="post_right_main">
-            <!--此為Template 會被Js替換-->  
+        <div id="post_right_main">            
         </div>
       </div>
 

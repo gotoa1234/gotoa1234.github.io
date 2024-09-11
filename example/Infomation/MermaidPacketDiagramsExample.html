@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.min.js"></script>     -->
+    <script src="\assets\mermaid.js\mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({
+      startOnLoad: true,  
+      theme: 'forest',   // 主題設置 => 改成森林 (default, dark, forest, neutral)
+      packet: {
+        showBits: false, // 是否顯示 Bit 數字 => 改成隱藏
+        paddingX: 8,// 垂直間距 => 改成  8 px
+        bitWidth: 40,//區塊大小 => 改成 40 px
+        paddingY: 8,// 水平間距 => 改成  8 px
+      }
+    });
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="mermaid" markdown="0" >
+        packet-beta
+        0-15: "Source Port"
+        16-31: "Destination Port"
+        32-63: "Sequence Number"
+        64-95: "Acknowledgment Number"
+        96-99: "Data Offset"
+        100-105: "Reserved"
+        106: "URG"
+        107: "ACK"
+        108: "PSH"
+        109: "RST"
+        110: "SYN"
+        111: "FIN"
+        112-127: "Window"
+        128-143: "Checksum"
+        144-159: "Urgent Pointer"
+        160-191: "(Options and Padding)"
+        192-255: "Data (variable length)"
+    </div>
+</body>
+</html>
