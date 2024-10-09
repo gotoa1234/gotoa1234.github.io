@@ -100,6 +100,22 @@ function ResponsiveWebDesignFunction(){
 <body>
   {% include common-menu.html %}
 
+  {% if page.mermaid %}
+    <script src="\assets\mermaid.js\mermaid.min.js"></script>
+      <script>
+        mermaid.initialize({
+        startOnLoad: true,  // 自動啟動 Mermaid
+        theme: 'forest',   // 主題設置 (default, dark, forest, neutral)
+        packet: {
+          showBits: false,
+          paddingX: 8,
+          bitWidth: 40,
+          paddingY: 8,
+        }
+      });
+    </script>
+  {% endif %}
+
   <!--固定視窗-->
   <div class="my-4"> 
     <div id="anchor_link_left_menu" class="anchor-menu left-window position-fixed  ">
