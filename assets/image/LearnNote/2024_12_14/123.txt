@@ -1,0 +1,53 @@
+執行 -> systeminfo 檢查自己的組件
+
+
+1. 嘗試參照
+https://github.com/dotnet/aspire/issues/1650
+
+2. 啟用 Wsl2 虛擬平台
+dism.exe /Online /Enable-Feature /FeatureName:VirtualMachinePlatform
+
+https://learn.microsoft.com/zh-tw/windows/wsl/install
+
+
+3. 我們公司是舊版系統，請依照 Microsoft 指示安裝
+https://learn.microsoft.com/en-us/windows/wsl/install-manual#step-1---enable-the-windows-subsystem-for-linux
+
+
+4. 轉為 WSL 版本 2
+wsl --set-default-version 2
+
+5. PowerShell 輸入指令
+Add-AppxPackage .\Ubuntu2204-221101.AppxBundle
+
+
+https://medium.com/@S3CloudHub./install-ubuntu-on-windows-subsystem-for-linux-wsl-with-ease-ea0d7f7bc173
+
+6. 安裝 WSL1 Ubuntu 20.04 的 Docker 
+sudo apt update
+sudo apt install docker.io
+
+7. 參閱文章 手動安裝
+https://docs.docker.com/engine/install/ubuntu/#install-from-a-package
+
+7. (可選) 手動安裝最佳教學
+https://hands-on.cloud/docker/install-ubuntu/
+
+8. 安裝
+
+sudo dpkg -i ./containerd.io_1.7.22-1_amd64.deb \
+./docker-ce_27.3.1-1_ubuntu.20.04_focal_amd64.deb \
+./docker-ce-cli_27.3.1-1_ubuntu.20.04_focal_amd64.deb \
+./docker-buildx-plugin_0.17.1-1_ubuntu.20.04_focal_amd64.deb \
+./docker-compose-plugin_2.29.7-1_ubuntu.20.04_focal_amd64.deb
+
+
+9. 啟動
+sudo service docker start
+
+10. 一定要加 sudo 才有權限
+sudo docker info 
+
+11. 因此一定要設定
+sudo usermod -aG docker ${USER}
+
