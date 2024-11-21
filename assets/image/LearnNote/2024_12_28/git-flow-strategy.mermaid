@@ -1,0 +1,30 @@
+%%{init: { 'gitGraph': {'rotateCommitLabel': false, 'showCommitLabel': true}} }%%
+gitGraph
+    commit id: "Initial"
+    branch stage
+    checkout stage
+    branch qat
+    checkout qat
+    branch dev
+    checkout dev
+    branch "feature/A"
+    commit id: "feat(A): start"
+    commit id: "feat(A): complete"
+    checkout dev
+    merge "feature/A" id: "merge A to dev"
+    checkout qat
+    merge dev id: "merge to QAT" tag: "QA testing"
+    branch "hotfix/B"
+    commit id: "fix(B): urgent fix"
+    branch "qat-hotfix"
+    commit id: "fix(B): QA verified"
+    branch "stage-hotfix"
+    commit id: "fix(B): stage verified"
+    checkout main
+    merge "stage-hotfix" id: "emergency release" tag: "v1.0.1"
+    checkout qat
+    merge "feature/A" id: "feature A verified"
+    checkout stage
+    merge qat id: "merge to stage"
+    checkout main
+    merge stage id: "next release" tag: "v1.1.0"
