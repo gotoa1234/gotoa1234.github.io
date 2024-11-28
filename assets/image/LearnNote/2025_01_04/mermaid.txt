@@ -1,0 +1,40 @@
+gitGraph
+    commit
+    branch staging
+    commit
+    branch Qat
+    commit
+    branch develop
+    commit
+    branch feature
+    commit
+    branch workflow
+    commit
+    checkout develop
+    merge workflow
+    checkout Qat
+    merge workflow
+    checkout staging
+    merge workflow
+    checkout main
+    merge workflow
+    checkout feature
+    commit
+    checkout develop
+    merge feature
+    checkout Qat
+    merge develop
+    checkout staging
+    merge Qat
+    checkout main
+    merge staging
+    checkout workflow
+    commit
+    checkout develop
+    merge workflow
+    checkout Qat
+    merge workflow
+    checkout staging
+    merge workflow
+    checkout main
+    merge workflow
