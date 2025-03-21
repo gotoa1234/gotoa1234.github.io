@@ -9,17 +9,22 @@
 
 <url>
   <loc>https://gotoa1234.github.io/</loc>
-  <lastmod>2025-03-15T07:42:26+00:00</lastmod>
+  <lastmod>2025-03-22T07:42:26+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://gotoa1234.github.io/history.html</loc>
-  <lastmod>2025-03-15T07:42:26+00:00</lastmod>
+  <lastmod>2025-03-22T07:42:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://gotoa1234.github.io/summary.html</loc>
-  <lastmod>2025-03-15T07:42:26+00:00</lastmod>
+    <lastmod>2025-03-22T07:42:26+00:00</lastmod>
+  <priority>0.50</priority>
+</url>
+<url>
+  <loc>https://gotoa1234.github.io/2025/03/22/1.html</loc>
+  <lastmod>2025-03-22T07:42:26+00:00</lastmod>
   <priority>0.50</priority>
 </url>
 <url>
