@@ -25,7 +25,10 @@ services:
       - KAFKA_KRAFT_CLUSTER_ID=abcdefghijklmnopqrstuv
     volumes:
       - kafka_data_0:/bitnami/kafka
-	  - ./kafka-init:/docker-entrypoint-initdb.d
+      - type: bind
+        source: ./kafka-init
+        target: /docker-entrypoint-initdb.d
+        read_only: false
     restart: unless-stopped
 
   kafka-1:
@@ -52,7 +55,7 @@ services:
       
       - KAFKA_KRAFT_CLUSTER_ID=abcdefghijklmnopqrstuv
     volumes:
-      - kafka_data_1:/bitnami/kafka	  
+      - kafka_data_1:/bitnami/kafka
     restart: unless-stopped
 
   kafka-2:
@@ -79,7 +82,7 @@ services:
       
       - KAFKA_KRAFT_CLUSTER_ID=abcdefghijklmnopqrstuv
     volumes:
-      - kafka_data_2:/bitnami/kafka	  
+      - kafka_data_2:/bitnami/kafka
     restart: unless-stopped
 
   kafka-ui:
