@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阿里山兩天一夜森林之旅</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2e8b57, #228b22);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '⛰️';
+            font-size: 60px;
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            opacity: 0.2;
+        }
+
+        .header::after {
+            content: '🌲';
+            font-size: 60px;
+            position: absolute;
+            top: 50%;
+            right: 30%;
+            transform: translate(50%, -50%);
+            opacity: 0.2;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .day-section {
+            padding: 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .day-section:last-child {
+            border-bottom: none;
+        }
+
+        .day-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .day-number {
+            background: linear-gradient(135deg, #2e8b57, #228b22);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .navigation-link {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+        }
+
+        .navigation-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 184, 148, 0.4);
+            background: linear-gradient(135deg, #00a085, #00b894);
+        }
+
+        .navigation-link::before {
+            content: '🗺️ ';
+            margin-right: 8px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #2e8b57, #228b22);
+        }
+
+        .activity {
+            position: relative;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .activity:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .activity::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 25px;
+            width: 12px;
+            height: 12px;
+            background: #2e8b57;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .activity-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2e8b57, #228b22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+        }
+
+        .activity-icon.station { background: linear-gradient(135deg, #74b9ff, #0984e3); }
+        .activity-icon.driving { background: linear-gradient(135deg, #fd79a8, #e84393); }
+        .activity-icon.restaurant { background: linear-gradient(135deg, #fdcb6e, #e17055); }
+        .activity-icon.coffee { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+        .activity-icon.hotel { background: linear-gradient(135deg, #00b894, #00a085); }
+        .activity-icon.nature { background: linear-gradient(135deg, #55a3ff, #2d3436); }
+        .activity-icon.train { background: linear-gradient(135deg, #ff7675, #d63031); }
+        .activity-icon.sunrise { background: linear-gradient(135deg, #ffeaa7, #fdcb6e); }
+        .activity-icon.forest { background: linear-gradient(135deg, #00b894, #55a3ff); }
+        .activity-icon.oldstreet { background: linear-gradient(135deg, #a29bfe, #74b9ff); }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .time {
+            font-weight: bold;
+            color: #d63031;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time::before {
+            content: '🕐';
+            font-size: 1rem;
+        }
+
+        .location {
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .location a {
+            color: #2e8b57;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            border-bottom: 2px dotted transparent;
+        }
+
+        .location a:hover {
+            color: #228b22;
+            border-bottom-color: #228b22;
+        }
+
+        .description {
+            color: #636e72;
+            font-size: 0.95rem;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            border-left: 4px solid #ff6b35;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .highlight .title {
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .special-note {
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
+            border-left: 4px solid #e84393;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            color: #2d3436;
+        }
+
+        .special-note .note-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .special-note .note-title::before {
+            content: '⚠️';
+        }
+
+        .tips {
+            background: linear-gradient(135deg, #a8e6cf, #88d8a3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .tips h3 {
+            color: #00b894;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tips h3::before {
+            content: '💡';
+            font-size: 1.2rem;
+        }
+
+        .tips ul {
+            list-style: none;
+            color: #2d3436;
+        }
+
+        .tips li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .tips li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00b894;
+            font-weight: bold;
+        }
+
+        .driving-time {
+            background: #f8f9fa;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-top: 10px;
+        }
+
+        .driving-time::before {
+            content: '🚗 ';
+        }
+
+        .train-info {
+            background: #e3f2fd;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #1565c0;
+            margin-top: 10px;
+        }
+
+        .train-info::before {
+            content: '🚂 ';
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .day-section {
+                padding: 20px;
+            }
+            
+            .timeline {
+                padding-left: 30px;
+            }
+            
+            .activity::before {
+                left: -25px;
+            }
+
+            .activity {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .activity-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>阿里山兩天一夜森林之旅</h1>
+            <div class="subtitle">高鐵出發，直奔山林秘境</div>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">
+                <div class="day-number">1</div>
+                <span>第一天：高鐵出發，直奔山林秘境</span>
+            </div>
+            
+            <a href="https://www.google.com/maps/dir/Chiayi,+No.+168%E9%AB%98%E9%90%B5%E8%A5%BF%E8%B7%AF%E5%A4%AA%E4%BF%9D%E5%B8%82,+%E5%98%89%E7%BE%A9%E7%B8%A3+Taiwan/%E5%8F%B0%E7%81%A3%E5%98%89%E7%BE%A9%E7%B8%A3%E9%98%BF%E9%87%8C%E5%B1%B1%E9%84%89,+%E6%B8%B8%E8%8A%AD%E7%B5%B2%E9%84%92%E5%AE%B4%E9%A4%90%E5%BB%B3/%E5%8F%B0%E7%81%A3%E5%98%89%E7%BE%A9%E7%B8%A3%E9%98%BF%E9%87%8C%E5%B1%B1%E9%84%89%E5%9B%9B%E9%84%B0129-6%E8%99%9F,+%E9%98%BF%E5%B0%87%E7%9A%84%E5%AE%B623%E5%92%96%E5%95%A1%E9%A4%A8/%E5%8F%B0%E7%81%A3%E5%98%89%E7%BE%A9%E7%B8%A3%E9%98%BF%E9%87%8C%E5%B1%B1%E9%84%89,+1+%E9%84%B0+8+%E4%B9%8B+1+%E8%99%9F,+%E5%AF%8C%E9%A0%86%E8%A3%BD%E8%8C%B6%E5%BB%A0/data=!4m26!4m25!1m5!1m1!1s0x346e2982411f5d91:0xb808f1ca81c2f1f1!2m2!1d120.32282!2d23.459249999999997!1m5!1m1!1s0x346ec07bba7fb657:0x3e7e755f906f1f3d!2m2!1d120.65752339999999!2d23.399740599999998!1m5!1m1!1s0x346ef032f4409875:0x2d4a28a855dcde3e!2m2!1d120.6980397!2d23.461221899999998!1m5!1m1!1s0x346e8e52f5f0b0d7:0x25b66b9d38a3d6f5!2m2!1d120.70326999999999!2d23.472135599999998!3e0" class="navigation-link" target="_blank">第一天完整導航路線</a>
+            
+            <div class="timeline">
+                <div class="activity">
+                    <div class="activity-icon station">🚄</div>
+                    <div class="activity-content">
+                        <div class="time">上午 10:00</div>
+                        <div class="location"><a href="https://maps.google.com/maps?q=台灣高鐵嘉義站" target="_blank">台灣高鐵嘉義站</a></div>
+                        <div class="description">抵達台灣高鐵嘉義站，取車</div>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-icon driving">🚗</div>
+                    <div class="activity-content">
+                        <div class="time">上午 10:15 - 中午 12:00</div>
+                        <div class="location">前往阿里山</div>
+                        <div class="description">駕車前往阿里山，沿途山路風光優美</div>
+                        <div class="driving-time">車程約 1 小時 45 分鐘</div>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-icon restaurant">🍽️</div>
+                    <div class="activity-content">
+                        <div class="time">中午 12:00 - 下午 13:30</div>
+                        <div class="location"><a href="https://maps.google.com/maps?q=游芭絲鄒宴餐廳" target="_blank">游芭絲鄒宴</a></div>
+                        <div class="description">在充滿鄒族風情的特色餐廳享用午餐</div>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-icon coffee">☕</div>
+                    <div class="activity-content">
+                        <div class="time">下午 13:30 - 15:00</div>
+                        <div class="location"><a href="https://maps.google.com/maps?q=阿將的家咖啡館" target="_blank">阿將的家</a></div>
+                        <div class="description">在這裡喝杯咖啡，感受被石頭和森林環繞的療癒氛圍</div>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-icon hotel">🏨</div>
+                    <div class="activity-content">
+                        <div class="time">下午 15:15</div>
+                        <div class="location"><a href="https://maps.google.com/maps?q=富順製茶廠民宿" target="_blank">富順製茶廠民宿</a></div>
+                        <div class="description">入住富順製茶廠民宿，稍作休息</div>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-icon nature">🌱</div>
+                    <div class="activity-content">
+                        <div class="time">傍晚</div>
+                        <div class="location">民宿周邊</div>
+                        <div class="description">自由活動，可在民宿附近散步，欣賞美麗的茶園景色</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">
+                <div class="day-number">2</div>
+                <span>第二天：森林浴、日出與懷舊老街</span>
+            </div>
+            
+            <a href="https://www.google.com/maps/dir/%E5%8F%B0%E7%81%A3%E5%98%89%E7%BE%A9%E7%B8%A3%E9%98%BF%E9%87%8C%E5%B1%B1%E9%84%89,+1+%E9%84%B0+8+%E4%B9%8B+1+%E8%99%9F,+%E5%AF%8C%E9%A0%86%E8%A3%BD%E8%8C%B6%E5%BB%A0/%E9%98%BF%E9%87%8C%E5%B1%B1%E8%BB%8A%E7%AB%99,+Zhongzheng+Village,+East+Alishan+Township,+Chiayi+County,+Taiwan+605/%E5%8F%B0%E7%81%A3%E5%98%89%E7%BE%A9%E7%B8%A3%E7%AB%B9%E5%B4%8E%E9%84%89,+24,+Fenqihu+Old+Street/Chiayi,+No.+168%E9%AB%98%E9%90%B5%E8%A5%BF%E8%B7%AF%E5%A4%AA%E4%BF%9D%E5%B8%82,+%E5%98%89%E7%BE%A9%E7%B8%A3+Taiwan/data=!4m26!4m25!1m5!1m1!1s0x346e8e52f5f0b0d7:0x25b66b9d38a3d6f5!2m2!1d120.70326999999999!2d23.472135599999998!1m5!1m1!1s0x346ed9203b95154f:0xd4bbff0f5f47bf1f!2m2!1d120.8007486!2d23.5113407!1m5!1m1!1s0x346ed04eb1aaaa6a:0x10f83e504010b8c0!2m2!1d120.6949355!2d23.5051199!1m5!1m1!1s0x346e2982411f5d91:0xb808f1ca81c2f1f1!2m2!1d120.32282!2d23.459249999999997!3e0" class="navigation-link" target="_blank">第二天完整導航路線</a>
+            
+            <div class="timeline">
+                <div class="activity">
+                    <div class="activity-icon hotel">🏨</div>
+                    <div class="activity-content">
+                        <div class="time">清晨（依火車發車時間而定）</div>
+                        <div class="location"><a href="https://maps.google.com/maps?q=富順製茶廠民宿" target="_blank">富順製茶廠民宿</a></div>
+                        <div class="description">在民宿整理行李並辦理退房手續</div>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-icon train">🚂</div>
+                    <div class="activity-content">
+                        <div class="time">清晨（依火車發車時間而定）</div>
+                        <div class="location"><a href="https://maps.google.com/maps?q=阿里山車站" target="_blank">阿里山車站</a></div>
+                        <div class="description">前往阿里山車站，搭乘<strong>祝山線觀日列車</strong>前往觀日平台</div>
+                        <div class="train-info">搭乘祝山線觀日列車</div>
+                    </div>
+                </div>
+
+                <div class="special-note">
+                    <div class="note-title">重要提醒</div>
+                    <div>列車時間會依每日日出時間調整，通常在<strong>前一天下午</strong>會於車站或林鐵官網公告。您需提早前往購票，並在24小時營業的7-ELEVEN購買早餐。</div>
+                </div>
+
+                <div class="highlight">
+                    <div class="title">🌅 日出欣賞</div>
+                    <div>預估日出時間：早上 6:30 - 7:00（實際時間依季節調整）</div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-icon sunrise">🌅</div>
+                    <div class="activity-content">
+                        <div class="time">上午 06:30 - 07:00</div>
+                        <div class="location"><a href="https://maps.google.com/maps?q=阿里山祝山觀日平台" target="_blank">祝山觀日平台</a></div>
+                        <div class="description">欣賞日出及拍照</div>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-icon forest">🌲</div>
+                    <div class="activity-content">
+                        <div class="time">上午 07:00 - 中午 12:00</div>
+                        <div class="location"><a href="https://maps.google.com/maps?q=阿里山國家森林遊樂區" target="_blank">阿里山國家森林遊樂區</a></div>
+                        <div class="description">
+                            悠閒漫步於森林步道中。<strong>建議路線：</strong><br>
+                            從觀日平台步行下山，沿途可欣賞<a href="https://maps.google.com/maps?q=阿里山沼平公園" target="_blank">沼平公園</a>、<a href="https://maps.google.com/maps?q=阿里山姊妹潭" target="_blank">姊妹潭</a>、<a href="https://maps.google.com/maps?q=阿里山受鎮宮" target="_blank">受鎮宮</a>、<a href="https://maps.google.com/maps?q=阿里山三代木" target="_blank">三代木</a>及<a href="https://maps.google.com/maps?q=阿里山香林神木" target="_blank">香林神木</a>等景點。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-icon oldstreet">🏮</div>
+                    <div class="activity-content">
+                        <div class="time">中午 12:00 - 下午 14:20</div>
+                        <div class="location"><a href="https://maps.google.com/maps?q=奮起湖老街" target="_blank">奮起湖老街</a></div>
+                        <div class="description">抵達奮起湖，品嚐道地的奮起湖便當並逛逛老街</div>
+                        <div class="driving-time">從阿里山車程約 50 分鐘</div>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-icon station">🚄</div>
+                    <div class="activity-content">
+                        <div class="time">下午 14:20 - 16:00</div>
+                        <div class="location">返回<a href="https://maps.google.com/maps?q=台灣高鐵嘉義站" target="_blank">嘉義高鐵站</a></div>
+                        <div class="description">開車返回嘉義高鐵站，結束美好的旅程</div>
+                        <div class="driving-time">車程約 1 小時 40 分鐘</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips">
+            <h3>貼心提醒</h3>
+            <ul>
+                <li>山區溫差大，請攜帶保暖衣物（看日出時溫度約 5-10°C）</li>
+                <li>祝山線觀日列車時間會依日出時間調整，請前一天下午確認發車時間</li>
+                <li>建議提早到阿里山車站購買觀日列車票券</li>
+                <li>7-ELEVEN 24小時營業，可購買早餐和熱飲保暖</li>
+                <li>森林步道較為濕滑，請穿著舒適防滑的步行鞋</li>
+                <li>準備現金支付門票、停車費等費用</li>
+                <li>山區道路彎曲，請小心駕駛並注意安全</li>
+                <li>手機充電器/行動電源必備，山區訊號可能不穩定</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
