@@ -1,0 +1,125 @@
+Unhandled exception. MySql.Data.MySqlClient.MySqlException (0x80004005): The client was disconnected by the server because of inactivity. See wait_timeout and interactive_timeout for configuring this behavior.
+
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.MySqlStream.SendPacketAsync(MySqlPacket packet, Boolean execAsync)
+
+   at MySql.Data.MySqlClient.NativeDriver.ExecutePacketAsync(MySqlPacket packetToExecute, Boolean execAsync)
+
+   at MySql.Data.MySqlClient.NativeDriver.ExecutePacketAsync(MySqlPacket packetToExecute, Boolean execAsync)
+
+   at MySql.Data.MySqlClient.NativeDriver.SendQueryAsync(MySqlPacket queryPacket, Boolean execAsync, Int32 paramsPosition)
+
+   at MySql.Data.MySqlClient.Driver.SendQueryAsync(MySqlPacket p, Int32 paramsPosition, Boolean execAsync)
+
+   at MySql.Data.MySqlClient.Statement.ExecuteNextAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.PreparableStatement.ExecuteNextAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.Statement.ExecuteAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.PreparableStatement.ExecuteAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQueryAsync(Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlTransaction.RollbackAsync(Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlTransaction.Rollback()
+
+   at MySql.Data.MySqlClient.MySqlConnection.CloseFullyAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.MySqlConnection.CloseAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.MySqlConnection.Close()
+
+   at MySql.Data.MySqlClient.MySqlConnection.Finalize()
+
+Unhandled exception. MySql.Data.MySqlClient.MySqlException (0x80004005): The client was disconnected by the server because of inactivity. See wait_timeout and interactive_timeout for configuring this behavior.
+
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.MySqlStream.SendPacketAsync(MySqlPacket packet, Boolean execAsync)
+
+   at MySql.Data.MySqlClient.NativeDriver.ExecutePacketAsync(MySqlPacket packetToExecute, Boolean execAsync)
+
+   at MySql.Data.MySqlClient.NativeDriver.ExecutePacketAsync(MySqlPacket packetToExecute, Boolean execAsync)
+
+   at MySql.Data.MySqlClient.NativeDriver.SendQueryAsync(MySqlPacket queryPacket, Boolean execAsync, Int32 paramsPosition)
+
+   at MySql.Data.MySqlClient.Driver.SendQueryAsync(MySqlPacket p, Int32 paramsPosition, Boolean execAsync)
+
+   at MySql.Data.MySqlClient.Statement.ExecuteNextAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.PreparableStatement.ExecuteNextAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.Statement.ExecuteAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.PreparableStatement.ExecuteAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQueryAsync(Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlTransaction.RollbackAsync(Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlTransaction.Rollback()
+
+   at MySql.Data.MySqlClient.MySqlConnection.CloseFullyAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.MySqlConnection.CloseAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.MySqlConnection.Close()
+
+   at MySql.Data.MySqlClient.MySqlConnection.Finalize()
+
+Unhandled exception. MySql.Data.MySqlClient.MySqlException (0x80004005): The client was disconnected by the server because of inactivity. See wait_timeout and interactive_timeout for configuring this behavior.
+
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.MySqlStream.SendPacketAsync(MySqlPacket packet, Boolean execAsync)
+
+   at MySql.Data.MySqlClient.NativeDriver.ExecutePacketAsync(MySqlPacket packetToExecute, Boolean execAsync)
+
+   at MySql.Data.MySqlClient.NativeDriver.ExecutePacketAsync(MySqlPacket packetToExecute, Boolean execAsync)
+
+   at MySql.Data.MySqlClient.NativeDriver.SendQueryAsync(MySqlPacket queryPacket, Boolean execAsync, Int32 paramsPosition)
+
+   at MySql.Data.MySqlClient.Driver.SendQueryAsync(MySqlPacket p, Int32 paramsPosition, Boolean execAsync)
+
+   at MySql.Data.MySqlClient.Statement.ExecuteNextAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.PreparableStatement.ExecuteNextAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.Statement.ExecuteAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.PreparableStatement.ExecuteAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQueryAsync(Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlTransaction.RollbackAsync(Boolean execAsync, CancellationToken cancellationToken)
+
+   at MySql.Data.MySqlClient.MySqlTransaction.Rollback()
+
+   at MySql.Data.MySqlClient.MySqlConnection.CloseFullyAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.MySqlConnection.CloseAsync(Boolean execAsync)
+
+   at MySql.Data.MySqlClient.MySqlConnection.Close()
+
+   at MySql.Data.MySqlClient.MySqlConnection.Finalize()
