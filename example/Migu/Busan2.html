@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Busan 2025</title>
+    
+    <!-- iOS PWA Settings -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Busan 2025">
+    <!-- App Icon -->
+    <link rel="apple-touch-icon" href="https://img.icons8.com/color/180/south-korea.png">
+
+    <!-- Core Libraries -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+            overscroll-behavior-y: none;
+            padding-top: env(safe-area-inset-top);
+        }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        /* Ambient Background */
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1; background: #f1f5f9; overflow: hidden;
+        }
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6;
+            animation: float 20s infinite ease-in-out;
+        }
+        .orb-1 { width: 300px; height: 300px; background: #a5f3fc; top: -50px; left: -50px; }
+        .orb-2 { width: 400px; height: 400px; background: #bae6fd; bottom: -100px; right: -100px; animation-delay: -5s; }
+        .orb-3 { width: 200px; height: 200px; background: #e0f2fe; top: 40%; left: 30%; animation-delay: -10s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -30px); }
+        }
+
+        /* Transitions */
+        .slide-up-enter-active { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        .slide-up-enter-from { opacity: 0; transform: translateY(20px); }
+        
+        .fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
+        .fade-enter-from, .fade-leave-to { opacity: 0; }
+
+        header { padding-top: env(safe-area-inset-top); }
+    </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-cyan-200 selection:text-cyan-900">
+
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div id="app" class="relative min-h-screen pb-24">
+
+        <!-- Header -->
+        <header class="fixed top-0 inset-x-0 z-50 glass shadow-sm transition-all duration-300">
+            <div class="max-w-md mx-auto px-5 py-3 flex justify-between items-center">
+                <div>
+                    <h1 class="text-xl font-black tracking-tight text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-plane-departure text-cyan-600"></i>
+                        Busan <span class="text-cyan-600">2025</span>
+                    </h1>
+                    <p class="text-[10px] font-medium text-slate-500 tracking-wider uppercase">Flagship Travel Assistant</p>
+                </div>
+
+                <div class="flex items-center gap-2">
+                     <!-- Help Button -->
+                     <button @click="showHelp = true" 
+                        class="w-8 h-8 rounded-full bg-white/50 hover:bg-white border border-slate-200 flex items-center justify-center text-slate-500 shadow-sm transition-all active:scale-95">
+                        <i class="fa-solid fa-question text-sm"></i>
+                    </button>
+
+                    <!-- Translate -->
+                    <a href="https://translate.google.com/?sl=zh-TW&tl=ko" target="_blank" 
+                       class="w-8 h-8 rounded-full bg-white/50 hover:bg-white border border-slate-200 flex items-center justify-center text-slate-600 shadow-sm transition-all active:scale-95">
+                        <i class="fa-solid fa-language text-sm"></i>
+                    </a>
+                    
+                    <!-- Weather -->
+                    <div v-if="weather" class="flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-2 py-1 rounded-lg shadow-md shadow-cyan-500/20">
+                        <span class="text-base">{{ weatherIcon }}</span>
+                        <span class="font-bold text-xs">{{ weather.temperature }}°C</span>
+                    </div>
+                    <div v-else class="animate-pulse h-7 w-12 bg-slate-200 rounded-lg"></div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="max-w-md mx-auto px-4 pb-3 pt-1">
+                <div class="flex space-x-2 overflow-x-auto hide-scrollbar pb-1">
+                    <button v-for="(day, index) in days" :key="index"
+                        @click="currentDay = index"
+                        class="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 border backdrop-blur-sm"
+                        :class="currentDay === index 
+                            ? 'bg-slate-800 text-white border-slate-800 shadow-lg shadow-slate-500/25 scale-105' 
+                            : 'bg-white/60 text-slate-500 border-slate-200 hover:bg-white'">
+                        {{ day.name }}
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <main class="max-w-md mx-auto px-5 pt-36 space-y-8">
+            <transition-group name="slide-up" tag="div">
+                <div v-for="(item, index) in currentDayData.items" :key="item.koreanName" class="relative pl-6 pb-8 last:pb-0">
+                    
+                    <!-- Timeline -->
+                    <div v-if="index !== currentDayData.items.length - 1" 
+                         class="absolute left-[11px] top-8 bottom-0 w-0.5 bg-gradient-to-b from-slate-300 via-slate-200 to-transparent rounded-full"></div>
+                    
+                    <div class="absolute left-0 top-1.5 w-[22px] h-[22px] rounded-full border-[3px] border-white shadow-md z-10 flex items-center justify-center"
+                         :class="item.category === 'food' ? 'bg-orange-400' : 'bg-cyan-500'">
+                         <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+                    </div>
+
+                    <!-- Card -->
+                    <div class="glass-card rounded-2xl p-4 shadow-lg shadow-cyan-900/5 hover:shadow-cyan-900/10 transition-shadow">
+                        <!-- Card Header -->
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-sm font-black text-slate-400 font-mono">{{ item.time }}</span>
+                                    <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider"
+                                          :class="item.category === 'food' ? 'bg-orange-50 text-orange-600' : 'bg-cyan-50 text-cyan-600'">
+                                        <i :class="item.category === 'food' ? 'fa-solid fa-utensils mr-1' : 'fa-solid fa-location-dot mr-1'"></i>
+                                        {{ item.category === 'food' ? 'Food' : 'Spot' }}
+                                    </span>
+                                </div>
+                                <h3 class="text-lg font-extrabold text-slate-800 leading-tight">{{ item.name }}</h3>
+                                <div class="text-xs text-slate-400 mt-0.5 font-medium">{{ item.koreanName }}</div>
+                            </div>
+                            
+                            <!-- Share Button -->
+                            <button @click="shareLocation(item)" 
+                                class="w-8 h-8 rounded-full bg-white border border-slate-100 flex items-center justify-center text-slate-400 hover:text-green-500 hover:border-green-200 hover:bg-green-50 transition-all active:scale-95 shadow-sm">
+                                <i class="fa-solid fa-share-nodes text-sm"></i>
+                            </button>
+                        </div>
+
+                        <!-- Info -->
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-start gap-2.5 text-xs">
+                                <div class="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+                                     :class="item.category === 'food' ? 'bg-orange-100 text-orange-500' : 'bg-cyan-100 text-cyan-500'">
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+                                <span class="py-0.5 text-slate-600 font-medium">{{ item.hours }}</span>
+                            </div>
+
+                            <div @click="copyAddress(item.address)" 
+                                 class="group cursor-pointer flex items-start gap-2.5 p-2 rounded-lg bg-slate-50 border border-slate-100 hover:bg-blue-50 hover:border-blue-100 transition-colors active:scale-[0.98]">
+                                <div class="w-5 h-5 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-200 group-hover:text-blue-600 transition-colors">
+                                    <i class="fa-solid fa-map-pin text-[10px]"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-xs text-slate-600 break-all leading-relaxed">{{ item.address }}</p>
+                                </div>
+                                <i class="fa-regular fa-copy text-slate-300 text-xs group-hover:text-blue-400"></i>
+                            </div>
+
+                            <div class="flex items-start gap-2 text-xs">
+                                <span class="bg-indigo-50 text-indigo-600 px-2 py-1 rounded-md font-bold whitespace-nowrap">
+                                    <i class="fa-solid fa-note-sticky mr-1"></i>筆記
+                                </span>
+                                <span class="py-1 text-slate-600 leading-relaxed">{{ item.note }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Buttons (2x2) -->
+                        <div class="grid grid-cols-2 gap-2.5">
+                            <a :href="`nmap://search?query=${item.koreanName}`" 
+                               class="h-10 rounded-xl bg-[#03C75A] text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-green-500/20 hover:shadow-green-500/40 active:scale-95 transition-all">
+                                <span class="font-black border border-white/30 w-3.5 h-3.5 rounded-sm flex items-center justify-center text-[8px]">N</span>
+                                地圖
+                            </a>
+                            
+                            <a :href="getUberLink(item)" 
+                               class="h-10 rounded-xl bg-slate-800 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-slate-500/20 hover:bg-slate-900 active:scale-95 transition-all">
+                                <i class="fa-brands fa-uber"></i>
+                                叫車
+                            </a>
+
+                            <template v-if="item.category === 'food'">
+                                <a :href="`https://app.catchtable.co.kr/ct/shop/search?query=${item.koreanName}`" 
+                                   class="h-10 rounded-xl bg-[#FF3D00] text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-red-500/20 hover:shadow-red-500/40 active:scale-95 transition-all">
+                                    <i class="fa-solid fa-calendar-check"></i>
+                                    訂位
+                                </a>
+                                <a :href="`nmap://search?query=${item.koreanName} 근처 맛집`" 
+                                   class="h-10 rounded-xl bg-white border border-slate-200 text-slate-600 text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm hover:bg-slate-50 hover:text-cyan-600 hover:border-cyan-200 active:scale-95 transition-all">
+                                    <i class="fa-solid fa-utensils"></i>
+                                    附近替代
+                                </a>
+                            </template>
+
+                            <template v-if="item.category === 'spot'">
+                                <a :href="`nmap://search?query=${item.koreanName} 근처 맛집`" 
+                                   class="h-10 rounded-xl bg-white border border-slate-200 text-slate-600 text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm hover:bg-amber-50 hover:text-amber-600 hover:border-amber-200 active:scale-95 transition-all">
+                                    <i class="fa-solid fa-utensils"></i>
+                                    附近美食
+                                </a>
+                                <a :href="`nmap://search?query=${item.koreanName} 근처 가볼만한곳`" 
+                                   class="h-10 rounded-xl bg-white border border-slate-200 text-slate-600 text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm hover:bg-cyan-50 hover:text-cyan-600 hover:border-cyan-200 active:scale-95 transition-all">
+                                    <i class="fa-solid fa-map-location-dot"></i>
+                                    附近景點
+                                </a>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </transition-group>
+            
+            <div class="h-12 flex items-center justify-center text-slate-300 text-xs">
+                Made with <i class="fa-solid fa-heart mx-1 text-red-300"></i> for Busan
+            </div>
+        </main>
+
+        <!-- FAB -->
+        <div class="fixed bottom-6 right-5 flex flex-col gap-3 z-40">
+            <button @click="exploreNearby('food')" 
+                class="w-12 h-12 rounded-full bg-amber-500 text-white shadow-lg shadow-amber-500/40 flex items-center justify-center hover:scale-110 active:scale-95 transition-all">
+                <i class="fa-solid fa-utensils"></i>
+            </button>
+            <button @click="exploreNearby('spot')" 
+                class="w-14 h-14 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-xl shadow-cyan-500/40 flex items-center justify-center hover:scale-110 active:scale-95 transition-all">
+                <i class="fa-solid fa-compass text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Help Modal -->
+        <transition name="fade">
+            <div v-if="showHelp" class="fixed inset-0 z-[100] flex items-center justify-center p-5">
+                <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" @click="showHelp = false"></div>
+                <div class="bg-white rounded-2xl w-full max-w-sm p-6 relative shadow-2xl space-y-4">
+                    <button @click="showHelp = false" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                        <i class="fa-solid fa-times text-lg"></i>
+                    </button>
+                    
+                    <div class="text-center space-y-2">
+                        <div class="w-12 h-12 bg-cyan-100 text-cyan-600 rounded-full flex items-center justify-center mx-auto text-xl">
+                            <i class="fa-brands fa-apple"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">安裝到主畫面</h3>
+                        <p class="text-sm text-slate-500">將此網頁加入 iPhone 桌面，享受全螢幕 App 體驗。</p>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-xl p-4 space-y-3 text-sm text-slate-700">
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center font-bold text-xs">1</span>
+                            <span>點擊瀏覽器下方的 <i class="fa-solid fa-arrow-up-from-bracket mx-1 text-blue-500"></i> 分享按鈕</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center font-bold text-xs">2</span>
+                            <span>選擇「加入主畫面」</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center font-bold text-xs">3</span>
+                            <span>點擊「新增」即可</span>
+                        </div>
+                    </div>
+                    
+                    <button @click="showHelp = false" class="w-full py-3 rounded-xl bg-slate-800 text-white font-bold text-sm shadow-lg hover:bg-slate-900">
+                        知道了
+                    </button>
+                </div>
+            </div>
+        </transition>
+        
+        <!-- Toast -->
+        <transition name="fade">
+            <div v-if="toast.show" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-800/90 backdrop-blur text-white px-6 py-3 rounded-2xl shadow-2xl z-[60] flex items-center gap-3">
+                <i class="fa-solid fa-circle-check text-green-400"></i>
+                <span class="font-medium text-sm">{{ toast.message }}</span>
+            </div>
+        </transition>
+
+    </div>
+
+    <script>
+        const { createApp, ref, computed, onMounted } = Vue;
+
+        createApp({
+            setup() {
+                const currentDay = ref(0);
+                const weather = ref(null);
+                const toast = ref({ show: false, message: '' });
+                const showHelp = ref(false);
+
+                const days = [
+                    { name: "Day 1 (週四)", id: 1 },
+                    { name: "Day 2 (週五)", id: 2 },
+                    { name: "Day 3 (週六)", id: 3 },
+                    { name: "Day 4 (週日)", id: 4 }
+                ];
+
+                const tripData = {
+                    0: { // Day 1
+                        items: [
+                            { time: "08:30", category: "spot", name: "Spa Land", koreanName: "스파랜드 센텀시티", address: "부산 해운대구 센텀남대로 35", note: "補眠、甜米露", hours: "09:00 - 22:00", lat: 35.1689, lng: 129.1319 },
+                            { time: "13:00", category: "food", name: "水邊最高豬肉湯飯", koreanName: "수변최고돼지국밥 센텀점", address: "부산 해운대구 센텀3로 26", note: "記得加蝦醬提味", hours: "24小時營業", lat: 35.1685, lng: 129.1300 },
+                            { time: "14:30", category: "spot", name: "新世界百貨 Centum City", koreanName: "신세계백화점 센텀시티", address: "부산 해운대구 센텀남대로 35", note: "逛街", hours: "10:30 - 20:00", lat: 35.1691, lng: 129.1296 },
+                            { time: "16:30", category: "spot", name: "Solaria Nishitetsu Hotel", koreanName: "솔라리아 니시철 호텔 부산", address: "부산 부산진구 서면로 20", note: "Check-in", hours: "Check-in: 15:00", lat: 35.1528, lng: 129.0560 },
+                            { time: "18:30", category: "food", name: "韓牛烤肉", koreanName: "우사랑", address: "부산 부산진구 중앙대로691번길 52", note: "享受韓牛", hours: "11:00 - 23:00", lat: 35.1517, lng: 129.0592 },
+                            { time: "20:30", category: "spot", name: "Olive Young", koreanName: "올리브영 서면타운점", address: "부산 부산진구 서면로 24", note: "採買保養品", hours: "10:00 - 22:30", lat: 35.1542, lng: 129.0573 }
+                        ]
+                    },
+                    1: { // Day 2
+                        items: [
+                            { time: "10:30", category: "spot", name: "Skyline Luge Busan", koreanName: "스카이라인루지 부산", address: "부산 기장군 기장읍 시랑리 산60-1", note: "玩滑坡車", hours: "10:00 - 19:00", lat: 35.1956, lng: 129.2132 },
+                            { time: "13:00", category: "food", name: "101番地 南山炸豬排", koreanName: "101번지 남산돈까스 롯데몰동부산점", address: "부산 기장군 기장읍 기장해안로 147", note: "樂天Outlet 3F (無海鮮)", hours: "10:30 - 21:00", lat: 35.1915, lng: 129.2120 },
+                            { time: "14:30", category: "food", name: "Diart Coffee", koreanName: "디아트커피", address: "부산 해운대구 청사포로 128번길 12", note: "必吃 Kaymak", hours: "10:30 - 21:30 (週二休)", lat: 35.1593, lng: 129.1932 },
+                            { time: "16:30", category: "spot", name: "海雲台海水浴場", koreanName: "해운대해수욕장", address: "부산 해운대구 우동", note: "散步看夕陽", hours: "全天開放", lat: 35.1587, lng: 129.1604 },
+                            { time: "19:00", category: "food", name: "83烤肉", koreanName: "83해치", address: "부산 부산진구 서면로 68번길 16", note: "人氣代烤 (必排隊)", hours: "16:00 - 01:00", lat: 35.1545, lng: 129.0567 },
+                            { time: "21:30", category: "food", name: "Out Dark 炸雞", koreanName: "아웃닭 서면점", address: "부산 부산진구 동천로85번길 37", note: "宵夜配啤酒", hours: "16:00 - 02:00", lat: 35.1553, lng: 129.0602 }
+                        ]
+                    },
+                    2: { // Day 3
+                        items: [
+                            { time: "09:30", category: "spot", name: "甘川洞文化村", koreanName: "감천문화마을", address: "부산 사하구 감내2로 203", note: "跟小王子拍照", hours: "09:00 - 18:00 (建議)", lat: 35.0975, lng: 129.0106 },
+                            { time: "12:30", category: "food", name: "凡胎手工炸醬麵", koreanName: "범태옛날손짜장", address: "부산 부산진구 가야대로784번길 15", note: "糖醋肉+炸醬麵", hours: "11:30 - 22:00", lat: 35.1558, lng: 129.0545 },
+                            { time: "14:00", category: "spot", name: "NC百貨 西面店", koreanName: "NC백화점 서면점", address: "부산 부산진구 동천로 92", note: "逛街", hours: "10:30 - 21:00", lat: 35.1573, lng: 129.0628 },
+                            { time: "20:00", category: "spot", name: "廣安里海水浴場", koreanName: "광안리해수욕장", address: "부산 수영구 광안해변로 219", note: "夜景", hours: "全天開放", lat: 35.1532, lng: 129.1187 }
+                        ]
+                    },
+                    3: { // Day 4
+                        items: [
+                            { time: "10:30", category: "spot", name: "白險灘文化村", koreanName: "흰여울문화마을", address: "부산 영도구 영선동4가 1044-6", note: "海景 Aether Cafe", hours: "全天開放 (店舖不一)", lat: 35.0783, lng: 129.0435 },
+                            { time: "13:00", category: "food", name: "釜山豬腳", koreanName: "부산족발", address: "부산 중구 광복로 17-1", note: "冷菜豬腳 (無海鮮)", hours: "10:00 - 00:30", lat: 35.0995, lng: 129.0267 },
+                            { time: "14:30", category: "spot", name: "BIFF 廣場", koreanName: "BIFF 광장", address: "부산 중구 구덕로 58-1", note: "堅果黑糖餅", hours: "全天開放", lat: 35.0987, lng: 129.0270 },
+                            { time: "16:30", category: "spot", name: "樂天超市 光復店", koreanName: "롯데마트 광복점", address: "부산 중구 중앙대로 2", note: "伴手禮", hours: "10:30 - 23:00 (每月第2/4週日休)", lat: 35.0967, lng: 129.0345 },
+                            { time: "18:30", category: "food", name: "南浦蔘雞湯", koreanName: "남포삼계탕", address: "부산 중구 남포길 16", note: "暖胃上飛機", hours: "10:30 - 21:00", lat: 35.0984, lng: 129.0310 }
+                        ]
+                    }
+                };
+
+                const currentDayData = computed(() => tripData[currentDay.value]);
+
+                const weatherIcon = computed(() => {
+                    if (!weather.value) return '☀️';
+                    const code = weather.value.weathercode;
+                    if (code <= 1) return '☀️';
+                    if (code <= 3) return '⛅';
+                    if (code <= 48) return '🌫️';
+                    if (code <= 67) return '🌧️';
+                    if (code <= 77) return '❄️';
+                    return '🌦️';
+                });
+
+                const fetchWeather = async () => {
+                    try {
+                        const res = await axios.get('https://api.open-meteo.com/v1/forecast?latitude=35.1796&longitude=129.0756&current_weather=true');
+                        weather.value = res.data.current_weather;
+                    } catch (e) {
+                        console.error("Weather fetch failed");
+                    }
+                };
+
+                const copyAddress = (text) => {
+                    navigator.clipboard.writeText(text).then(() => {
+                        showToast('已複製至剪貼簿');
+                    });
+                };
+
+                // Native Share for LINE support
+                const shareLocation = async (item) => {
+                    const url = `https://map.naver.com/p/search/${encodeURIComponent(item.koreanName)}`;
+                    const shareData = {
+                        title: item.name,
+                        text: `📍 ${item.name}\n${item.koreanName}\n${item.address}`,
+                        url: url
+                    };
+
+                    try {
+                        if (navigator.share) {
+                            await navigator.share(shareData);
+                        } else {
+                            // Fallback for desktop or non-supported browsers
+                            await navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`);
+                            showToast('已複製地點資訊 (可貼上至 LINE)');
+                        }
+                    } catch (err) {
+                        console.log('Share dismissed');
+                    }
+                };
+
+                const getUberLink = (item) => {
+                    // Priority: GPS -> Address
+                    if (item.lat && item.lng) {
+                         const encodedName = encodeURIComponent(item.koreanName);
+                         return `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=${item.lat}&dropoff[longitude]=${item.lng}&dropoff[nickname]=${encodedName}`;
+                    }
+                    const encodedAddr = encodeURIComponent(item.address);
+                    const encodedName = encodeURIComponent(item.koreanName);
+                    return `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=${encodedAddr}&dropoff[nickname]=${encodedName}`;
+                };
+
+                const exploreNearby = (type) => {
+                    if (!navigator.geolocation) {
+                        showToast("您的裝置不支援定位");
+                        return;
+                    }
+                    showToast("正在獲取位置...");
+                    navigator.geolocation.getCurrentPosition((pos) => {
+                        const { latitude, longitude } = pos.coords;
+                        const query = type === 'food' ? '맛집' : '가볼만한곳';
+                        window.location.href = `nmap://search?query=${query}&lat=${latitude}&lng=${longitude}`;
+                    }, () => {
+                        showToast("無法獲取位置，請檢查權限");
+                    });
+                };
+
+                const showToast = (msg) => {
+                    toast.value = { show: true, message: msg };
+                    setTimeout(() => toast.value.show = false, 2000);
+                };
+
+                onMounted(() => {
+                    fetchWeather();
+                });
+
+                return {
+                    currentDay,
+                    days,
+                    currentDayData,
+                    weather,
+                    weatherIcon,
+                    copyAddress,
+                    shareLocation,
+                    getUberLink,
+                    exploreNearby,
+                    toast,
+                    showHelp
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
