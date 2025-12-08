@@ -165,6 +165,12 @@
                                 <h3 class="text-lg font-extrabold text-slate-800 leading-tight">{{ item.name }}</h3>
                                 <div class="text-xs text-slate-400 mt-0.5 font-medium">{{ item.koreanName }}</div>
                             </div>
+                            
+                            <!-- Share Button -->
+                            <button @click="shareLocation(item)" 
+                                class="w-8 h-8 rounded-full bg-white border border-slate-100 flex items-center justify-center text-slate-400 hover:text-green-500 hover:border-green-200 hover:bg-green-50 transition-all active:scale-95 shadow-sm">
+                                <i class="fa-solid fa-share-nodes text-sm"></i>
+                            </button>
                         </div>
 
                         <!-- Info -->
@@ -326,39 +332,39 @@
                 const tripData = {
                     0: { // Day 1
                         items: [
-                            { time: "08:30", category: "spot", name: "Spa Land", koreanName: "스파랜드 센텀시티", address: "부산 해운대구 센텀남대로 35", note: "補眠、甜米露", hours: "09:00 - 22:00" },
-                            { time: "13:00", category: "food", name: "水邊最高豬肉湯飯", koreanName: "수변최고돼지국밥 센텀점", address: "부산 해운대구 센텀3로 26", note: "記得加蝦醬提味", hours: "24小時營業" },
-                            { time: "14:30", category: "spot", name: "新世界百貨 Centum City", koreanName: "신세계백화점 센텀시티", address: "부산 해운대구 센텀남대로 35", note: "逛街", hours: "10:30 - 20:00" },
-                            { time: "16:30", category: "spot", name: "Solaria Nishitetsu Hotel", koreanName: "솔라리아 니시철 호텔 부산", address: "부산 부산진구 서면로 20", note: "Check-in", hours: "Check-in: 15:00" },
-                            { time: "18:30", category: "food", name: "韓牛烤肉", koreanName: "우사랑", address: "부산 부산진구 중앙대로691번길 52", note: "享受韓牛", hours: "11:00 - 23:00" },
-                            { time: "20:30", category: "spot", name: "Olive Young", koreanName: "올리브영 서면타운점", address: "부산 부산진구 서면로 24", note: "採買保養品", hours: "10:00 - 22:30" }
+                            { time: "08:30", category: "spot", name: "Spa Land", koreanName: "스파랜드 센텀시티", address: "부산 해운대구 센텀남대로 35", note: "補眠、甜米露", hours: "09:00 - 22:00", lat: 35.1689, lng: 129.1319 },
+                            { time: "13:00", category: "food", name: "水邊最高豬肉湯飯", koreanName: "수변최고돼지국밥 센텀점", address: "부산 해운대구 센텀3로 26", note: "記得加蝦醬提味", hours: "24小時營業", lat: 35.1685, lng: 129.1300 },
+                            { time: "14:30", category: "spot", name: "新世界百貨 Centum City", koreanName: "신세계백화점 센텀시티", address: "부산 해운대구 센텀남대로 35", note: "逛街", hours: "10:30 - 20:00", lat: 35.1691, lng: 129.1296 },
+                            { time: "16:30", category: "spot", name: "Solaria Nishitetsu Hotel", koreanName: "솔라리아 니시철 호텔 부산", address: "부산 부산진구 서면로 20", note: "Check-in", hours: "Check-in: 15:00", lat: 35.1528, lng: 129.0560 },
+                            { time: "18:30", category: "food", name: "韓牛烤肉", koreanName: "우사랑", address: "부산 부산진구 중앙대로691번길 52", note: "享受韓牛", hours: "11:00 - 23:00", lat: 35.1517, lng: 129.0592 },
+                            { time: "20:30", category: "spot", name: "Olive Young", koreanName: "올리브영 서면타운점", address: "부산 부산진구 서면로 24", note: "採買保養品", hours: "10:00 - 22:30", lat: 35.1542, lng: 129.0573 }
                         ]
                     },
                     1: { // Day 2
                         items: [
-                            { time: "10:30", category: "spot", name: "Skyline Luge Busan", koreanName: "스카이라인루지 부산", address: "부산 기장군 기장읍 시랑리 산60-1", note: "玩滑坡車", hours: "10:00 - 19:00" },
-                            { time: "13:00", category: "food", name: "101番地 南山炸豬排", koreanName: "101번지 남산돈까스 롯데몰동부산점", address: "부산 기장군 기장읍 기장해안로 147", note: "樂天Outlet 3F (無海鮮)", hours: "10:30 - 21:00" },
-                            { time: "14:30", category: "food", name: "Diart Coffee", koreanName: "디아트커피", address: "부산 해운대구 청사포로 128번길 12", note: "必吃 Kaymak", hours: "10:30 - 21:30 (週二休)" },
-                            { time: "16:30", category: "spot", name: "海雲台海水浴場", koreanName: "해운대해수욕장", address: "부산 해운대구 우동", note: "散步看夕陽", hours: "全天開放" },
-                            { time: "19:00", category: "food", name: "83烤肉", koreanName: "83해치", address: "부산 부산진구 서면로 68번길 16", note: "人氣代烤 (必排隊)", hours: "16:00 - 01:00" },
-                            { time: "21:30", category: "food", name: "Out Dark 炸雞", koreanName: "아웃닭 서면점", address: "부산 부산진구 동천로85번길 37", note: "宵夜配啤酒", hours: "16:00 - 02:00" }
+                            { time: "10:30", category: "spot", name: "Skyline Luge Busan", koreanName: "스카이라인루지 부산", address: "부산 기장군 기장읍 시랑리 산60-1", note: "玩滑坡車", hours: "10:00 - 19:00", lat: 35.1956, lng: 129.2132 },
+                            { time: "13:00", category: "food", name: "101番地 南山炸豬排", koreanName: "101번지 남산돈까스 롯데몰동부산점", address: "부산 기장군 기장읍 기장해안로 147", note: "樂天Outlet 3F (無海鮮)", hours: "10:30 - 21:00", lat: 35.1915, lng: 129.2120 },
+                            { time: "14:30", category: "food", name: "Diart Coffee", koreanName: "디아트커피", address: "부산 해운대구 청사포로 128번길 12", note: "必吃 Kaymak", hours: "10:30 - 21:30 (週二休)", lat: 35.1593, lng: 129.1932 },
+                            { time: "16:30", category: "spot", name: "海雲台海水浴場", koreanName: "해운대해수욕장", address: "부산 해운대구 우동", note: "散步看夕陽", hours: "全天開放", lat: 35.1587, lng: 129.1604 },
+                            { time: "19:00", category: "food", name: "83烤肉", koreanName: "83해치", address: "부산 부산진구 서면로 68번길 16", note: "人氣代烤 (必排隊)", hours: "16:00 - 01:00", lat: 35.1545, lng: 129.0567 },
+                            { time: "21:30", category: "food", name: "Out Dark 炸雞", koreanName: "아웃닭 서면점", address: "부산 부산진구 동천로85번길 37", note: "宵夜配啤酒", hours: "16:00 - 02:00", lat: 35.1553, lng: 129.0602 }
                         ]
                     },
                     2: { // Day 3
                         items: [
-                            { time: "09:30", category: "spot", name: "甘川洞文化村", koreanName: "감천문화마을", address: "부산 사하구 감내2로 203", note: "跟小王子拍照", hours: "09:00 - 18:00 (建議)" },
-                            { time: "12:30", category: "food", name: "凡胎手工炸醬麵", koreanName: "범태옛날손짜장", address: "부산 부산진구 가야대로784번길 15", note: "糖醋肉+炸醬麵", hours: "11:30 - 22:00" },
-                            { time: "14:00", category: "spot", name: "NC百貨 西面店", koreanName: "NC백화점 서면점", address: "부산 부산진구 동천로 92", note: "逛街", hours: "10:30 - 21:00" },
-                            { time: "20:00", category: "spot", name: "廣安里海水浴場", koreanName: "광안리해수욕장", address: "부산 수영구 광안해변로 219", note: "夜景", hours: "全天開放" }
+                            { time: "09:30", category: "spot", name: "甘川洞文化村", koreanName: "감천문화마을", address: "부산 사하구 감내2로 203", note: "跟小王子拍照", hours: "09:00 - 18:00 (建議)", lat: 35.0975, lng: 129.0106 },
+                            { time: "12:30", category: "food", name: "凡胎手工炸醬麵", koreanName: "범태옛날손짜장", address: "부산 부산진구 가야대로784번길 15", note: "糖醋肉+炸醬麵", hours: "11:30 - 22:00", lat: 35.1558, lng: 129.0545 },
+                            { time: "14:00", category: "spot", name: "NC百貨 西面店", koreanName: "NC백화점 서면점", address: "부산 부산진구 동천로 92", note: "逛街", hours: "10:30 - 21:00", lat: 35.1573, lng: 129.0628 },
+                            { time: "20:00", category: "spot", name: "廣安里海水浴場", koreanName: "광안리해수욕장", address: "부산 수영구 광안해변로 219", note: "夜景", hours: "全天開放", lat: 35.1532, lng: 129.1187 }
                         ]
                     },
                     3: { // Day 4
                         items: [
-                            { time: "10:30", category: "spot", name: "白險灘文化村", koreanName: "흰여울문화마을", address: "부산 영도구 영선동4가 1044-6", note: "海景 Aether Cafe", hours: "全天開放 (店舖不一)" },
-                            { time: "13:00", category: "food", name: "釜山豬腳", koreanName: "부산족발", address: "부산 중구 광복로 17-1", note: "冷菜豬腳 (無海鮮)", hours: "10:00 - 00:30" },
-                            { time: "14:30", category: "spot", name: "BIFF 廣場", koreanName: "BIFF 광장", address: "부산 중구 구덕로 58-1", note: "堅果黑糖餅", hours: "全天開放" },
-                            { time: "16:30", category: "spot", name: "樂天超市 光復店", koreanName: "롯데마트 광복점", address: "부산 중구 중앙대로 2", note: "伴手禮", hours: "10:30 - 23:00 (每月第2/4週日休)" },
-                            { time: "18:30", category: "food", name: "南浦蔘雞湯", koreanName: "남포삼계탕", address: "부산 중구 남포길 16", note: "暖胃上飛機", hours: "10:30 - 21:00" }
+                            { time: "10:30", category: "spot", name: "白險灘文化村", koreanName: "흰여울문화마을", address: "부산 영도구 영선동4가 1044-6", note: "海景 Aether Cafe", hours: "全天開放 (店舖不一)", lat: 35.0783, lng: 129.0435 },
+                            { time: "13:00", category: "food", name: "釜山豬腳", koreanName: "부산족발", address: "부산 중구 광복로 17-1", note: "冷菜豬腳 (無海鮮)", hours: "10:00 - 00:30", lat: 35.0995, lng: 129.0267 },
+                            { time: "14:30", category: "spot", name: "BIFF 廣場", koreanName: "BIFF 광장", address: "부산 중구 구덕로 58-1", note: "堅果黑糖餅", hours: "全天開放", lat: 35.0987, lng: 129.0270 },
+                            { time: "16:30", category: "spot", name: "樂天超市 光復店", koreanName: "롯데마트 광복점", address: "부산 중구 중앙대로 2", note: "伴手禮", hours: "10:30 - 23:00 (每月第2/4週日休)", lat: 35.0967, lng: 129.0345 },
+                            { time: "18:30", category: "food", name: "南浦蔘雞湯", koreanName: "남포삼계탕", address: "부산 중구 남포길 16", note: "暖胃上飛機", hours: "10:30 - 21:00", lat: 35.0984, lng: 129.0310 }
                         ]
                     }
                 };
@@ -387,11 +393,38 @@
 
                 const copyAddress = (text) => {
                     navigator.clipboard.writeText(text).then(() => {
-                        showToast('地址已複製');
+                        showToast('已複製至剪貼簿');
                     });
                 };
 
+                // Native Share for LINE support
+                const shareLocation = async (item) => {
+                    const url = `https://map.naver.com/p/search/${encodeURIComponent(item.koreanName)}`;
+                    const shareData = {
+                        title: item.name,
+                        text: `📍 ${item.name}\n${item.koreanName}\n${item.address}`,
+                        url: url
+                    };
+
+                    try {
+                        if (navigator.share) {
+                            await navigator.share(shareData);
+                        } else {
+                            // Fallback for desktop or non-supported browsers
+                            await navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`);
+                            showToast('已複製地點資訊 (可貼上至 LINE)');
+                        }
+                    } catch (err) {
+                        console.log('Share dismissed');
+                    }
+                };
+
                 const getUberLink = (item) => {
+                    // Priority: GPS -> Address
+                    if (item.lat && item.lng) {
+                         const encodedName = encodeURIComponent(item.koreanName);
+                         return `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=${item.lat}&dropoff[longitude]=${item.lng}&dropoff[nickname]=${encodedName}`;
+                    }
                     const encodedAddr = encodeURIComponent(item.address);
                     const encodedName = encodeURIComponent(item.koreanName);
                     return `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=${encodedAddr}&dropoff[nickname]=${encodedName}`;
@@ -428,6 +461,7 @@
                     weather,
                     weatherIcon,
                     copyAddress,
+                    shareLocation,
                     getUberLink,
                     exploreNearby,
                     toast,
