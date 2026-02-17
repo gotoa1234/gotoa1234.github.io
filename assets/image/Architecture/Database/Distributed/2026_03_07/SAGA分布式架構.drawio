@@ -1,0 +1,485 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.2.15 Chrome/134.0.6998.205 Electron/35.2.1 Safari/537.36" version="26.2.15" pages="5">
+  <diagram name="電商購物平台-主體流程" id="btJDtP6gcjvku630DOal">
+    <mxGraphModel dx="1427" dy="859" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="Hil522X05PDeqBbUK9rR-0" />
+        <mxCell id="Hil522X05PDeqBbUK9rR-1" parent="Hil522X05PDeqBbUK9rR-0" />
+        <mxCell id="Hil522X05PDeqBbUK9rR-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="Hil522X05PDeqBbUK9rR-1" source="Hil522X05PDeqBbUK9rR-4" target="Hil522X05PDeqBbUK9rR-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-4" value="用戶 - 購買商品&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="points=[[0.35,0,0],[0.98,0.51,0],[1,0.71,0],[0.67,1,0],[0,0.795,0],[0,0.65,0]];verticalLabelPosition=bottom;sketch=0;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.user;fillColor=#005073;strokeColor=none;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="70" y="104" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="Hil522X05PDeqBbUK9rR-1" source="Hil522X05PDeqBbUK9rR-7" target="Hil522X05PDeqBbUK9rR-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="Hil522X05PDeqBbUK9rR-1" source="Hil522X05PDeqBbUK9rR-7" target="Hil522X05PDeqBbUK9rR-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-7" value="Log庫&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="320" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="Hil522X05PDeqBbUK9rR-1" source="Hil522X05PDeqBbUK9rR-10" target="Hil522X05PDeqBbUK9rR-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670" y="128" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="Hil522X05PDeqBbUK9rR-1" source="Hil522X05PDeqBbUK9rR-10" target="Hil522X05PDeqBbUK9rR-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-10" value="Balance 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance_alt;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="512" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="Hil522X05PDeqBbUK9rR-1" source="Hil522X05PDeqBbUK9rR-12" target="Hil522X05PDeqBbUK9rR-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-12" value="後台伺服器" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="200" y="70" width="64.96" height="116" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-13" value="將 SagaId 傳遞" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="410" y="103" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="Hil522X05PDeqBbUK9rR-1" source="Hil522X05PDeqBbUK9rR-16" target="sYCrsinHW1aFiTHvxTQR-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="830" y="128" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="Hil522X05PDeqBbUK9rR-1" source="Hil522X05PDeqBbUK9rR-16" target="Hil522X05PDeqBbUK9rR-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sYCrsinHW1aFiTHvxTQR-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="Hil522X05PDeqBbUK9rR-1" source="Hil522X05PDeqBbUK9rR-16" target="Hil522X05PDeqBbUK9rR-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-16" value="Member 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="700" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-17" value="將 SagaId 傳遞&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="595" y="110" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-18" value="完成&lt;div&gt;分布式交易庫&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="990" y="99" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-23" value="購物平台 - 用戶購物 - 主體流程" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=20;strokeWidth=3;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="340" y="10" width="570" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-25" value="&lt;div&gt;生成 1 筆 SagaId 表示最初的狀態&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="269.12" y="210" width="179.76" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-26" value="&lt;div&gt;新增扣款紀錄&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="466" y="210" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Hil522X05PDeqBbUK9rR-27" value="新增消費紀錄&lt;br&gt;Member 統計用戶消費總額" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="665.12" y="210" width="147.76" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sYCrsinHW1aFiTHvxTQR-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="Hil522X05PDeqBbUK9rR-1" source="sYCrsinHW1aFiTHvxTQR-3" target="Hil522X05PDeqBbUK9rR-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sYCrsinHW1aFiTHvxTQR-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="Hil522X05PDeqBbUK9rR-1" source="sYCrsinHW1aFiTHvxTQR-3" target="sYCrsinHW1aFiTHvxTQR-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sYCrsinHW1aFiTHvxTQR-3" value="Log 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="870" y="90" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="sYCrsinHW1aFiTHvxTQR-6" value="將該筆 SagaId 標記完成" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="Hil522X05PDeqBbUK9rR-1">
+          <mxGeometry x="835.12" y="209" width="147.76" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="電商購物平台-分布式異常點- 生成Id前" id="k--lwtr4aKKfffF8AMV8">
+    <mxGraphModel dx="1427" dy="859" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-0" />
+        <mxCell id="ZzOW5CtActCN2_njrlWh-1" parent="ZzOW5CtActCN2_njrlWh-0" />
+        <mxCell id="ZzOW5CtActCN2_njrlWh-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ZzOW5CtActCN2_njrlWh-1" source="ZzOW5CtActCN2_njrlWh-3" target="ZzOW5CtActCN2_njrlWh-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-3" value="用戶 - 購買商品&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="points=[[0.35,0,0],[0.98,0.51,0],[1,0.71,0],[0.67,1,0],[0,0.795,0],[0,0.65,0]];verticalLabelPosition=bottom;sketch=0;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.user;fillColor=#005073;strokeColor=none;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="70" y="104" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ZzOW5CtActCN2_njrlWh-1" source="ZzOW5CtActCN2_njrlWh-6" target="ZzOW5CtActCN2_njrlWh-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="ZzOW5CtActCN2_njrlWh-1" source="ZzOW5CtActCN2_njrlWh-6" target="ZzOW5CtActCN2_njrlWh-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-6" value="Log庫&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="320" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ZzOW5CtActCN2_njrlWh-1" source="ZzOW5CtActCN2_njrlWh-9" target="ZzOW5CtActCN2_njrlWh-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670" y="128" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ZzOW5CtActCN2_njrlWh-1" source="ZzOW5CtActCN2_njrlWh-9" target="ZzOW5CtActCN2_njrlWh-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-9" value="Balance 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance_alt;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="512" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ZzOW5CtActCN2_njrlWh-1" source="ZzOW5CtActCN2_njrlWh-11" target="ZzOW5CtActCN2_njrlWh-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-11" value="後台伺服器" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="200" y="70" width="64.96" height="116" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-12" value="將 SagaId 傳遞" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="410" y="103" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ZzOW5CtActCN2_njrlWh-1" source="ZzOW5CtActCN2_njrlWh-16" target="ZzOW5CtActCN2_njrlWh-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="830" y="128" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ZzOW5CtActCN2_njrlWh-1" source="ZzOW5CtActCN2_njrlWh-16" target="ZzOW5CtActCN2_njrlWh-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ZzOW5CtActCN2_njrlWh-1" source="ZzOW5CtActCN2_njrlWh-16" target="ZzOW5CtActCN2_njrlWh-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-16" value="Member 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="700" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-17" value="將 SagaId 傳遞&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="595" y="110" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-18" value="完成&lt;div&gt;分布式交易庫&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="990" y="99" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-19" value="購物平台 - 用戶購物 - 異常點 - 生成 SagaId 前" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=20;strokeWidth=3;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="340" y="10" width="570" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-20" value="&lt;div&gt;生成 1 筆 SagaId 表示最初的狀態&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="269.12" y="210" width="179.76" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-21" value="&lt;div&gt;新增扣款紀錄&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="466" y="210" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-22" value="新增消費紀錄&lt;br&gt;Member 統計用戶消費總額" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="665.12" y="210" width="147.76" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="ZzOW5CtActCN2_njrlWh-1" source="ZzOW5CtActCN2_njrlWh-25" target="ZzOW5CtActCN2_njrlWh-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="ZzOW5CtActCN2_njrlWh-1" source="ZzOW5CtActCN2_njrlWh-25" target="ZzOW5CtActCN2_njrlWh-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-25" value="Log 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="870" y="90" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="ZzOW5CtActCN2_njrlWh-26" value="將該筆 SagaId 標記完成" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="835.12" y="209" width="147.76" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="a_77RAcuHrNGmjCXNVQg-0" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=5;strokeColor=#FF0000;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="230" y="60" width="120" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="a_77RAcuHrNGmjCXNVQg-1" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="290" y="330" as="sourcePoint" />
+            <mxPoint x="290" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a_77RAcuHrNGmjCXNVQg-3" value="在新增 SagaId 前，資料庫就異常&lt;div&gt;那麼就直接無視，因為尚未進入系統&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;strokeColor=#FF0000;strokeWidth=5;" vertex="1" parent="ZzOW5CtActCN2_njrlWh-1">
+          <mxGeometry x="190" y="270" width="310" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="電商購物平台-分布式異常點- 扣款前" id="VE6lb-WONXRnoWD8slSl">
+    <mxGraphModel dx="1213" dy="730" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-0" />
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-1" parent="1mCnFUiO2E_M1K6Exh7F-0" />
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1mCnFUiO2E_M1K6Exh7F-1" source="1mCnFUiO2E_M1K6Exh7F-3" target="1mCnFUiO2E_M1K6Exh7F-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-3" value="用戶 - 購買商品&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="points=[[0.35,0,0],[0.98,0.51,0],[1,0.71,0],[0.67,1,0],[0,0.795,0],[0,0.65,0]];verticalLabelPosition=bottom;sketch=0;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.user;fillColor=#005073;strokeColor=none;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="70" y="104" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1mCnFUiO2E_M1K6Exh7F-1" source="1mCnFUiO2E_M1K6Exh7F-6" target="1mCnFUiO2E_M1K6Exh7F-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1mCnFUiO2E_M1K6Exh7F-1" source="1mCnFUiO2E_M1K6Exh7F-6" target="1mCnFUiO2E_M1K6Exh7F-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-6" value="Log庫&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="320" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1mCnFUiO2E_M1K6Exh7F-1" source="1mCnFUiO2E_M1K6Exh7F-9" target="1mCnFUiO2E_M1K6Exh7F-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670" y="128" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1mCnFUiO2E_M1K6Exh7F-1" source="1mCnFUiO2E_M1K6Exh7F-9" target="1mCnFUiO2E_M1K6Exh7F-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-9" value="Balance 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance_alt;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="512" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1mCnFUiO2E_M1K6Exh7F-1" source="1mCnFUiO2E_M1K6Exh7F-11" target="1mCnFUiO2E_M1K6Exh7F-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-11" value="後台伺服器" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="200" y="70" width="64.96" height="116" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-12" value="將 SagaId 傳遞" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="410" y="103" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1mCnFUiO2E_M1K6Exh7F-1" source="1mCnFUiO2E_M1K6Exh7F-16" target="1mCnFUiO2E_M1K6Exh7F-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="830" y="128" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1mCnFUiO2E_M1K6Exh7F-1" source="1mCnFUiO2E_M1K6Exh7F-16" target="1mCnFUiO2E_M1K6Exh7F-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1mCnFUiO2E_M1K6Exh7F-1" source="1mCnFUiO2E_M1K6Exh7F-16" target="1mCnFUiO2E_M1K6Exh7F-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-16" value="Member 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="700" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-17" value="將 SagaId 傳遞&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="595" y="110" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-18" value="完成&lt;div&gt;分布式交易庫&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="990" y="99" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-19" value="購物平台 - 用戶購物 - 異常點 - 扣款前" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=20;strokeWidth=3;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="340" y="10" width="570" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-20" value="&lt;div&gt;生成 1 筆 SagaId 表示最初的狀態&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="269.12" y="210" width="179.76" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-21" value="&lt;div&gt;新增扣款紀錄&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="466" y="210" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-22" value="新增消費紀錄&lt;br&gt;Member 統計用戶消費總額" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="665.12" y="210" width="147.76" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1mCnFUiO2E_M1K6Exh7F-1" source="1mCnFUiO2E_M1K6Exh7F-25" target="1mCnFUiO2E_M1K6Exh7F-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1mCnFUiO2E_M1K6Exh7F-1" source="1mCnFUiO2E_M1K6Exh7F-25" target="1mCnFUiO2E_M1K6Exh7F-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-25" value="Log 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="870" y="90" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-26" value="將該筆 SagaId 標記完成" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="835.12" y="209" width="147.76" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-27" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=5;strokeColor=#FF0000;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="425" y="60" width="120" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-28" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="485" y="330" as="sourcePoint" />
+            <mxPoint x="485" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1mCnFUiO2E_M1K6Exh7F-29" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;新增 SagaId 後(Log)，扣款時異常(Balance)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;這時將此筆 SagaId 標記異常，直接取消&lt;br&gt;因為沒有真正扣款&lt;/div&gt;&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;strokeColor=#FF0000;strokeWidth=5;" vertex="1" parent="1mCnFUiO2E_M1K6Exh7F-1">
+          <mxGeometry x="385" y="270" width="310" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="電商購物平台-分布式異常點- 新增消費紀錄前" id="clR0Q8G9z1pBFUPXQkEw">
+    <mxGraphModel dx="1213" dy="730" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-0" />
+        <mxCell id="91eeb4AsDCSZESnx-U4U-1" parent="91eeb4AsDCSZESnx-U4U-0" />
+        <mxCell id="91eeb4AsDCSZESnx-U4U-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="91eeb4AsDCSZESnx-U4U-1" source="91eeb4AsDCSZESnx-U4U-3" target="91eeb4AsDCSZESnx-U4U-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-3" value="用戶 - 購買商品&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="points=[[0.35,0,0],[0.98,0.51,0],[1,0.71,0],[0.67,1,0],[0,0.795,0],[0,0.65,0]];verticalLabelPosition=bottom;sketch=0;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.user;fillColor=#005073;strokeColor=none;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="70" y="104" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="91eeb4AsDCSZESnx-U4U-1" source="91eeb4AsDCSZESnx-U4U-6" target="91eeb4AsDCSZESnx-U4U-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="91eeb4AsDCSZESnx-U4U-1" source="91eeb4AsDCSZESnx-U4U-6" target="91eeb4AsDCSZESnx-U4U-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-6" value="Log庫&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="320" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="91eeb4AsDCSZESnx-U4U-1" source="91eeb4AsDCSZESnx-U4U-9" target="91eeb4AsDCSZESnx-U4U-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670" y="128" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="91eeb4AsDCSZESnx-U4U-1" source="91eeb4AsDCSZESnx-U4U-9" target="91eeb4AsDCSZESnx-U4U-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-9" value="Balance 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance_alt;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="512" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="91eeb4AsDCSZESnx-U4U-1" source="91eeb4AsDCSZESnx-U4U-11" target="91eeb4AsDCSZESnx-U4U-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-11" value="後台伺服器" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="200" y="70" width="64.96" height="116" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-12" value="將 SagaId 傳遞" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="410" y="103" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="91eeb4AsDCSZESnx-U4U-1" source="91eeb4AsDCSZESnx-U4U-16" target="91eeb4AsDCSZESnx-U4U-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="830" y="128" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="91eeb4AsDCSZESnx-U4U-1" source="91eeb4AsDCSZESnx-U4U-16" target="91eeb4AsDCSZESnx-U4U-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="91eeb4AsDCSZESnx-U4U-1" source="91eeb4AsDCSZESnx-U4U-16" target="91eeb4AsDCSZESnx-U4U-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-16" value="Member 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="700" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-17" value="將 SagaId 傳遞&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="595" y="110" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-18" value="完成&lt;div&gt;分布式交易庫&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="990" y="99" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-19" value="購物平台 - 用戶購物 - 異常點 - 新增消費紀錄前" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=20;strokeWidth=3;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="340" y="10" width="570" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-20" value="&lt;div&gt;生成 1 筆 SagaId 表示最初的狀態&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="269.12" y="210" width="179.76" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-21" value="&lt;div&gt;新增扣款紀錄&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="466" y="210" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-22" value="新增消費紀錄&lt;br&gt;Member 統計用戶消費總額" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="665.12" y="210" width="147.76" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="91eeb4AsDCSZESnx-U4U-1" source="91eeb4AsDCSZESnx-U4U-25" target="91eeb4AsDCSZESnx-U4U-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="91eeb4AsDCSZESnx-U4U-1" source="91eeb4AsDCSZESnx-U4U-25" target="91eeb4AsDCSZESnx-U4U-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-25" value="Log 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="870" y="90" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-26" value="將該筆 SagaId 標記完成" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="835.12" y="209" width="147.76" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-27" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=5;strokeColor=#FF0000;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="619" y="60" width="120" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-28" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="679" y="330" as="sourcePoint" />
+            <mxPoint x="679" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="91eeb4AsDCSZESnx-U4U-29" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;扣款&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;後(&lt;/span&gt;Balance&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;)，新增消費紀錄時異常(Member)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;因為有真正扣款，因此需要將後續的&lt;br&gt;消費紀錄、用戶消費統計補齊&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;strokeColor=#FF0000;strokeWidth=5;" vertex="1" parent="91eeb4AsDCSZESnx-U4U-1">
+          <mxGeometry x="579" y="259" width="310" height="140" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="電商購物平台-分布式異常點- 更新標記前" id="iGK6GIGOu3EdW5L1Uxu3">
+    <mxGraphModel dx="1213" dy="730" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="FDj7JqW1TclT6feuN2je-0" />
+        <mxCell id="FDj7JqW1TclT6feuN2je-1" parent="FDj7JqW1TclT6feuN2je-0" />
+        <mxCell id="FDj7JqW1TclT6feuN2je-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="FDj7JqW1TclT6feuN2je-1" source="FDj7JqW1TclT6feuN2je-3" target="FDj7JqW1TclT6feuN2je-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-3" value="用戶 - 購買商品&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="points=[[0.35,0,0],[0.98,0.51,0],[1,0.71,0],[0.67,1,0],[0,0.795,0],[0,0.65,0]];verticalLabelPosition=bottom;sketch=0;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.user;fillColor=#005073;strokeColor=none;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="70" y="104" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="FDj7JqW1TclT6feuN2je-1" source="FDj7JqW1TclT6feuN2je-6" target="FDj7JqW1TclT6feuN2je-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="FDj7JqW1TclT6feuN2je-1" source="FDj7JqW1TclT6feuN2je-6" target="FDj7JqW1TclT6feuN2je-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-6" value="Log庫&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="320" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="FDj7JqW1TclT6feuN2je-1" source="FDj7JqW1TclT6feuN2je-9" target="FDj7JqW1TclT6feuN2je-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670" y="128" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="FDj7JqW1TclT6feuN2je-1" source="FDj7JqW1TclT6feuN2je-9" target="FDj7JqW1TclT6feuN2je-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-9" value="Balance 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance_alt;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="512" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="FDj7JqW1TclT6feuN2je-1" source="FDj7JqW1TclT6feuN2je-11" target="FDj7JqW1TclT6feuN2je-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-11" value="後台伺服器" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="200" y="70" width="64.96" height="116" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-12" value="將 SagaId 傳遞" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="410" y="103" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="FDj7JqW1TclT6feuN2je-1" source="FDj7JqW1TclT6feuN2je-16" target="FDj7JqW1TclT6feuN2je-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="830" y="128" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="FDj7JqW1TclT6feuN2je-1" source="FDj7JqW1TclT6feuN2je-16" target="FDj7JqW1TclT6feuN2je-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="FDj7JqW1TclT6feuN2je-1" source="FDj7JqW1TclT6feuN2je-16" target="FDj7JqW1TclT6feuN2je-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-16" value="Member 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="700" y="89" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-17" value="將 SagaId 傳遞&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="595" y="110" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-18" value="完成&lt;div&gt;分布式交易庫&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="990" y="99" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-19" value="購物平台 - 用戶購物 - 異常點 - 更新標記前" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=20;strokeWidth=3;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="340" y="10" width="570" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-20" value="&lt;div&gt;生成 1 筆 SagaId 表示最初的狀態&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="269.12" y="210" width="179.76" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-21" value="&lt;div&gt;新增扣款紀錄&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="466" y="210" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-22" value="新增消費紀錄&lt;br&gt;Member 統計用戶消費總額" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="665.12" y="210" width="147.76" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="FDj7JqW1TclT6feuN2je-1" source="FDj7JqW1TclT6feuN2je-25" target="FDj7JqW1TclT6feuN2je-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="FDj7JqW1TclT6feuN2je-1" source="FDj7JqW1TclT6feuN2je-25" target="FDj7JqW1TclT6feuN2je-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-25" value="Log 庫" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.rds_mysql_instance;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="870" y="90" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-26" value="將該筆 SagaId 標記完成" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="835.12" y="209" width="147.76" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-27" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=5;strokeColor=#FF0000;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="801" y="60" width="120" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-28" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="861" y="330" as="sourcePoint" />
+            <mxPoint x="861" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FDj7JqW1TclT6feuN2je-29" value="新增消費紀錄後(Member)，更新 SagaId 標記前(Log)&lt;div&gt;這時的補償只要將該筆 SagaId 補上&quot;Complate&quot; &lt;br&gt;即可&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;strokeColor=#FF0000;strokeWidth=5;" vertex="1" parent="FDj7JqW1TclT6feuN2je-1">
+          <mxGeometry x="690" y="259" width="391" height="111" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
