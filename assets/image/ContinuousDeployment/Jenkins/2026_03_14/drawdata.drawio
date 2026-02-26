@@ -1,0 +1,101 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.2.15 Chrome/134.0.6998.205 Electron/35.2.1 Safari/537.36" version="26.2.15" pages="2">
+  <diagram name="第 1 页" id="Gphi9goYqikDVyR3SY3r">
+    <mxGraphModel dx="1011" dy="608" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="0LWopOkagk5XhUzyKvVM-11" value="機器位置&lt;div&gt;在腳本中&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;dashed=1;" parent="1" vertex="1">
+          <mxGeometry x="482" y="264" width="76" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="0LWopOkagk5XhUzyKvVM-6" value="Jenkins&amp;nbsp;" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;" parent="1" vertex="1">
+          <mxGeometry x="340" y="100" width="78.4" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="0LWopOkagk5XhUzyKvVM-13" value="目標機器" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;" parent="1" vertex="1">
+          <mxGeometry x="760" y="100" width="78.4" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="0LWopOkagk5XhUzyKvVM-14" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" edge="1" target="seLA1LxUJUGzCZRJmn_h-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="420" y="169.66" as="sourcePoint" />
+            <mxPoint x="599.9999999999948" y="170.1600000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seLA1LxUJUGzCZRJmn_h-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startFill=0;dashed=1;" edge="1" parent="1" source="seLA1LxUJUGzCZRJmn_h-1" target="0LWopOkagk5XhUzyKvVM-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="seLA1LxUJUGzCZRJmn_h-1" value="執行 Pipeline 腳本" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="130" width="100" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seLA1LxUJUGzCZRJmn_h-5" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="579.2" y="169.76" as="sourcePoint" />
+            <mxPoint x="619.2" y="170.1" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seLA1LxUJUGzCZRJmn_h-6" value="部署 &amp;amp; 運行容器" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="130" width="90" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seLA1LxUJUGzCZRJmn_h-7" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="715" y="169.57999999999998" as="sourcePoint" />
+            <mxPoint x="755" y="169.92" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="第 2 页" id="vTCuC3USgDmye5oQdw_y">
+    <mxGraphModel dx="1213" dy="730" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="cLdCivNpf7Cfrvkuqgvo-0" />
+        <mxCell id="cLdCivNpf7Cfrvkuqgvo-1" parent="cLdCivNpf7Cfrvkuqgvo-0" />
+        <mxCell id="cLdCivNpf7Cfrvkuqgvo-2" value="取得後用 Pipeline&lt;div&gt;語法解析&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;dashed=1;" vertex="1" parent="cLdCivNpf7Cfrvkuqgvo-1">
+          <mxGeometry x="632" y="264" width="76" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="cLdCivNpf7Cfrvkuqgvo-3" value="Jenkins&amp;nbsp;" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;" vertex="1" parent="cLdCivNpf7Cfrvkuqgvo-1">
+          <mxGeometry x="340" y="100" width="78.4" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="cLdCivNpf7Cfrvkuqgvo-4" value="目標機器" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;" vertex="1" parent="cLdCivNpf7Cfrvkuqgvo-1">
+          <mxGeometry x="910.8" y="100" width="78.4" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="cLdCivNpf7Cfrvkuqgvo-5" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="cLdCivNpf7Cfrvkuqgvo-1" target="cLdCivNpf7Cfrvkuqgvo-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="420" y="169.66" as="sourcePoint" />
+            <mxPoint x="599.9999999999948" y="170.1600000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cLdCivNpf7Cfrvkuqgvo-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startFill=0;dashed=1;" edge="1" parent="cLdCivNpf7Cfrvkuqgvo-1" target="cLdCivNpf7Cfrvkuqgvo-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670" y="210" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cLdCivNpf7Cfrvkuqgvo-7" value="執行 Pipeline 腳本" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="cLdCivNpf7Cfrvkuqgvo-1">
+          <mxGeometry x="470" y="130" width="100" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cLdCivNpf7Cfrvkuqgvo-8" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="cLdCivNpf7Cfrvkuqgvo-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="730" y="169.76" as="sourcePoint" />
+            <mxPoint x="770" y="170.1" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cLdCivNpf7Cfrvkuqgvo-9" value="部署 &amp;amp; 運行容器" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="cLdCivNpf7Cfrvkuqgvo-1">
+          <mxGeometry x="770.8" y="130" width="90" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cLdCivNpf7Cfrvkuqgvo-10" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="cLdCivNpf7Cfrvkuqgvo-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="865.8" y="169.57999999999998" as="sourcePoint" />
+            <mxPoint x="905.8" y="169.92" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3e8EQZ5HiUwBwKlyL_yu-1" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="cLdCivNpf7Cfrvkuqgvo-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="576" y="169.76" as="sourcePoint" />
+            <mxPoint x="616" y="170.1" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3e8EQZ5HiUwBwKlyL_yu-2" value="取得 Git 上&lt;br&gt;機器位置" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="cLdCivNpf7Cfrvkuqgvo-1">
+          <mxGeometry x="620" y="130" width="100" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
