@@ -1,0 +1,73 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.2.15 Chrome/134.0.6998.205 Electron/35.2.1 Safari/537.36" version="26.2.15">
+  <diagram name="架構" id="bAt7sRBTrb9X2CLhrxVT">
+    <mxGraphModel dx="1213" dy="730" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eHh69AOSlTqOBTywEkw--3" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;opacity=20;" vertex="1" parent="1">
+          <mxGeometry x="321" y="60" width="355.75" height="355.75" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="eHh69AOSlTqOBTywEkw--16" target="eHh69AOSlTqOBTywEkw--21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--16" value="&lt;div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Line Bot&lt;/div&gt;&lt;div&gt;推播資料&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="230" width="110.5" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="eHh69AOSlTqOBTywEkw--13" target="eHh69AOSlTqOBTywEkw--16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--13" value="&lt;div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Azure SQL Server&lt;/div&gt;&lt;div&gt;(籌碼資料)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="230" width="110.5" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--2" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;自動&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;化流程&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="216.25" y="154.78" width="110.5" height="85.22" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--1" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://n8n.io/brandguidelines/dont/vertical-align.png;" vertex="1" parent="1">
+          <mxGeometry x="235.25" y="164" width="71.5" height="50.83" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--4" value="" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="eHh69AOSlTqOBTywEkw--2" target="eHh69AOSlTqOBTywEkw--7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="335.75" y="190" as="sourcePoint" />
+            <mxPoint x="380" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="eHh69AOSlTqOBTywEkw--5" target="eHh69AOSlTqOBTywEkw--2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--5" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;用戶發請請求 / 自動排程&lt;/font&gt;&lt;/b&gt;" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.containers.userMale;strokeColor=#666666;strokeColor2=#008cff;" vertex="1" parent="1">
+          <mxGeometry x="221" y="380" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="eHh69AOSlTqOBTywEkw--7" target="eHh69AOSlTqOBTywEkw--9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--7" value="RSS 新聞&lt;br&gt;(消息面)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="120" width="110.5" height="69.57" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="eHh69AOSlTqOBTywEkw--9" target="eHh69AOSlTqOBTywEkw--13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--9" value="&lt;br&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;AI Agent 分析&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="120" width="110.5" height="69.57" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--10" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/jpeg,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIADgAOAMBEQACEQEDEQH/xAAZAAEAAwEBAAAAAAAAAAAAAAAABQYHBAH/xAAyEAABAwIEBAMFCQAAAAAAAAABAAIDBREEBhITIUFRkRQx4UJhcaGyBxUWFzI2UnSx/8QAGQEBAQEBAQEAAAAAAAAAAAAAAAUGBAcD/8QAMREAAQMCAwQHCQEAAAAAAAAAAAECAwQREiExBTJBgRQVFiJRccETNDVhcpGh0fEG/9oADAMBAAIRAxEAPwCOWOPTQgCAIAgCAIAgCAl8v5fxlclcMPaOBhtJM8cAeg6n3LqpqV865aHBXbRio072aroha/y8wm3b7wn3Lfq0Nt29VR6rZbeIXaKW+4luZVMwZexlClbv2kgebMmYOBPQjkVOqaV8C56Fyh2jFWJ3cnJwIhcpQCAIAgNcp4joWU45WM1CDC7zgPbdp1HuVpY0SCnRU4JcwU6urK5UVdXW/NjP/wAXVzxXiPGm977ekaPhbp8/eo3Tp8V7mq6no8GDBz4mgYzbr2U3yPYG7+F3QDx0PAuOxCsvtPT58UMrFio65ERd11uVzIx5LNG9CAIAgNTyhU8PWaE3BT6XTQxbM0TvaZawPwI+a0VJM2aHCuqZGJ2pSvpalZG6Kt0X5kNUMgMibPPhqi5sTGueI3w6jwF7atQ/xcsmzGpdUcUIP9A5ytY+PNeN/SxYKJ+zMN/SP0ldsPu6eRJrfiD/AKvUyQeQWaN4up6gCAIDtosGLxNUw0NPkfHiHvs2RhILBzNxyAX2ga90iIzJTmrJIo4HOlS7fAtjxngyPwLjuMddhlLI9BaeF9VvVUl6dfB+iE1dj4UlTJdbZ3+xY8Zt0HKb4nvDvD4XaaTw1utYdyV2vVIKey8EJEWKtrkVE3nX5fwyMcAs0b0IAgCAkaFV5qJjvFQRxyEtLHNePMHoeXkuinnWB+JEOOto2VcXs3LYuI+0PC7dzTp9z+O43T39FT60ZbdIHZ2W++lvIqmYMw4yuSt37RwMN2QsPAHqTzKnVFU+dc9PAt0OzoqNO7m5eJELlKAQBAEAQBAEAQBAf//Z;" vertex="1" parent="1">
+          <mxGeometry x="552" y="125" width="42" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--12" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.dpriver.com/blog/wp-content/uploads/2022/08/azuresql-data-lineage-gudu-sqlflow.png;" vertex="1" parent="1">
+          <mxGeometry x="542.06" y="233.63" width="66.37" height="66.37" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--15" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://p2.bahamut.com.tw/HOME/creationCover/83/0005371283_B.PNG;" vertex="1" parent="1">
+          <mxGeometry x="393.82" y="235.38" width="62.87" height="62.87" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="eHh69AOSlTqOBTywEkw--21" target="eHh69AOSlTqOBTywEkw--5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--21" value="Webhook" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;" vertex="1" parent="1">
+          <mxGeometry x="472.82" y="387.88" width="47.18" height="84.25" as="geometry" />
+        </mxCell>
+        <mxCell id="eHh69AOSlTqOBTywEkw--26" value="透過 Line Bot 資料推播" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="325" y="408" width="150" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
