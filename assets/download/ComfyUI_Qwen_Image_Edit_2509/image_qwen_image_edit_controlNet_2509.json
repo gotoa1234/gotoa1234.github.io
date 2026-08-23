@@ -1,0 +1,337 @@
+{
+  "60": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "464",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  },
+  "78": {
+    "inputs": {
+      "image": "Example_Person4.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "加载图像"
+    }
+  },
+  "435": {
+    "inputs": {
+      "value": "image1 與 image2 合成變成打架畫面"
+    },
+    "class_type": "PrimitiveStringMultiline",
+    "_meta": {
+      "title": "正面Prompt"
+    }
+  },
+  "437": {
+    "inputs": {
+      "image": "Example_Person2.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "加载图像"
+    }
+  },
+  "450": {
+    "inputs": {
+      "image": "Gemini_Generated_Image_5un2v25un2v25un2.jfif"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "姿勢參考圖"
+    }
+  },
+  "451": {
+    "inputs": {
+      "detect_hand": "enable",
+      "detect_body": "enable",
+      "detect_face": "enable",
+      "resolution": 576,
+      "bbox_detector": "yolox_l.onnx",
+      "pose_estimator": "dw-ll_ucoco_384_bs5.torchscript.pt",
+      "scale_stick_for_xinsr_cn": "disable",
+      "image": [
+        "450",
+        0
+      ]
+    },
+    "class_type": "DWPreprocessor",
+    "_meta": {
+      "title": "DWPose Estimator"
+    }
+  },
+  "452": {
+    "inputs": {
+      "strength": 1,
+      "start_percent": 0,
+      "end_percent": 1,
+      "positive": [
+        "465",
+        0
+      ],
+      "negative": [
+        "457",
+        0
+      ],
+      "control_net": [
+        "454",
+        0
+      ],
+      "image": [
+        "451",
+        0
+      ],
+      "vae": [
+        "459",
+        0
+      ]
+    },
+    "class_type": "ControlNetApplyAdvanced",
+    "_meta": {
+      "title": "应用ControlNet（旧版高级）"
+    }
+  },
+  "454": {
+    "inputs": {
+      "control_net_name": "Qwen-Image-InstantX-ControlNet-Union.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "加载ControlNet模型"
+    }
+  },
+  "455": {
+    "inputs": {
+      "pixels": [
+        "456",
+        0
+      ],
+      "vae": [
+        "459",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE编码"
+    }
+  },
+  "456": {
+    "inputs": {
+      "image": [
+        "78",
+        0
+      ]
+    },
+    "class_type": "FluxKontextImageScale",
+    "_meta": {
+      "title": "图像缩放为FluxKontext"
+    }
+  },
+  "457": {
+    "inputs": {
+      "prompt": [
+        "468",
+        0
+      ],
+      "clip": [
+        "458",
+        0
+      ],
+      "vae": [
+        "459",
+        0
+      ],
+      "image1": [
+        "456",
+        0
+      ],
+      "image2": [
+        "437",
+        0
+      ]
+    },
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "_meta": {
+      "title": "文本编码（QwenImageEditPlus）"
+    }
+  },
+  "458": {
+    "inputs": {
+      "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "加载CLIP"
+    }
+  },
+  "459": {
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "加载VAE"
+    }
+  },
+  "460": {
+    "inputs": {
+      "strength": 1,
+      "model": [
+        "461",
+        0
+      ]
+    },
+    "class_type": "CFGNorm",
+    "_meta": {
+      "title": "CFG归一化"
+    }
+  },
+  "461": {
+    "inputs": {
+      "shift": 3,
+      "model": [
+        "462",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingAuraFlow",
+    "_meta": {
+      "title": "采样算法（AuraFlow）"
+    }
+  },
+  "462": {
+    "inputs": {
+      "lora_name": "Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors",
+      "strength_model": 1,
+      "model": [
+        "463",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "LoRA加载器（仅模型）"
+    }
+  },
+  "463": {
+    "inputs": {
+      "unet_name": "Qwen-Image-Edit-2509-Q4_K_M.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  },
+  "464": {
+    "inputs": {
+      "samples": [
+        "466",
+        0
+      ],
+      "vae": [
+        "459",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码"
+    }
+  },
+  "465": {
+    "inputs": {
+      "prompt": [
+        "435",
+        0
+      ],
+      "clip": [
+        "458",
+        0
+      ],
+      "vae": [
+        "459",
+        0
+      ],
+      "image1": [
+        "456",
+        0
+      ],
+      "image2": [
+        "437",
+        0
+      ]
+    },
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "_meta": {
+      "title": "文本编码（QwenImageEditPlus）"
+    }
+  },
+  "466": {
+    "inputs": {
+      "seed": 606807302712411,
+      "steps": 4,
+      "cfg": 1,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1,
+      "model": [
+        "460",
+        0
+      ],
+      "positive": [
+        "452",
+        0
+      ],
+      "negative": [
+        "452",
+        1
+      ],
+      "latent_image": [
+        "455",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "K采样器"
+    }
+  },
+  "467": {
+    "inputs": {
+      "images": [
+        "451",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "预览图像"
+    }
+  },
+  "468": {
+    "inputs": {
+      "value": ""
+    },
+    "class_type": "PrimitiveStringMultiline",
+    "_meta": {
+      "title": "負面Prompt"
+    }
+  },
+  "469": {
+    "inputs": {},
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "预览图像"
+    }
+  }
+}
