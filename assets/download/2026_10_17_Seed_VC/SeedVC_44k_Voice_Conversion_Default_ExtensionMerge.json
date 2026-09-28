@@ -1,0 +1,154 @@
+{
+  "1": {
+    "inputs": {
+      "device": "auto",
+      "precision": "auto",
+      "download_missing": true
+    },
+    "class_type": "SeedVCModelLoader",
+    "_meta": {
+      "title": "Seed-VC 44.1k (auto-download)"
+    }
+  },
+  "2": {
+    "inputs": {
+      "audio": "vocal_AI_zh_music.mp3.reformatted.wav_10.flac",
+      "audioUI": "/api/view?filename=vocal_AI_zh_music.mp3.reformatted.wav_10.flac&type=input&subfolder=&rand=0.6658824629845922"
+    },
+    "class_type": "LoadAudio",
+    "_meta": {
+      "title": "Source performance"
+    }
+  },
+  "3": {
+    "inputs": {
+      "audio": "LJ.mp3",
+      "audioUI": "/api/view?filename=LJ.mp3&type=input&subfolder=&rand=0.23792564956566464"
+    },
+    "class_type": "LoadAudio",
+    "_meta": {
+      "title": "Target voice reference (10-20s)"
+    }
+  },
+  "4": {
+    "inputs": {
+      "timbre_strength": 1,
+      "diffusion_steps": 50,
+      "cfg_rate": 0.7,
+      "reference_seconds": 20,
+      "auto_f0_adjust": false,
+      "pitch_shift": 0,
+      "length_adjust": 1,
+      "seed": 0,
+      "output_gain_db": true,
+      "peak_protection": -1,
+      "peak_ceiling_db": -1,
+      "source_audio": [
+        "2",
+        0
+      ],
+      "target_voice": [
+        "3",
+        0
+      ],
+      "model": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "SeedVCVoiceConversion",
+    "_meta": {
+      "title": "Seed-VC high-quality 44.1k conversion"
+    }
+  },
+  "5": {
+    "inputs": {
+      "audioUI": "",
+      "audio": [
+        "7",
+        0
+      ]
+    },
+    "class_type": "PreviewAudio",
+    "_meta": {
+      "title": "Preview converted stereo"
+    }
+  },
+  "6": {
+    "inputs": {
+      "filename_prefix": "audio/seedvc_44k",
+      "audioUI": "",
+      "audio": [
+        "7",
+        0
+      ]
+    },
+    "class_type": "SaveAudio",
+    "_meta": {
+      "title": "Save Seed-VC stereo output"
+    }
+  },
+  "7": {
+    "inputs": {
+      "stereo_width_percent": 100,
+      "center_leak_reduction_percent": 100,
+      "side_highpass_hz": 100,
+      "side_lowpass_hz": 18000,
+      "peak_protection": true,
+      "peak_ceiling_db": -1,
+      "converted_mono": [
+        "4",
+        0
+      ],
+      "original_stereo": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "SeedVCRestoreOriginalStereo",
+    "_meta": {
+      "title": "Restore original stereo around converted voice"
+    }
+  },
+  "11:8": {
+    "inputs": {
+      "merge_method": "add",
+      "audio1": [
+        "11:9",
+        0
+      ],
+      "audio2": [
+        "7",
+        0
+      ]
+    },
+    "class_type": "AudioMerge",
+    "_meta": {
+      "title": "音频合并"
+    }
+  },
+  "11:9": {
+    "inputs": {
+      "audio": "instrument_AI_zh_music.mp3.reformatted.wav_10.flac",
+      "audioUI": "/api/view?filename=instrument_AI_zh_music.mp3.reformatted.wav_10.flac&type=input&subfolder=&rand=0.38964685988716663"
+    },
+    "class_type": "LoadAudio",
+    "_meta": {
+      "title": "instrument (原背景音樂)"
+    }
+  },
+  "11:10": {
+    "inputs": {
+      "filename_prefix": "audio/seedvc_44k",
+      "audioUI": "",
+      "audio": [
+        "11:8",
+        0
+      ]
+    },
+    "class_type": "SaveAudio",
+    "_meta": {
+      "title": "Save Seed-VC Merge stereo output"
+    }
+  }
+}
