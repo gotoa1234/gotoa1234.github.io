@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f4efe6">
+  <meta name="description" content="從 Threads 熱門美食串整理的台北捷運美食地圖">
+  <title>下一站，吃什麼？｜台北捷運美食圖</title>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="回到地圖"><span class="brand-mark">吃</span><span>下一站，吃什麼？</span></a>
+    <div class="header-actions">
+      <button id="searchToggle" class="icon-button" aria-label="搜尋餐廳">⌕</button>
+      <a class="source-link" href="https://www.threads.com/@harriet0308/post/Da-TmgNkXOM" target="_blank" rel="noreferrer">原始串文 ↗</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">THREADS 網友口袋名單 × 台北捷運</p>
+        <h1>搭一站，<em>吃一間。</em></h1>
+        <p class="intro">把網友真心回訪的店，放回最容易抵達的捷運站。點一個站，看看下一餐要去哪裡。</p>
+      </div>
+      <div class="stats" aria-label="資料統計">
+        <div><strong id="restaurantCount">0</strong><span>間推薦</span></div>
+        <div><strong id="stationCount">0</strong><span>個捷運站</span></div>
+        <div><strong>1</strong><span>篇爆紅串文</span></div>
+      </div>
+    </section>
+
+    <section id="searchPanel" class="search-panel" hidden>
+      <label for="searchInput">搜尋店名、料理或捷運站</label>
+      <div class="search-box"><span>⌕</span><input id="searchInput" autocomplete="off" placeholder="例如：牛舌、火鍋、忠孝復興"></div>
+    </section>
+
+    <section class="map-section" aria-labelledby="mapTitle">
+      <div class="section-heading">
+        <div><p class="eyebrow">METRO FOOD MAP</p><h2 id="mapTitle">從捷運站開始找</h2></div>
+        <p>數字代表本站收錄的美食推薦</p>
+      </div>
+      <div class="map-shell">
+        <div class="map-scroll" id="metroMap" aria-label="互動式台北捷運美食路線圖"></div>
+        <div class="map-legend"><span><i class="line blue"></i>板南線</span><span><i class="line red"></i>淡水信義線</span><span><i class="line green"></i>松山新店線</span><span><i class="line orange"></i>中和新蘆線</span></div>
+      </div>
+    </section>
+
+    <section class="list-section" aria-live="polite">
+      <div class="section-heading">
+        <div><p class="eyebrow">CURATED FROM THE THREAD</p><h2 id="listTitle">熱門推薦</h2></div>
+        <button id="clearFilter" class="text-button" hidden>顯示全部 ×</button>
+      </div>
+      <div id="restaurantGrid" class="restaurant-grid"></div>
+    </section>
+  </main>
+
+  <aside id="detailSheet" class="detail-sheet" aria-hidden="true">
+    <button id="sheetBackdrop" class="sheet-backdrop" aria-label="關閉詳細資料"></button>
+    <article class="sheet-card">
+      <button id="closeSheet" class="sheet-close" aria-label="關閉">×</button>
+      <img id="sheetImage" alt="">
+      <div class="sheet-content">
+        <p id="sheetMeta" class="card-meta"></p>
+        <h2 id="sheetName"></h2>
+        <p id="sheetQuote" class="sheet-quote"></p>
+        <p id="sheetAddress" class="address"></p>
+        <div class="sheet-actions">
+          <a id="routeButton" class="route-button" target="_blank" rel="noreferrer">從捷運站出發 <span>↗</span></a>
+          <a id="threadButton" class="thread-button" target="_blank" rel="noreferrer">查看原留言</a>
+        </div>
+        <small>距離為約略步行距離；請以 Google Maps 即時路線為準。部分圖片為餐點示意圖。</small>
+      </div>
+    </article>
+  </aside>
+
+  <footer><p>資料整理自 Threads 公開推薦 · 店家資訊與營業狀態可能變動</p><p>Made for hungry explorers in Taipei.</p></footer>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
