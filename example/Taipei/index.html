@@ -40,11 +40,12 @@
     <section class="map-section" aria-labelledby="mapTitle">
       <div class="section-heading">
         <div><p class="eyebrow">METRO FOOD MAP</p><h2 id="mapTitle">從捷運站開始找</h2></div>
-        <p>數字代表本站收錄的美食推薦</p>
+        <p>點站名查看推薦 · 數字為收錄店數</p>
       </div>
       <div class="map-shell">
+        <div class="map-hint" aria-hidden="true"><span>↔</span> 左右拖曳查看完整路網</div>
         <div class="map-scroll" id="metroMap" aria-label="互動式台北捷運美食路線圖"></div>
-        <div class="map-legend"><span><i class="line blue"></i>板南線</span><span><i class="line red"></i>淡水信義線</span><span><i class="line green"></i>松山新店線</span><span><i class="line orange"></i>中和新蘆線</span></div>
+        <div class="map-legend" aria-label="捷運路線圖例"><span><b class="line-code blue">BL</b>板南線</span><span><b class="line-code red">R</b>淡水信義線</span><span><b class="line-code green">G</b>松山新店線</span><span><b class="line-code orange">O</b>中和新蘆線</span><span><b class="line-code brown">BR</b>文湖線</span></div>
       </div>
     </section>
 
@@ -78,6 +79,7 @@
 
   <footer><p>資料整理自 Threads 公開推薦 · 店家資訊與營業狀態可能變動</p><p>Made for hungry explorers in Taipei.</p></footer>
   <script src="data.js"></script>
+  <script src="images.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
