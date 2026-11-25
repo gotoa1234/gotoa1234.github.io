@@ -1,0 +1,23 @@
+---
+layout: null
+---
+{%- assign search_documents = site.pages | concat: site.posts -%}
+[
+{%- assign needs_comma = false -%}
+{%- for entry in search_documents -%}
+  {%- if entry.url contains '.xml' or entry.url contains 'assets' or entry.url == '/search-index.json' or entry.url == '/search.html' -%}
+    {%- continue -%}
+  {%- endif -%}
+  {%- if needs_comma -%},{%- endif -%}
+  {%- assign needs_comma = true -%}
+  {%- capture body -%}
+    {%- if entry.date -%}{{ entry.date | date: "%Y/%m/%d" | append: ' - ' }}{%- endif -%}
+    {{- entry.content | markdownify
+      | replace: '<br />', ' ' | replace: '<br/>', ' ' | replace: '<br>', ' '
+      | replace: '</h1>', ': ' | replace: '</h2>', ': ' | replace: '</h3>', ': ' | replace: '</h4>', ': '
+      | replace: '</p>', ' ' | replace: '</li>', ' ' | replace: '</td>', ' '
+      | strip_html | normalize_whitespace -}}
+  {%- endcapture -%}
+  {"url":{{ entry.url | relative_url | jsonify }},"title":{{ entry.title | default: site.title | jsonify }},"body":{{ body | jsonify }}}
+{%- endfor -%}
+]
