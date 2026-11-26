@@ -28,7 +28,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://gotoa1234.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: MilkTeaGreen
 github_username:  gotoa1234
-future: true
+future: false
 
 # Self Information
 author:
@@ -64,6 +64,7 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sitemap
 
 defaults:
   - scope:
